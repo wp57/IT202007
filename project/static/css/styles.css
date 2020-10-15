@@ -1,7 +1,7 @@
 G/* design intentionally made horrible to see who doesn't change it*/
 body {
-    font-family: Georgia;
-    font-size: 2 em;
+    font-family: Arial black;
+    font-size: 3 em;
 }
 
 ul[class="nav"]{

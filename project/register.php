@@ -19,7 +19,7 @@ if (isset($_POST["register"])) {
         $username = $_POST["username"];
     }
     $isValid = true;
-    if (strlen($username) <=4){
+    if (strlen($username) <4){
 	$isValid = false; 
 	flash("Username too short! Must be at least 4 characters.");
    }

@@ -28,7 +28,7 @@ if (isset($_POST["register"])) {
 	flash("Username too long! Can be up to 15 characters.");
 } 
    
-    if (strlen($password) <= 5){
+    if (strlen($password) < 5){
 	$isValid = false;
 	flash("Password too short! Must be at least 5 characters.");
     } 

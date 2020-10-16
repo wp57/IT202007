@@ -22,11 +22,7 @@ if (isset($_POST["login"])) {
         $isValid = false;
         flash("Email or password missing");
     }
-    if (!strpos($email, "@")) {
-        $isValid = false;
-        //echo "<br>Invalid email<br>";
-        flash("Invalid email");
-    }
+
     if ($isValid) {
         $db = getDB();
         if (isset($db)) {

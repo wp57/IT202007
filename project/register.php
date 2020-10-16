@@ -32,7 +32,6 @@ if (isset($_POST["register"])) {
     if ($password <= 5){
 	$isValid = false;
 	flash("Password too short! Must be at least 5 characters.");
-	else $isValid = true;
     } 
     //check if passwords match on the server side
     if ($password == $confirm) {

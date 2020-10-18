@@ -37,10 +37,6 @@ li a{
     background-color: #8fb8b8;
 
 }
-.container{
-    background-image: url("bank.jpg");
-    background-size: cover;
-}
 form{
     position: relative;
     width: 98%;
@@ -48,6 +44,10 @@ form{
     font-size: 18px; 
     color:white; 
     border-radius:20px;
+ background-color: #8fb8b8;
+    font-size: 18px; 
+    color:white;
+    padding: 20px 30px 200px 10px; 
 }
 input, select {
     font-size: 15px;

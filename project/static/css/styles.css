@@ -1,7 +1,7 @@
 /* design intentionally made horrible to see who doesn't change it*/
 body {
     font-family: auto;
-
+background-image:('bank.jpg');
     background-color: #e8e8e89c;
     font-size: 5 em;
 }
@@ -44,8 +44,7 @@ form{
     height: 300px;
     background-color: #8fb8b8;
     font-size: 18px; 
-    color:white;
-    padding: 20px 30px 200px 10px; 
+    color:white; 
     border-radius:20px;
     background-image:('bank.jpg');
 }

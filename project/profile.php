@@ -1,6 +1,6 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <?php
-<div class="container">
+
 //Note: we have this up here, so our update happens before our get/fetch
 //that way we'll fetch the updated data and have it correctly reflect on the form below
 //As an exercise swap these two and see how things change
@@ -136,7 +136,7 @@ if (isset($_POST["saved"])) {
 
 
 ?>
-
+<div class="container">
     <form method="POST">
         <label for="email">Email</label>
         <input type="email" name="email" value="<?php safer_echo(get_email()); ?>"/>

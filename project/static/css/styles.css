@@ -30,13 +30,13 @@ li a{
     color: #ffffffff;
     text-align: center;
     padding: 15px 15px 15px 15px;
-   
 
     text-decoration: none;
 }
 
 .nav > li a:hover {
     background-color: #8fb8b8;
+
 }
 form{
     position: relative;
@@ -46,10 +46,11 @@ form{
     font-size: 18px; 
     color:white;
     padding: 20px 30px 200px 10px; 
+    border-radius:20px;
 }
 input, select {
     font-size: 15px;
-
+    border-radius: 100px;
     width: 60%;
     padding: 15px 15px;
     margin: 10px .5px;
@@ -69,11 +70,12 @@ input[type=submit] {
     padding: 10px 5px;
     margin: 30px 20px;
     border-color:#ffffff;
-    border-radius: 0px;
+    border-radius: 100px;
     cursor: pointer;
     border-style:solid;
     border-width:medium;
 }
+
 
 
 

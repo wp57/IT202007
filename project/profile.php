@@ -62,7 +62,7 @@ if (isset($_POST["saved"])) {
         else {
             $newUsername = $username;
         }
-    }
+    if ($isValid) {
 if (!empty($_POST["password"]) && !empty($_POST["confirm"]) && !empty($_POST["current"])) {
 	$curr = $_POST["current"];  
         $stmt = $db->prepare("SELECT password from Users WHERE id = :userid");
@@ -104,7 +104,6 @@ if (!empty($_POST["password"]) && !empty($_POST["confirm"]) && !empty($_POST["cu
             	}
           }
 }
-    if ($isValid) {
         $stmt = $db->prepare("UPDATE Users set email = :email, username= :username where id = :id");
         $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id()]);
         if ($r) {

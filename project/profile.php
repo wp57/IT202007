@@ -43,7 +43,7 @@ if (isset($_POST["saved"])) {
     if (get_username() != $_POST["username"]) {
         $username = $_POST["username"];
         $stmt = $db->prepare("SELECT COUNT(1) as InUse from Users where username = :username");
-        $stmt->execute([":username" => $username]);
+ $stmt->execute([":username" => $username]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $inUse = 1;//default it to a failure scenario
         if ($result && isset($result["InUse"])) {
@@ -75,61 +75,46 @@ if (isset($_POST["saved"])) {
         //password is optional, so check if it's even set
         //if so, then check if it's a valid reset request
     if (!empty($_POST["password"]) && !empty($_POST["confirm"]) && !empty($_POST["current"])) {
-	$curr = $_POST["current"];  
+        $curr = $_POST["current"];
         $stmt = $db->prepare("SELECT password from Users WHERE id = :userid");
         $stmt->execute([":userid" => get_user_id()]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-         
+
         if ($result && isset($result["password"])) {
-		$password_hash_from_db = $result["password"];
+                $password_hash_from_db = $result["password"];
                 if(password_verify($curr, $password_hash_from_db))
-                {      
-                	if ($_POST["password"] == $_POST["confirm"])
-              		{  
-                		if(strlen($_POST["password"]) >= 5)
-                		{
-                  			$password = $_POST["password"];
-                  			$hash = password_hash($password, PASSWORD_BCRYPT);
-                  			$stmt = $db->prepare("UPDATE Users set password = :password where id = :id");
-                  			$r = $stmt->execute([":id" => get_user_id(), ":password" => $hash]);
-                  			if ($r) {
-                      				flash("Reset Password");
-                  			}
-                  			else {
-                      				flash("Error resetting password");
-                  			}
-                		}
-                		else if(strlen($_POST["password"]) < 5)
-                		{
-                  			flash("New password must be at least 5 characters.");
-                		}
-              		}
-             		else
-              		{
-                		flash("New passwords do not match.");
-              		}
-            	}
-            	else
-            	{
-              		flash("Current password is incorrect.");
-            	}
+                {
+                        if ($_POST["password"] == $_POST["confirm"])
+   {
+                                if(strlen($_POST["password"]) >= 5)
+                                {
+                                        $password = $_POST["password"];
+                                        $hash = password_hash($password, PASSWORD_BCRYPT);
+                                        $stmt = $db->prepare("UPDATE Users set password = :password where id = :id");
+                                        $r = $stmt->execute([":id" => get_user_id(), ":password" => $hash]);
+                                        if ($r) {
+                                                flash("Reset Password");
+                                        }
+                                        else {
+                                                flash("Error resetting password");
+                                        }
+                                }
+                                else if(strlen($_POST["password"]) < 5)
+                                {
+                                        flash("New password must be at least 5 characters.");
+                                }
+                        }
+                        else
+                        {
+                                flash("New passwords do not match.");
+                        }
+                }
+                else
+                {
+                        flash("Current password is incorrect.");
+                }
           }
 
-        if (!empty($_POST["password"]) && !empty($_POST["confirm"])) {
-            if ($_POST["password"] == $_POST["confirm"]) {
-                $password = $_POST["password"];
-                $hash = password_hash($password, PASSWORD_BCRYPT);
-                //this one we'll do separate
-                $stmt = $db->prepare("UPDATE Users set password = :password where id = :id");
-                $r = $stmt->execute([":id" => get_user_id(), ":password" => $hash]);
-                if ($r) {
-                    flash("Reset Password");
-                }
-                else {
-                    flash("Error resetting password");
-                }
-            }
-        }
 }
 //fetch/select fresh data in case anything changed
         $stmt = $db->prepare("SELECT email, username from Users WHERE id = :id LIMIT 1");
@@ -166,3 +151,5 @@ if (isset($_POST["saved"])) {
         <input type="submit" name="saved" value="Save Profile"/>
     </form>
 <?php require(__DIR__ . "/partials/flash.php");
+
+

@@ -63,6 +63,47 @@ if (isset($_POST["saved"])) {
             $newUsername = $username;
         }
     }
+if (!empty($_POST["password"]) && !empty($_POST["confirm"]) && !empty($_POST["current"])) {
+	$curr = $_POST["current"];  
+        $stmt = $db->prepare("SELECT password from Users WHERE id = :userid");
+        $stmt->execute([":userid" => get_user_id()]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+         
+        if ($result && isset($result["password"])) {
+		$password_hash_from_db = $result["password"];
+                if(password_verify($curr, $password_hash_from_db))
+                {      
+                	if ($_POST["password"] == $_POST["confirm"])
+              		{  
+                		if(strlen($_POST["password"]) >= 8)
+                		{
+                  			$password = $_POST["password"];
+                  			$hash = password_hash($password, PASSWORD_BCRYPT);
+                  			$stmt = $db->prepare("UPDATE Users set password = :password where id = :id");
+                  			$r = $stmt->execute([":id" => get_user_id(), ":password" => $hash]);
+                  			if ($r) {
+                      				flash("Reset Password");
+                  			}
+                  			else {
+                      				flash("Error resetting password");
+                  			}
+                		}
+                		else if(strlen($_POST["password"]) < 8)
+                		{
+                  			flash("New password not at least 8 characters");
+                		}
+              		}
+             		else
+              		{
+                		flash("New passwords do not match");
+              		}
+            	}
+            	else
+            	{
+              		flash("Current password is incorrect");
+            	}
+          }
+}
     if ($isValid) {
         $stmt = $db->prepare("UPDATE Users set email = :email, username= :username where id = :id");
         $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id()]);

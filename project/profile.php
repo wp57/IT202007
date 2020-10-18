@@ -98,19 +98,19 @@ if (!empty($_POST["password"]) && !empty($_POST["confirm"]) && !empty($_POST["cu
                       				flash("Error resetting password");
                   			}
                 		}
-                		else if(strlen($_POST["password"]) < 8)
+                		else if(strlen($_POST["password"]) < 5)
                 		{
-                  			flash("New password not at least 8 characters");
+                  			flash("New password must be at least 5 characters.");
                 		}
               		}
              		else
               		{
-                		flash("New passwords do not match");
+                		flash("New passwords do not match.");
               		}
             	}
             	else
             	{
-              		flash("Current password is incorrect");
+              		flash("Current password is incorrect.");
             	}
           }
 }
@@ -141,7 +141,7 @@ if (!empty($_POST["password"]) && !empty($_POST["confirm"]) && !empty($_POST["cu
         <label for="username">Username</label>
         <input type="text" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>
         <!-- DO NOT PRELOAD PASSWORD-->
-        <label for="pw">Current Password</label>
+        <label for="current">Current Password</label>
         <input type="password" name="current password"/>
         <label for="pw">Password</label>
         <input type="password" name="password"/>

@@ -62,6 +62,7 @@ if (isset($_POST["saved"])) {
         else {
             $newUsername = $username;
         }
+    }
     if ($isValid) {
         $stmt = $db->prepare("UPDATE Users set email = :email, username= :username where id = :id");
         $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id()]);
@@ -98,22 +99,36 @@ if (!empty($_POST["password"]) && !empty($_POST["confirm"]) && !empty($_POST["cu
                       				flash("Error resetting password");
                   			}
                 		}
-                		else if(strlen($_POST["password"]) < 5)
+                		else if(strlen($_POST["password"]) < 8)
                 		{
-                  			flash("New password must be at least 5 characters.");
+                  			flash("New password not at least 8 characters");
                 		}
               		}
              		else
               		{
-                		flash("New passwords do not match.");
+                		flash("New passwords do not match");
               		}
             	}
             	else
             	{
-              		flash("Current password is incorrect.");
+              		flash("Current password is incorrect");
             	}
           }
 }
+        if (!empty($_POST["password"]) && !empty($_POST["confirm"])) {
+            if ($_POST["password"] == $_POST["confirm"]) {
+                $password = $_POST["password"];
+                $hash = password_hash($password, PASSWORD_BCRYPT);
+                //this one we'll do separate
+                $stmt = $db->prepare("UPDATE Users set password = :password where id = :id");
+                $r = $stmt->execute([":id" => get_user_id(), ":password" => $hash]);
+                if ($r) {
+                    flash("Reset Password");
+                }
+                else {
+                    flash("Error resetting password");
+                }
+            }
         }
 //fetch/select fresh data in case anything changed
         $stmt = $db->prepare("SELECT email, username from Users WHERE id = :id LIMIT 1");
@@ -141,8 +156,9 @@ if (!empty($_POST["password"]) && !empty($_POST["confirm"]) && !empty($_POST["cu
         <label for="username">Username</label>
         <input type="text" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>
         <!-- DO NOT PRELOAD PASSWORD-->
-        <label for="current">Current Password</label>
-        <input type="password" name="current password"/>
+        <label for="current">Confirm Password</label>
+        <input type="password" name="current"/>
+
         <label for="pw">Password</label>
         <input type="password" name="password"/>
         <label for="cpw">Confirm Password</label>

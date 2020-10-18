@@ -1,7 +1,6 @@
 /* design intentionally made horrible to see who doesn't change it*/
 body {
     font-family: auto;
-background-image:('bank.jpg');
     background-color: #e8e8e89c;
     font-size: 5 em;
 }
@@ -38,6 +37,9 @@ li a{
     background-color: #8fb8b8;
 
 }
+.container{
+    background-image: url('bank.jpg');
+}
 form{
     position: relative;
     width: 98%;
@@ -45,7 +47,6 @@ form{
     font-size: 18px; 
     color:white; 
     border-radius:20px;
-    background-image:('bank.jpg');
 }
 input, select {
     font-size: 15px;

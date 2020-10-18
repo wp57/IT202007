@@ -136,7 +136,7 @@ if (isset($_POST["saved"])) {
 
 
 ?>
-<div class="container">
+<div style="background-image: url('bank.jpg');">
     <form method="POST">
         <label for="email">Email</label>
         <input type="email" name="email" value="<?php safer_echo(get_email()); ?>"/>

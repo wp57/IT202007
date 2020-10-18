@@ -130,6 +130,7 @@ if (isset($_POST["saved"])) {
                 }
             }
         }
+}
 //fetch/select fresh data in case anything changed
         $stmt = $db->prepare("SELECT email, username from Users WHERE id = :id LIMIT 1");
         $stmt->execute([":id" => get_user_id()]);

@@ -86,7 +86,7 @@ if (!empty($_POST["password"]) && !empty($_POST["confirm"]) && !empty($_POST["cu
                 {      
                 	if ($_POST["password"] == $_POST["confirm"])
               		{  
-                		if(strlen($_POST["password"]) >= 8)
+                		if(strlen($_POST["password"]) >= 5)
                 		{
                   			$password = $_POST["password"];
                   			$hash = password_hash($password, PASSWORD_BCRYPT);
@@ -115,7 +115,21 @@ if (!empty($_POST["password"]) && !empty($_POST["confirm"]) && !empty($_POST["cu
             	}
           }
 }
-
+        if (!empty($_POST["password"]) && !empty($_POST["confirm"])) {
+            if ($_POST["password"] == $_POST["confirm"]) {
+                $password = $_POST["password"];
+                $hash = password_hash($password, PASSWORD_BCRYPT);
+                //this one we'll do separate
+                $stmt = $db->prepare("UPDATE Users set password = :password where id = :id");
+                $r = $stmt->execute([":id" => get_user_id(), ":password" => $hash]);
+                if ($r) {
+                    flash("Reset Password");
+                }
+                else {
+                    flash("Error resetting password");
+                }
+            }
+        }
 //fetch/select fresh data in case anything changed
         $stmt = $db->prepare("SELECT email, username from Users WHERE id = :id LIMIT 1");
         $stmt->execute([":id" => get_user_id()]);
@@ -142,9 +156,8 @@ if (!empty($_POST["password"]) && !empty($_POST["confirm"]) && !empty($_POST["cu
         <label for="username">Username</label>
         <input type="text" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>
         <!-- DO NOT PRELOAD PASSWORD-->
-        <label for="current">Confirm Password</label>
+        <label for="current">Current Password</label>
         <input type="password" name="current"/>
-
         <label for="pw">Password</label>
         <input type="password" name="password"/>
         <label for="cpw">Confirm Password</label>

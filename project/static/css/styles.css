@@ -38,7 +38,8 @@ li a{
 
 }
 .container{
-    background-image: url('bank.jpg');
+    background-image: url("bank.jpg");
+    background-size: cover;
 }
 form{
     position: relative;
@@ -75,6 +76,7 @@ input[type=submit] {
     border-style:solid;
     border-width:medium;
 }
+
 
 
 

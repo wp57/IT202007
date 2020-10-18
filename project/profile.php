@@ -1,5 +1,6 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <?php
+<div class="container">
 //Note: we have this up here, so our update happens before our get/fetch
 //that way we'll fetch the updated data and have it correctly reflect on the form below
 //As an exercise swap these two and see how things change
@@ -150,6 +151,7 @@ if (isset($_POST["saved"])) {
         <input type="password" name="confirm"/>
         <input type="submit" name="saved" value="Save Profile"/>
     </form>
+</div>
 <?php require(__DIR__ . "/partials/flash.php");
 
 

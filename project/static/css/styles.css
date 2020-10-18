@@ -47,6 +47,7 @@ form{
     color:white;
     padding: 20px 30px 200px 10px; 
     border-radius:20px;
+    background-image:('bank.jpg');
 }
 input, select {
     font-size: 15px;

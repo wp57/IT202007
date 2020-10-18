@@ -63,6 +63,16 @@ if (isset($_POST["saved"])) {
             $newUsername = $username;
         }
     if ($isValid) {
+        $stmt = $db->prepare("UPDATE Users set email = :email, username= :username where id = :id");
+        $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id()]);
+        if ($r) {
+            flash("Updated profile");
+        }
+        else {
+            flash("Error updating profile");
+        }
+        //password is optional, so check if it's even set
+        //if so, then check if it's a valid reset request
 if (!empty($_POST["password"]) && !empty($_POST["confirm"]) && !empty($_POST["current"])) {
 	$curr = $_POST["current"];  
         $stmt = $db->prepare("SELECT password from Users WHERE id = :userid");
@@ -104,16 +114,6 @@ if (!empty($_POST["password"]) && !empty($_POST["confirm"]) && !empty($_POST["cu
             	}
           }
 }
-        $stmt = $db->prepare("UPDATE Users set email = :email, username= :username where id = :id");
-        $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id()]);
-        if ($r) {
-            flash("Updated profile");
-        }
-        else {
-            flash("Error updating profile");
-        }
-        //password is optional, so check if it's even set
-        //if so, then check if it's a valid reset request
         if (!empty($_POST["password"]) && !empty($_POST["confirm"])) {
             if ($_POST["password"] == $_POST["confirm"]) {
                 $password = $_POST["password"];

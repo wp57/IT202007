@@ -36,7 +36,7 @@ li a{
 }
 
 .nav > li a:hover {
-    background-color: #db2739;
+    background-color: #8fb8b8;
 }
 form{
     position: relative;
@@ -45,7 +45,7 @@ form{
     background-color: #8fb8b8;
     font-size: 18px; 
     color:white;
-    padding: 20px 10px 10px 10px; 
+    padding: 20px 30px 200px 10px; 
 }
 input, select {
     font-size: 15px;
@@ -74,5 +74,6 @@ input[type=submit] {
     border-style:solid;
     border-width:medium;
 }
+
 
 

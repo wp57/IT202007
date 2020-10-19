@@ -55,20 +55,20 @@ SELECT Roles.name FROM Roles JOIN UserRoles on Roles.id = UserRoles.role_id wher
                         $_SESSION["user"]["roles"] = [];
                     }
                     //on successful login let's serve-side redirect the user to the home page.
-                    flash("Log in successful");
+                    flash("Log in successful!");
                     die(header("Location: home.php"));
                 }
                 else {
-                    flash("Invalid password");
+                    flash("Sorry, this is an Invalid password!");
                 }
             }
             else {
-                flash("Invalid user");
+                flash("Sorry, this is an Invalid user!");
             }
         }
     }
     else {
-        flash("There was a validation issue");
+        flash("Sorry, there was a validation issue!");
     }
 }
 ?>

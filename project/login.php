@@ -35,6 +35,7 @@ if (isset($_POST["login"])) {
             else{
                 $stmt = $db->prepare("SELECT id, email, username, password from Users WHERE username = :email LIMIT 1");
             }
+  
             $params = array(":email" => $email);
             $r = $stmt->execute($params);
             //echo "db returned: " . var_export($r, true);

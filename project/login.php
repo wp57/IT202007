@@ -22,12 +22,18 @@ if (isset($_POST["login"])) {
         $isValid = false;
         flash("Email or password missing");
     }
-
+    if (strpos($email, "@") < strpos($email, ".")) {
+	$isEmail = true;
+    }
     if ($isValid) {
         $db = getDB();
         if (isset($db)) {
-            $stmt = $db->prepare("SELECT id, email, username, password from Users WHERE email = :email or username = :email LIMIT 1");
-
+            if($isEmail){
+            	$stmt = $db->prepare("SELECT id, email, username, password from Users WHERE email = :email = :email LIMIT 1");
+	    }
+            else{
+                $stmt = $db->prepare("SELECT id, email, username, password from Users WHERE username = :email LIMIT 1");
+            }
             $params = array(":email" => $email);
             $r = $stmt->execute($params);
             //echo "db returned: " . var_export($r, true);

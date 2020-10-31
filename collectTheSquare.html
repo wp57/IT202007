@@ -111,7 +111,7 @@ function menu() {
   context.font = '18px Arial'
   context.fillText('Use the arrow keys to move', canvas.width / 2, (canvas.height / 4) * 3);
   // Start the game on a click
-  canvas.addEventListener('click', startGame);
+  window.addEventListener('click', startGame);
 }
 
 // Start the game
@@ -122,7 +122,7 @@ function startGame() {
   }, 1000)
   play();
   // Stop listening for click events
-  canvas.removeEventListener('click', startGame);
+  window.removeEventListener('click', startGame);
   // Put the target at a random starting point
 	moveTarget();
   moveTarget2();

@@ -10,12 +10,18 @@
 </style>
 </head>
 <body>
+<<<<<<< HEAD
 background-image: url("game.jpg");
+=======
+>>>>>>> 6d00a862581d6c4cc778cda249ca3d7003c1f41e
 <audio autoplay loop id="music">
   <source src="song2.ogg" type="audio/ogg">
 </audio>
 <canvas id="canvas" width="600" height="400" tabindex="1"></canvas>
 <script>
+function play(){
+var audio = document.getElementById("music");
+audio.play();
 // Collect The Square game
 var audio = document.getElementById("music");
 audio.play();
@@ -113,7 +119,11 @@ function startGame() {
   id = setInterval(function() {
     countdown--;
   }, 1000)
+<<<<<<< HEAD
   play();
+=======
+play();
+>>>>>>> 6d00a862581d6c4cc778cda249ca3d7003c1f41e
   // Stop listening for click events
   canvas.removeEventListener('click', startGame);
   // Put the target at a random starting point

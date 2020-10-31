@@ -11,14 +11,15 @@
 </head>
 <body>
 background-image: url("game.jpg");
-<audio controls autoplay>
-  <source src="song.mp3" type="audio/ogg">
+<audio autoplay loop id="music">
+  <source src="song2.ogg" type="audio/ogg">
   Your browser does not support the audio element.
 </audio>
 <canvas id="canvas" width="600" height="400" tabindex="1"></canvas>
 <script>
 // Collect The Square game
-
+var audio = document.getElementById("music");
+audio.play();
 // Get a reference to the canvas DOM element
 var canvas = document.getElementById('canvas');
 // Get the canvas drawing context
@@ -113,6 +114,7 @@ function startGame() {
   id = setInterval(function() {
     countdown--;
   }, 1000)
+  play();
   // Stop listening for click events
   canvas.removeEventListener('click', startGame);
   // Put the target at a random starting point

@@ -6,17 +6,24 @@
   width: 600px;
   height: 400px;
   border: 1px solid black;
- background-image: url("game.jpg");
 }
 
 </style>
 </head>
 <body>
-<audio autoplay loop id="music">
+<img id="game" width="220" height="277" src="game.jpg" alt="game">
+<canvas id="canvas" width="600" height="400" style="border:1px solid #d3d3d3;">
+</canvas>
   <source src="song2.ogg" type="audio/ogg">
 </audio>
 <canvas id="canvas" width="600" height="400" tabindex="1"></canvas>
 <script>
+window.onload = function() {
+  var c = document.getElementById("canvas");
+  var ctx = c.getContext("2d");
+  var img = document.getElementById("game");
+  ctx.drawImage(img, 10, 10);
+}
 function play(){
 var audio = document.getElementById("music");
 audio.play();

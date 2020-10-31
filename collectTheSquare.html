@@ -23,7 +23,7 @@ var img;
 
 window.onload = function() {
   img = document.getElementById("game");
-  context.drawImage(img, 0, 0, 50, 50);
+  context.drawImage(img, 0,20, 100, 100);
 }
 function play(){
 var audio = document.getElementById("music");
@@ -167,7 +167,7 @@ function erase() {
 // The main draw loop
 function draw() {
 erase();
-context.drawImage(img,0,0,50,50);
+context.drawImage(img,0,20,100,100);
 
   // Move the square
   if (down) {

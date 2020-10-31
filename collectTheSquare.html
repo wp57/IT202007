@@ -10,15 +10,16 @@
 </style>
 </head>
 <body>
-<img id="game" width="220" height="277" src="game.jpg" style="display:none;" alt="background">
-  <source src="song2.ogg" type="audio/ogg">
+<img id="game" width="600" height="400" src="game.jpg" style="display:none;" alt="background">
+
+<audio autoplay loop id="music">
+<source src="song2.ogg" type="audio/ogg">
 </audio>
+
 <script>
 window.onload = function() {
-  var c = document.getElementById("canvas");
-  var ctx = c.getContext("2d");
   var img = document.getElementById("game");
-  ctx.drawImage(img, 10, 10);
+  context.drawImage(img, 600, 400);
 }
 function play(){
 var audio = document.getElementById("music");
@@ -29,7 +30,6 @@ audio.play();
 var canvas = document.getElementById('canvas');
 // Get the canvas drawing context
 var context = canvas.getContext('2d');
-
 // Your score
 var score = 0;
 
@@ -162,7 +162,7 @@ function erase() {
 
 // The main draw loop
 function draw() {
-ctx.drawImage(img,600, 400);
+context.drawImage(img,600, 400);
   erase();
   // Move the square
   if (down) {

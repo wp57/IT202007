@@ -7,11 +7,10 @@
   height: 400px;
   border: 1px solid black;
 }
-
 </style>
 </head>
 <body>
-<img id="game" width="220" height="277" src="game.jpg" alt="game">
+<img id="game" width="220" height="277" src="game.jpg" alt="background">
 <canvas id="canvas" width="600" height="400" style="border:1px solid #d3d3d3;">
 </canvas>
   <source src="song2.ogg" type="audio/ogg">
@@ -166,6 +165,7 @@ function erase() {
 
 // The main draw loop
 function draw() {
+ctx.drawImage(img, 10, 10);
   erase();
   // Move the square
   if (down) {

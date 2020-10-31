@@ -166,8 +166,9 @@ function erase() {
 
 // The main draw loop
 function draw() {
+erase();
 context.drawImage(img,600, 400);
-  erase();
+
   // Move the square
   if (down) {
     y += speed;

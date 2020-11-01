@@ -12,7 +12,7 @@
 <body>
 <canvas id="canvas" width="600" height="400" style="border:1px solid #d3d3d3;">
 </canvas>
-<img id="game" width="600px" height="400px" src="game.jpg" style="visibility: hidden;" alt="background"/>
+<img id="game" width="600" height="400" src="game.jpg" style="visibility: hidden;" alt="background"/>
  
 <audio autoplay loop id="music">
 <source src="song2.ogg" type="audio/ogg">
@@ -23,7 +23,7 @@ var img;
 
 window.onload = function() {
   img = document.getElementById("game");
-  context.drawImage(img,10, 10, 80, 30, 0, 0 200, 200);
+  context.drawImage(img,50,0);
 }
 function play(){
 var audio = document.getElementById("music");
@@ -167,7 +167,7 @@ function erase() {
 // The main draw loop
 function draw() {
 erase();
-context.drawImage(img,10, 10, 80, 30, 0, 0 200, 200);
+context.drawImage(img, 0, 50);
 
   // Move the square
   if (down) {

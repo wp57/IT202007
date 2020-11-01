@@ -54,6 +54,9 @@ var targetX = 0;
 var targetY = 0;
 var targetX2 = 0;
 var targetY2 = 0;
+var targetX3 = 0;
+var targetY3 = 0;
+
 var targetLength = 25;
 
 // Determine if number a is within the range b to c (exclusive)
@@ -159,6 +162,12 @@ function moveTarget2() {
   targetX2 = Math.round(Math.random() * canvas.width - targetLength);
   targetY2 = Math.round(Math.random() * canvas.height - targetLength)
 }
+function moveTarget3() {
+
+  targetX3 = Math.round(Math.random() * canvas.width - targetLength);
+  targetY3 = Math.round(Math.random() * canvas.height - targetLength)
+}
+
 
 // Clear the canvas
 function erase() {
@@ -214,6 +223,15 @@ context.drawImage(img, 0, 0,600,400);
       score++;
     }
   }
+  if (isWithin(targetX3, x, x + sideLength) || isWithin(targetX3 + targetLeng$
+    if (isWithin(targetY3, y, y + sideLength) || isWithin(targetY3 + targetLen$
+      // Respawn the target
+      moveTarget3();
+      // Increase the score
+      score--;
+    }
+  }
+
   // Draw the square
   context.fillStyle = '#FF0000';
   context.fillRect(x, y, sideLength, sideLength);
@@ -222,7 +240,11 @@ context.drawImage(img, 0, 0,600,400);
   context.fillRect(targetX, targetY, targetLength, targetLength);
   context.fillStyle = '#11D750';
   context.fillRect(targetX2, targetY2, targetLength, targetLength);
-  // Draw the score and time remaining
+
+  context.fillStyle = '#FFEE00';
+  context.fillRect(targetX3, targetY3, targetLength, targetLength);
+  
+// Draw the score and time remaining
   context.fillStyle = '#000000';
   context.font = '24px Arial';
   context.textAlign = 'left';

@@ -56,6 +56,10 @@ var targetX2 = 0;
 var targetY2 = 0;
 var targetX3 = 0;
 var targetY3 = 0;
+var targetX4 = 0;
+var targetY4 = 0;
+var targetX5 = 0;
+var targetY5 = 0;
 
 var targetLength = 25;
 
@@ -137,6 +141,8 @@ function startGame() {
 	moveTarget();
   moveTarget2();
 moveTarget3();
+moveTarget4();
+moveTarget5();
   // Kick off the draw loop
   draw();
 }
@@ -169,6 +175,16 @@ function moveTarget3() {
 
   targetX3 = Math.round(Math.random() * canvas.width - targetLength);
   targetY3 = Math.round(Math.random() * canvas.height - targetLength)
+}
+function moveTarget4() {
+
+  targetX4 = Math.round(Math.random() * canvas.width - targetLength);
+  targetY4 = Math.round(Math.random() * canvas.height - targetLength)
+}
+function moveTarget5() {
+
+  targetX5 = Math.round(Math.random() * canvas.width - targetLength);
+  targetY5 = Math.round(Math.random() * canvas.height - targetLength)
 }
 
 
@@ -235,6 +251,24 @@ context.drawImage(img, 0, 0,600,400);
       score--;
     }
   }
+ if (isWithin(targetX4, x, x + sideLength) || isWithin(targetX4 + targetLength, x, x + sideLength)) { // X
+    if (isWithin(targetY4, y, y + sideLength) || isWithin(targetY4 + targetLength, y, y + sideLength)) { // Y
+
+      // Respawn the target
+      moveTarget4();
+      // Increase the score
+      score--;
+    }
+  }
+ if (isWithin(targetX5, x, x + sideLength) || isWithin(targetX4 + targetLength, x, x + sideLength)) { // X
+    if (isWithin(targetY5, y, y + sideLength) || isWithin(targetY4 + targetLength, y, y + sideLength)) { // Y
+
+      // Respawn the target
+      moveTarget5();
+      // Increase the score
+      score--;
+    }
+  }
 
   // Draw the square
   context.fillStyle = '#FF0000';
@@ -244,10 +278,13 @@ context.drawImage(img, 0, 0,600,400);
   context.fillRect(targetX, targetY, targetLength, targetLength);
   context.fillStyle = '#11D750';
   context.fillRect(targetX2, targetY2, targetLength, targetLength);
-
   context.fillStyle = '#FFEE00';
   context.fillRect(targetX3, targetY3, targetLength, targetLength);
-  
+   context.fillStyle = '#FFEE00';
+  context.fillRect(targetX4, targetY4, targetLength, targetLength);
+   context.fillStyle = '#FFEE00';
+  context.fillRect(targetX5 targetY5, targetLength, targetLength);
+
 // Draw the score and time remaining
   context.fillStyle = '#000000';
   context.font = '24px Arial';

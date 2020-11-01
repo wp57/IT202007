@@ -225,8 +225,9 @@ context.drawImage(img, 0, 0,600,400);
       score++;
     }
   }
-  if (isWithin(targetX3, x, x + sideLength) || isWithin(targetX3 + targetLeng$
-    if (isWithin(targetY3, y, y + sideLength) || isWithin(targetY3 + targetLen$
+   if (isWithin(targetX3, x, x + sideLength) || isWithin(targetX3 + targetLength, x, x + sideLength)) { // X
+    if (isWithin(targetY3, y, y + sideLength) || isWithin(targetY3 + targetLength, y, y + sideLength)) { // Y
+
       // Respawn the target
       moveTarget3();
       // Increase the score

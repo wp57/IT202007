@@ -9,7 +9,7 @@ if (!has_role("Admin")) {
 
 <?php
 $db = getDB();
-$sql = "SELECT DISTINCT id, account_number from Accounts";
+$sql = "SELECT DISTINCT id account_number from Accounts";
 $stmt = $db->prepare($sql);
 $stmt->execute();
 $users=$stmt->fetchAll();
@@ -71,7 +71,7 @@ $users=$stmt->fetchAll();
 function do_bank_action($account1, $account2, $amountChange, $type, $memo){
   $db = getDB();
   $query = null;
-  $stmt2 = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id like :q");
+  $stmt2 = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id = ':q'");
   $r2 = $stmt2->execute([":q" => "%$query%"]);
   if ($r2) {
         $results = $stmt2->fetchAll(PDO::FETCH_ASSOC);

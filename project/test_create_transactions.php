@@ -9,7 +9,7 @@ if (!has_role("Admin")) {
 
 <?php
 $db = getDB();
-$sql = "SELECT DISTINCT id, account_number from Accounts";
+$sql = "SELECT id, account_number from Accounts";
 $stmt = $db->prepare($sql);
 $stmt->execute();
 $users=$stmt->fetchAll();
@@ -131,6 +131,11 @@ if (isset($_POST["save"])) {
     $actType = $_POST["actType"];
     $memo = $_POST["memo"];
     $user = get_user_id();
+    $sql = "SELECT DISTINCT id,from Accounts where account_number = "000000000000";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $result=$stmt->fetchAll();
+    $world = $result["id"];
     switch($actType)
     {
         case "Deposit":

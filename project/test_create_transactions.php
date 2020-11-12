@@ -140,10 +140,10 @@ if (isset($_POST["save"])) {
     switch($actType)
     {
         case "Deposit":
-            do_bank_action($result, $source, ($amount * -1), $actType, $memo);
+            do_bank_action($world, $source, ($amount * -1), $actType, $memo);
             break;
         case "Withdraw":
-            do_bank_action($result, $source, ($amount * -1), $actType, $memo);
+            do_bank_action($world, $source, ($amount * -1), $actType, $memo);
             break;
         case "Transfer":
             do_bank_action($source, $dest, ($amount * -1), $actType, $memo);

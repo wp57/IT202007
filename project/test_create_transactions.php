@@ -9,7 +9,7 @@ if (!has_role("Admin")) {
 
 <?php
 $db = getDB();
-$sql = "SELECT DISTINCT id account_number from Accounts";
+$sql = "SELECT id account_number from Accounts";
 $stmt = $db->prepare($sql);
 $stmt->execute();
 $users=$stmt->fetchAll();

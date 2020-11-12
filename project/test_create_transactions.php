@@ -132,7 +132,7 @@ if (isset($_POST["save"])) {
     $memo = $_POST["memo"];
     $user = get_user_id();
     $db = getDB();
-    $sql = "SELECT DISTINCT id from Accounts where account_number = "000000000000";
+    $sql = "SELECT DISTINCT id from Accounts where account_number = '000000000000'";
     $stmt = $db->prepare($sql);
     $stmt->execute();
     $result=$stmt->fetchAll();

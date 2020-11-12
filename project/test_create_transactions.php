@@ -7,7 +7,6 @@ if (!has_role("Admin")) {
 }
 ?>
 
-<div class="drift">
 <?php
 $db = getDB();
 $sql = "SELECT DISTINCT id, account_number from Accounts";
@@ -63,7 +62,7 @@ $users=$stmt->fetchAll();
         <br>
         <label>Memo</label>
         <br>
-        <input type="text" placeholder-"Optional" name="memo"/>
+        <input type="text" placeholder="Optional message for your transaction"  name="memo"/>
         <br>
         <input type="submit" name="save" value="Create"/>
     </form>
@@ -134,17 +133,16 @@ if (isset($_POST["save"])) {
     $user = get_user_id();
     switch($actType)
     {
-        case "Transfer":
-            do_bank_action($source, $dest, ($amount * -1), $actType, $memo);
-            break;    
-        case "Withdraw":
-            do_bank_action($source, "000000000000", ($amount * -1), $actType, $memo);
-            break;
         case "Deposit":
             do_bank_action("000000000000", $source, ($amount * -1), $actType, $memo);
             break;
+        case "Withdraw":
+            do_bank_action($source, "000000000000", ($amount * -1), $actType, $memo);
+            break;
+        case "Transfer":
+            do_bank_action($source, $dest, ($amount * -1), $actType, $memo);
+            break;    
     }
 }
 ?>
-</div>
 <?php require(__DIR__ . "/partials/flash.php");

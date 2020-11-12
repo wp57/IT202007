@@ -135,7 +135,7 @@ if (isset($_POST["save"])) {
     $sql = "SELECT DISTINCT id from Accounts where account_number = '000000000000'";
     $stmt = $db->prepare($sql);
     $stmt->execute();
-    $result=$stmt->fetchAll();
+    $result=$stmt->fetch();
     $world = $result["id"];
     switch($actType)
     {

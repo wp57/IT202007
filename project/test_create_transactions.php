@@ -6,6 +6,7 @@ if (!has_role("Admin")) {
     die(header("Location: login.php"));
 }
 ?>
+
 <?php
 $db = getDB();
 $sql = "SELECT DISTINCT id, account_number from Accounts";
@@ -22,13 +23,16 @@ $users=$stmt->fetchAll();
             <option value="Withdraw">Withdraw</option>
             <option value="Transfer">Transfer</option>
         </select>	
+        <br>
         <label>Account</label>
+        <br>
+        
         <select name="source">
             <?php foreach($users as $user): ?>
               <option value="<?= $user['id']; ?>"><?= $user['account_number']; ?></option>
             <?php endforeach; ?>
         </select>
-
+        
         <div id="ifTran">
         <br>
         <label>Transaction Destination</label>
@@ -39,7 +43,7 @@ $users=$stmt->fetchAll();
             <?php endforeach; ?>
         </select>
         </div>
-
+        
         <script>
         document.getElementById("ifTran").style.display = "none";
         function myFunction() {
@@ -50,15 +54,14 @@ $users=$stmt->fetchAll();
             document.getElementById("ifTran").style.display = "none";
         }
         </script>
-
-        <br>
+        
         <label>Amount</label>
         <br>
         <input type="float" min="0.00" name="amount"/>
         <br>
         <label>Memo</label>
         <br>
-        <input type="text" placeholder-"Optional" name="memo"/>
+        <input type="text" name="memo"/>
         <br>
         <input type="submit" name="save" value="Create"/>
     </form>
@@ -85,7 +88,7 @@ function do_bank_action($account1, $account2, $amountChange, $type, $memo){
 	$query = "INSERT INTO `Transactions` (`act_src_id`, `act_dest_id`, `amount`, `action_type`, `expected_total`, `memo`) 
 	VALUES(:p1a1, :p1a2, :p1change, :type, :a1total, :memo), 
 			(:p2a1, :p2a2, :p2change, :type, :a2total, :memo)";
-
+	
 	$stmt = $db->prepare($query);
 	$stmt->bindValue(":p1a1", $account1);
 	$stmt->bindValue(":p1a2", $account2);
@@ -123,8 +126,8 @@ function do_bank_action($account1, $account2, $amountChange, $type, $memo){
 if (isset($_POST["save"])) {
     $amount = (float)$_POST["amount"];
     $source = $_POST["source"];
-    $actType = $_POST["actType"];
     $dest = $_POST["dest"];
+    $actType = $_POST["actType"];
     $memo = $_POST["memo"];
     $user = get_user_id();
     switch($actType)
@@ -137,9 +140,8 @@ if (isset($_POST["save"])) {
             break;
         case "Transfer":
             do_bank_action($source, $dest, ($amount * -1), $actType, $memo);
-            break;    
+            break;   
     }
 }
 ?>
-</div>
 <?php require(__DIR__ . "/partials/flash.php");

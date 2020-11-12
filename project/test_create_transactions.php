@@ -72,7 +72,7 @@ function do_bank_action($account1, $account2, $amountChange, $type, $memo){
 $db = getDB();
 $sql = "SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id = :q";
 $stmt2 = $db->prepare($sql);  
-$r2 = $stmt2->execute([":q" => "$query"]);
+$r2 = $stmt2->execute();
   if ($r2) {
         $results = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     }

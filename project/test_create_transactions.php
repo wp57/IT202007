@@ -137,6 +137,9 @@ if (isset($_POST["save"])) {
     $stmt->execute();
     $result=$stmt->fetch();
     $world = $result["id"];
+    echo $source;
+    echo $dest;
+    echo $world;
     switch($actType)
     {
         case "Deposit":

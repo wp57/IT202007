@@ -6,7 +6,6 @@ if (!has_role("Admin")) {
     die(header("Location: login.php"));
 }
 ?>
-
 <?php
 $db = getDB();
 $sql = "SELECT DISTINCT id, account_number from Accounts";
@@ -17,15 +16,13 @@ $users=$stmt->fetchAll();
     <h3>Create Transaction</h3>
     <form method="POST">
         <label>Action Type</label>
-        <select name="aType" id ="mySelect" onchange="myFunction()">
+        <br>
+        <select name="actType" id ="mySelect" onchange="myFunction()">
             <option value="Deposit">Deposit</option>
             <option value="Withdraw">Withdraw</option>
             <option value="Transfer">Transfer</option>
         </select>	
-        <br>
         <label>Account</label>
-        <br>
-
         <select name="source">
             <?php foreach($users as $user): ?>
               <option value="<?= $user['id']; ?>"><?= $user['account_number']; ?></option>
@@ -103,8 +100,8 @@ function do_bank_action($account1, $account2, $amountChange, $type, $memo){
 	$stmt->bindValue(":type", $type);
 	$stmt->bindValue(":a2total", $a2total-$amountChange);
   $stmt->bindValue(":memo", $memo);
-	$r = $stmt->execute();
-  if ($r) {
+	$result = $stmt->execute();
+  if ($result) {
         flash("Created successfully with id: " . $db->lastInsertId());
     }
     else {
@@ -120,28 +117,29 @@ function do_bank_action($account1, $account2, $amountChange, $type, $memo){
        ":balance"=>($a2total-$amountChange),
        ":id"=>$account2
   	]);
-	return $r;
+	return $result;
 }
 
 if (isset($_POST["save"])) {
     $amount = (float)$_POST["amount"];
     $source = $_POST["source"];
+    $actType = $_POST["actType"];
     $dest = $_POST["dest"];
-    $aType = $_POST["aType"];
     $memo = $_POST["memo"];
     $user = get_user_id();
-    switch($aType)
+    switch($actType)
     {
         case "Deposit":
-            do_bank_action("000000000000", $source, ($amount * -1), $aType, $memo);
-            break;    
+            do_bank_action("000000000000", $source, ($amount * -1), $actType, $memo);
+            break;
         case "Withdraw":
-            do_bank_action($source, "000000000000", ($amount * -1), $aType, $memo);
+            do_bank_action($source, "000000000000", ($amount * -1), $actType, $memo);
             break;
         case "Transfer":
-            do_bank_action($source, $dest, ($amount * -1), $aType, $memo);
-            break;
+            do_bank_action($source, $dest, ($amount * -1), $actType, $memo);
+            break;    
     }
 }
 ?>
+</div>
 <?php require(__DIR__ . "/partials/flash.php");

@@ -6,7 +6,7 @@ if (!has_role("Admin")) {
     die(header("Location: login.php"));
 }
 ?>
-<div class="drift">
+
 <?php
 //we'll put this at the top so both php block have access to it
 if (isset($_GET["id"])) {
@@ -45,5 +45,4 @@ if (isset($id)) {
 <?php else: ?>
     <p>Error looking up id...</p>
 <?php endif; ?>
-</drift>
 <?php require(__DIR__ . "/partials/flash.php");

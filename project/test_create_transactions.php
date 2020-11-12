@@ -12,7 +12,7 @@ $db = getDB();
 $sql = "SELECT id account_number from Accounts";
 $stmt = $db->prepare($sql);
 $stmt->execute();
-$users=$stmt->fetchAll();
+$users=$stmt->fetch();
 ?>
     <h3>Create Transaction</h3>
     <form method="POST">

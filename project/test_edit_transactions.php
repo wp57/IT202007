@@ -89,9 +89,9 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <h3>Edit Transaction</h3>
     <form method="POST">
         <label>Amount Change</label>
-        <input type="number" name="amount" value="<?php echo $result["amount"]; ?>"/>
+        <input type="number" name="amount" value="<?php echo $result["amount"]; ?>">
         <label>Memo</label>
-        <input type="text" name= "memo" value="<?php echo $result["memo"]; ?>"/>
+        <input type="text" name= "memo" value="<?php echo $result["memo"]; ?>">
         <label>Action Type</label>
         <select value="<?php echo $result["action_type"]; ?>" name="actionType">
             <option value="Deposit">Deposit</option>

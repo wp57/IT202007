@@ -77,7 +77,7 @@ $result = [];
 if (isset($id)) {
     $id = $_GET["id"];
     $db = getDB();
-    $stmt = $db->prepare("SELECT * FROM Transactions where id = :id");
+    $stmt = $db->prepare("SELECT action_type, memo, amount from Transactions where id = :id");
     $r = $stmt->execute([":id" => $id]);
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 }

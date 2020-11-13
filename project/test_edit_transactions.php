@@ -82,7 +82,7 @@ if (isset($id)) {
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 $db = getDB();
-$stmt = $db->prepare("SELECT id, action_type, memo from Transactions LIMIT 10");
+$stmt = $db->prepare("SELECT id, action_type from Transactions LIMIT 10");
 $r = $stmt->execute();
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>

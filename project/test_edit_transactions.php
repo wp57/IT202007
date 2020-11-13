@@ -82,7 +82,7 @@ if (isset($id)) {
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 }
 $db = getDB();
-$stmt = $db->prepare("SELECT id, action_type from Transactions LIMIT 10");
+$stmt = $db->prepare("SELECT id, action_type, memo from Transactions LIMIT 10");
 $r = $stmt->execute();
 $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -93,7 +93,7 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <label>Memo</label>
         <input type="text" input name= "memo" value="<?php echo $result["memo"]; ?>"/>
         <label>Action Type</label>
-        <select value="<?php echo $result[action_type]; ?>" name="aType">
+        <select value="<?php echo $result[action_type]; ?>" name="actionType">
             <option value="Deposit">Deposit</option>
             <option value="Withdraw">Withdraw</option>
             <option value="Transfer">Transfer</option>

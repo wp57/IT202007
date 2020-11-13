@@ -91,9 +91,9 @@ $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <label>Amount Change</label>
         <input type="number" input name="amount" value="<?php echo $result["amount"]; ?>"/>
         <label>Memo</label>
-        <input type="text" input name="memo" value="<?php echo $result["memo"]; ?>"/>
+        <input type="text" input name= "memo" value="<?php echo $result["memo"]; ?>"/>
         <label>Action Type</label>
-        <select value="<?php echo $result[action_type]; ?>" name="actType">
+        <select value="<?php echo $result[action_type]; ?>" name="aType">
             <option value="Deposit">Deposit</option>
             <option value="Withdraw">Withdraw</option>
             <option value="Transfer">Transfer</option>

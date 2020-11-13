@@ -21,7 +21,7 @@ if (isset($_POST["save"])) {
       $id -= 1;
     $db = getDB();
     $stmt = $db->prepare("SELECT * FROM Transactions where id = :id");
-    $result = $stmt->execute([":id" => $id]);
+    $res = $stmt->execute([":id" => $id]);
     $r = $stmt->fetch(PDO::FETCH_ASSOC);
     $query = null;
 

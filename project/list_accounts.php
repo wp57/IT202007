@@ -6,7 +6,6 @@ if (!has_role("Admin")) {
     die(header("Location: login.php"));
 }
 ?>
-
 <?php
 $query = "";
 $results = [];
@@ -27,13 +26,13 @@ if (isset($_POST["search"]) && !empty($query)) {
 ?>
 <h3>List Accounts</h3>
 <form method="POST">
-    <input name="query" value="<?php safer_echo($query); ?>"/>
+    <input name="query" placeholder="Search" value="<?php safer_echo($query); ?>"/>
     <input type="submit" value="Search" name="search"/>
 </form>
 <div class="results">
     <?php if (count($results) > 0): ?>
         <div class="list-group">
-            <?php foreach ($results as $r) ?>
+            <?php foreach ($results as $r): ?>
                 <div class="list-group-item">
                     <div>
                         <div>Account Number:</div>
@@ -52,8 +51,8 @@ if (isset($_POST["search"]) && !empty($query)) {
                         <div><?php safer_echo($r["user_id"]); ?></div>
                     </div>
                     <div>
-                        <a type="button" href="test_edit_accounts.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
-                        <a type="button" href="test_view_accounts.php?id=<?php safer_echo($r['id']); ?>">View</a>
+                        <a type="button" href="edit_accounts.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
+                        <a type="button" href="view_accounts.php?id=<?php safer_echo($r['id']); ?>">View</a>
                     </div>
                 </div>
             <?php endforeach; ?>

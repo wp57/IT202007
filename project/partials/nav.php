@@ -5,14 +5,21 @@ require_once(__DIR__ . "/../lib/helpers.php");
 ?>
 <nav>
 <ul class="nav">
-    <li><a href="home.php">HOME</a></li>
+    <li><a href="home.php">Home</a></li>
     <?php if (!is_logged_in()): ?>
-        <li><a href="login.php">LOGIN</a></li>
-        <li><a href="register.php">REGISTER</a></li>
+        <li><a href="login.php">Login</a></li>
+        <li><a href="register.php">Register</a></li>
     <?php endif; ?>
+    <?php if(has_role("Admin")): ?>
+        <li><a href="create_accounts.php">Create Account</a></li>
+        <li><a href="list_accounts.php">View Account</a></li>
+        <li><a href="create_transactions.php">Create a Transaction</a></li>
+        <li><a href="list_transactions.php">View Transactions</a></li>
+    <?php endif; ?>
+
     <?php if (is_logged_in()): ?>
-        <li><a href="profile.php">PROFILE</a></li>
-        <li><a href="logout.php">LOGOUT</a></li>
+        <li><a href="profile.php">Profile</a></li>
+        <li><a href="logout.php">Logout</a></li>
     <?php endif; ?>
 </ul>
 </nav>

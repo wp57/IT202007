@@ -16,7 +16,7 @@ ul[class="nav"]{
 }
 li a{
     display:block;
-    width: 70px;
+    width: 200px;
     padding: initial;
 
 }
@@ -76,8 +76,4 @@ input[type=submit] {
     border-style:solid;
     border-width:medium;
 }
-
-
-
-
 

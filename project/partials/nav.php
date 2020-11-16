@@ -11,7 +11,7 @@ require_once(__DIR__ . "/../lib/helpers.php");
         <li><a href="register.php">Register</a></li>
     <?php endif; ?>
     <?php if(has_role("Admin")): ?>
-        <li><a href="create_account.php">Create Account</a></li>
+        <li><a href="create_accounts.php">Create Account</a></li>
         <li><a href="list_accounts.php">View Account</a></li>
         <li><a href="create_transactions.php">Create a Transaction</a></li>
         <li><a href="list_transactions.php">View Transactions</a></li>

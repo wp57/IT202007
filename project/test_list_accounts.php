@@ -15,7 +15,7 @@ if (isset($_POST["query"])) {
 }
 if (isset($_POST["search"]) && !empty($query)) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id like :q LIMIT 10");
+    $stmt = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE user_id like :q LIMIT 10");
     $r = $stmt->execute([":q" => "%$query%"]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -33,11 +33,7 @@ if (isset($_POST["search"]) && !empty($query)) {
 <div class="results">
     <?php if (count($results) > 0): ?>
         <div class="list-group">
-            <?php $i=0;
-		 foreach ($results as $r):
-		 if($i>5){
-		 break;
-		} ?>
+            <?php foreach ($results as $r) ?>
                 <div class="list-group-item">
                     <div>
                         <div>Account Number:</div>

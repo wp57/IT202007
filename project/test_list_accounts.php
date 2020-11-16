@@ -33,7 +33,11 @@ if (isset($_POST["search"]) && !empty($query)) {
 <div class="results">
     <?php if (count($results) > 0): ?>
         <div class="list-group">
-            <?php foreach ($results as $r): ?>
+            <?php $i=0;
+		 foreach ($results as $r):
+		 if($i>5){
+		 break;
+		} ?>
                 <div class="list-group-item">
                     <div>
                         <div>Account Number:</div>

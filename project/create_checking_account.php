@@ -21,9 +21,9 @@ if(isset($_POST["save"])){
 	$user = get_user_id();        
         $aType = "Checking";
         $balance = $_POST["balance"];
-	$db = getDB();
     if($balance >= 5){
     do {
+      $db = getDB();
       $stmt = $db->prepare("INSERT INTO Accounts (account_number, account_type, user_id, balance) VALUES(:aNum, :aType, :user, :balance)");
   	$r = $stmt->execute([
   		":aNum"=>$aNum,

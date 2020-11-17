@@ -6,9 +6,8 @@ if (!has_role("Admin")) {
     die(header("Location: login.php"));
 }
 ?>
+<h3Create Checking Account</h3>
 <form method="POST">
-  <label>Create Checking Account</labe>
-  <br>
   <label>Balance</label>
   <br>
 	<input type="float" min="5.00" name="balance"/>

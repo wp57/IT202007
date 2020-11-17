@@ -35,9 +35,22 @@ if (isset($_POST["search"]) && !empty($query)) {
 }
 ?>
 <h3>List Transactions</h3>
+<div class="list-group-item">
+                    <div>
+                        <div>Account Number:</div>
+                        <div><?php safer_echo($r2["account_number"]); ?></div>
+                    </div>
+                    <div>
+                        <div>Account Type:</div>
+                        <div><?php safer_echo($r2["account_type"]); ?></div>
+                    </div>
+                    <div>
+                        <div>Balance:</div>
+                        <div><?php safer_echo($r2["balance"]); ?></div>
+  </div>
 <form method="POST">
     <input name="query" placeholder="Enter your account ID." value="<?php safer_echo($query); ?>"/>
-    <input type="submit" value="Search" name="search"/>
+   <input type="submit" value="Search" name="search"/>
 </form>
 <div class="results">
     <?php if (count($results) > 0): ?>

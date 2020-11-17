@@ -7,9 +7,12 @@ if (!has_role("Admin")) {
 }
 ?>
 <form method="POST">
-  <label>Create Checking Account</label>
+  <label>Create Checking Account</labe>
+  <br>
   <label>Balance</label>
+  <br>
 	<input type="float" min="5.00" name="balance"/>
+ <br>
 	<input type="submit" name="save" value="Create"/>
 </form>
 

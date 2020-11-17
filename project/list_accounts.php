@@ -14,8 +14,8 @@ if (isset($_POST["query"])) {
 }
 if (isset($_POST["search"]) && !empty($query)) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE user_id like :q LIMIT 5");
-    $r = $stmt->execute([":q" => "%$query%"]);
+    $stmt = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE user_id = :q LIMIT 5");
+    $r = $stmt->execute([":q" => "$query"]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -61,3 +61,4 @@ if (isset($_POST["search"]) && !empty($query)) {
         <p>No results</p>
     <?php endif; ?>
 </div>
+<?php require(__DIR__ . "/partials/flash.php");

@@ -38,11 +38,11 @@ if (isset($_POST["search"]) && !empty($query)) {
 <div class="list-group-item">
                     <div>
                         <div>Account Number:</div>
-                        <div><?php safer_echo($r2["account_number"]); ?></div>
+                        <div><?php safer_echo($res["account_number"]); ?></div>
                     </div>
                     <div>
                         <div>Account Type:</div>
-                        <div><?php safer_echo($r2["account_type"]); ?></div>
+                        <div><?php safer_echo($res["account_type"]); ?></div>
                     </div>
                     <div>
                         <div>Balance:</div>

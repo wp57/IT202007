@@ -8,7 +8,9 @@ if (!has_role("Admin")) {
 ?>
 <?php
 $query = "";
+$query2 = "";
 $results = [];
+$res = [];
 if (isset($_POST["query"])) {
     $query = $_POST["query"];
 }
@@ -21,6 +23,14 @@ if (isset($_POST["search"]) && !empty($query)) {
     }
     else {
         flash("There was a problem fetching the results " . var_export($stmt->errorInfo(), true));
+    }
+    $stmt2 = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id = :q LIMIT 10");
+    $r2 = $stmt->execute([":q" => "$query2"]);
+    if ($r2) {
+        $res = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+    }
+    else {
+        flash("There was a problem fetching the results");
     }
 }
 ?>

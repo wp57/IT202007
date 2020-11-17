@@ -23,7 +23,7 @@ if (isset($_GET["id"])) {
         flash("There was a problem fetching the results " . var_export($stmt->errorInfo(), true));
     }
     $stmt2 = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id = :q LIMIT 10");
-    $r2 = $stmt->execute([":q" => $id]);
+    $r2 = $stmt2->execute([":q" => $id]);
     if ($r2) {
         $res = $stmt2->fetch(PDO::FETCH_ASSOC);
     }

@@ -12,10 +12,10 @@ $res = [];
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
 }
-if (isset($_POST["search"])) {
+
     $db = getDB();
     $stmt = $db->prepare("SELECT * from Transactions WHERE act_src_id = :q LIMIT 10");
-    $r = $stmt->execute([":q" => "$id"]);
+    $r = $stmt->execute([":q" => $id]);
     if ($r) {
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -23,14 +23,14 @@ if (isset($_POST["search"])) {
         flash("There was a problem fetching the results " . var_export($stmt->errorInfo(), true));
     }
     $stmt2 = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id = :q LIMIT 10");
-    $r2 = $stmt->execute([":q" => "$id"]);
+    $r2 = $stmt->execute([":q" => $id]);
     if ($r2) {
         $res = $stmt2->fetch(PDO::FETCH_ASSOC);
     }
     else {
         flash("There was a problem fetching the results");
     }
-}
+
 ?>
 <h3>List Transactions</h3>
 <div class="list-group-item">
@@ -46,10 +46,7 @@ if (isset($_POST["search"])) {
                         <div>Balance:</div>
                         <div><?php safer_echo($res["balance"]); ?></div>
   </div>
-<form method="POST">
-    <input name="query" placeholder="Enter your account ID." value="<?php safer_echo($res["id"]); ?>"/>
-   <input type="submit" value="Search" name="search"/>
-</form>
+
 <div class="results">
     <?php if (count($results) > 0): ?>
         <div class="list-group">

@@ -26,7 +26,7 @@ if (isset($_POST["search"]) && !empty($query)) {
 ?>
 <h3>List Transactions</h3>
 <form method="POST">
-    <input name="query" placeholder="Search" value="<?php safer_echo($query); ?>"/>
+    <input name="query" placeholder="Enter your account ID." value="<?php safer_echo($query); ?>"/>
     <input type="submit" value="Search" name="search"/>
 </form>
 <div class="results">

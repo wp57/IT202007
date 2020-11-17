@@ -36,7 +36,8 @@ if(isset($_POST["save"])){
     }
     while($e[0] == "23000");
     if($r){
-  		flash("Created successfully with id: " . $db->lastInsertId());	
+  		flash("Created successfully with id: " . $db->lastInsertId();
+                    die(header("Location: list_accounts.php"));	
     }
   	else{
   		$e = $stmt->errorInfo();

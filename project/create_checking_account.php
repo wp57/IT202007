@@ -6,7 +6,7 @@ if (!has_role("Admin")) {
     die(header("Location: login.php"));
 }
 ?>
-<h3Create Checking Account</h3>
+<h3>Create Checking Account</h3>
 <form method="POST">
   <label>Balance</label>
   <br>

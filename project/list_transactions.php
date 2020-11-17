@@ -46,7 +46,7 @@ if (isset($_POST["search"]) && !empty($query)) {
                     </div>
                     <div>
                         <div>Balance:</div>
-                        <div><?php safer_echo($r2["balance"]); ?></div>
+                        <div><?php safer_echo($res["balance"]); ?></div>
   </div>
 <form method="POST">
     <input name="query" placeholder="Enter your account ID." value="<?php safer_echo($query); ?>"/>

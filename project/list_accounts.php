@@ -9,10 +9,6 @@ if (!has_role("Admin")) {
 <?php
 $query = "";
 $results = [];
-if (isset($_POST["query"])) {
-    $query = $_POST["query"];
-}
-if (isset($_POST["search"]) && !empty($query)) {
     $db = getDB();
     $stmt = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE user_id = :q LIMIT 5");
     $r = $stmt->execute([":q" => "$query"]);
@@ -25,14 +21,11 @@ if (isset($_POST["search"]) && !empty($query)) {
 }
 ?>
 <h3>List Accounts</h3>
-<form method="POST">
-    <input name="query" placeholder="Search" value="<?php safer_echo($query); ?>"/>
-    <input type="submit" value="Search" name="search"/>
-</form>
 <div class="results">
     <?php if (count($results) > 0): ?>
         <div class="list-group">
             <?php foreach ($results as $r): ?>
+              <?php if ($r["user_id"] == get_user_id()): ?>
                 <div class="list-group-item">
                     <div>
                         <div>Account Number:</div>

@@ -22,7 +22,7 @@ require_once(__DIR__ . "/../lib/helpers.php");
 	<li><a href="create_checking_account.php">Create Checking Account</a></li>
         <li><a href="#">List Accounts</a></li>
         <li><a href="#">Deposit</a></li>
-        <li><a href="#">Withdraw</a></li>
+        <li><a href="withdraw.php">Withdraw</a></li>
         <li><a href="#">Transfer</a></li>
         <li><a href="logout.php">Logout</a></li>
     <?php endif; ?>

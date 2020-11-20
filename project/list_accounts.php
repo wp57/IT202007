@@ -18,7 +18,6 @@ $results = [];
     else {
         flash("There was a problem fetching the results");
     }
-}
 ?>
 <h3>List Accounts</h3>
 <div class="results">

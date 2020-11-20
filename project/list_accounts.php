@@ -24,8 +24,8 @@ $results = [];
     <?php if (count($results) > 0): ?>
         <div class="list-group">
             <?php foreach ($results as $r): ?>
- 
-                <div class="list-group-item">
+                     <?php if ($r["user_id"] == get_user_id()): ?>
+                    <div class="list-group-item">
                     <div>
                         <div>Account Number:</div>
                         <div><?php safer_echo($r["account_number"]); ?></div>

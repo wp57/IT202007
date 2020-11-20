@@ -13,7 +13,7 @@ $results = [];
     $stmt = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE user_id = :q LIMIT 5");
     $r = $stmt->execute([":q" => "$query"]);
     if ($r) {
-        $results = $stmt->fetch(PDO::FETCH_ASSOC);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     else {
         flash("There was a problem fetching the results");

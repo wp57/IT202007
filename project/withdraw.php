@@ -14,7 +14,7 @@ $users=$stmt->fetchAll();
         <select name="dest">
             <?php foreach($users as $user): ?>
              <?php if ($user["id"] == get_user_id()): ?>
-               <option value="<?= $user['id']; ?>"><?= $user['account_number']; ?></option>
+               <option value="<?= $user['id']; ?>"><?= $user['id']; ?></option>
               <?php endif; ?>
             <?php endforeach; ?>
         </select>

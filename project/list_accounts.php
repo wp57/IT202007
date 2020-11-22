@@ -42,6 +42,7 @@ $results = [];
                         <div><?php safer_echo($r["user_id"]); ?></div>
                     </div>
                     <div>
+		        <a type="button" href="transaction_hist.php?id=<?php safer_echo($r['id']); ?>">Transaction History</a>
                         <a type="button" href="edit_accounts.php?id=<?php safer_echo($r['id']); ?>">Edit</a>
                         <a type="button" href="view_accounts.php?id=<?php safer_echo($r['id']); ?>">View</a>
                     </div>

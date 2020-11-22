@@ -12,8 +12,8 @@ $users=$stmt->fetchAll(PDO::FETCH_ASSOC);
         <br>
         <select name="dest">
             <?php foreach($use as $user): ?>
-             <?php if ($user["user_id"] == get_user_id()): ?>
-               <option value="<?= $user["id"]; ?>"><?= $user["account_number"]; ?></option>
+             <?php if ($user[user_id] == get_user_id()): ?>
+               <option value="<?= $user[id]; ?>"><?= $user[account_number]; ?></option>
               <?php endif; ?>
             <?php endforeach; ?>
         </select>

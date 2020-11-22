@@ -23,9 +23,9 @@ $users=$stmt->fetchAll();
         <br>
         <input type="float" min="0.00" name="amount"/>
         <br>
-        <label>Memo (Optional)</label>
+        <label>Memo</label>
         <br>
-        <input type="text" placeholder-"Optional" name="memo"/>
+        <input type="text" placeholder-"Optional message for your withdrawl" name="memo"/>
         <br>
         <input type="submit" name="save" value="Create"/>
     </form>

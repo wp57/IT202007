@@ -2,7 +2,7 @@
 
 <?php
 $db = getDB();
-$sql = "SELECT DISTINCT acc.id, acc.account_number, Users.id from Accounts as acc JOIN Users where acc.users_id = id";
+$sql = "SELECT DISTINCT acc.id, acc.account_number, Users.id from Accounts as acc JOIN Users where acc.users_id = acc.id";
 $stmt = $db->prepare($sql);
 $stmt->execute();
 $users=$stmt->fetchAll();

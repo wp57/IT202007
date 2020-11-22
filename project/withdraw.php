@@ -1,6 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 
-<div class="drift">
 <?php
 $db = getDB();
 $sql = "SELECT DISTINCT acc.id, acc.account_number, Users.id from Accounts as acc JOIN Users where acc.user_id = acc.id";

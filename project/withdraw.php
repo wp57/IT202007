@@ -2,8 +2,7 @@
 
 <?php
 $db = getDB();
-$sql = "SELECT * from Accounts where user_id = get_user_id()";
-$stmt = $db->prepare($sql);
+$stmt = $db->prepare("SELECT * from Accounts where user_id = get_user_id()");
 $stmt->execute();
 $users=$stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>

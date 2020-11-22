@@ -5,14 +5,14 @@ $db = getDB();
 $sql = "SELECT * from Accounts where user_id = get_user_id()";
 $stmt = $db->prepare($sql);
 $stmt->execute();
-$users=$stmt->fetchAll();
+$users=$stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
     <h3>Withdraw Transaction</h3>
     <form method="POST">
         <label>Account</label>
         <br>
         <select name="dest">
-            <?php foreach($users as $user): ?>
+            <?php foreach($use as $user): ?>
              <?php if ($user["id"] == get_user_id()): ?>
                <option value="<?= $user['id']; ?>"><?= $user['id']; ?></option>
               <?php endif; ?>

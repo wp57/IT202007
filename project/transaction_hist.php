@@ -30,7 +30,6 @@ if (isset($id)){
             <?php foreach ($res as $r): ?>
                 <div class="list-group-item">
                     <?php foreach ($res2 as $r2): ?>
-                    <?php if ($r2["id"] == $r[act_src_id]): ?>
                     <div>
                         <div>Transaction Number:</div>
                         <div><?php safer_echo($r[id]); ?></div>
@@ -47,7 +46,6 @@ if (isset($id)){
                         <div>Account Number:</div>
                             <div><?php safer_echo($r2[account_number]); ?></div>
                     </div>
-                    <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
                 <?php echo "<br>"; ?>

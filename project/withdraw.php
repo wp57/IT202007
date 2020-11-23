@@ -1,6 +1,6 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<?php
 <div class="shiftRight">
+<?php
 $db = getDB();
 $id = get_user_id();
 $u = [];

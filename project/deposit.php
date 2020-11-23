@@ -2,20 +2,21 @@
 
 <?php
 $db = getDB();
-$sql = "SELECT DISTINCT acc.id, acc.account_number, Users.id from Accounts as acc JOIN Users where acc.user_id = Users.id";
-$stmt = $db->prepare($sql);
-$stmt->execute();
-$users=$stmt->fetchAll();
+$id = get_user_id();
+$u = [];
+$stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id");
+$r = $stmt->execute([":id" => "$id"]);
+if ($r) {
+        $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 ?>
-    <h3>Deposit Transaction</h3>
+    <h3>Make a Deposit</h3>
     <form method="POST">
         <label>Account</label>
         <br>
         <select name="source">
-            <?php foreach($users as $user): ?>
-             <?php if ($user["id"] == get_user_id()): ?>
-              <option value="<?= $user['id']; ?>"><?= $user['id']; ?></option>
-              <?php endif; ?>
+            <?php foreach($u as $user): ?>
+              <option value="<?= $user["id"]; ?>"><?= $user["account_number"]; ?></option>
             <?php endforeach; ?>
         </select>
         <br>
@@ -75,25 +76,17 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
         $e = $stmt->errorInfo();
         flash("Error creating: " . var_export($e, true));
     }
-    $stmt = $db->prepare("UPDATE Accounts set balance = :balance where id=:id");
-    $r = $stmt->execute([
-       ":balance"=>($a1tot+$amountChange),
-       ":id"=>$account1
-  	]);
-    $r = $stmt->execute([
-       ":balance"=>($a2tot-$amountChange),
-       ":id"=>$account2
-  	]);
+    $stmt = $db->prepare("UPDATE Accounts SET balance = (SELECT SUM(amount) FROM Transactions WHERE Transactions.act_src_id = Accounts.id)");
+    $r = $stmt->execute();
 	return $result;
-}
-
+  }       
 if (isset($_POST["save"])) {
     $amount = (float)$_POST["amount"];
     $source = $_POST["source"];
     $memo = $_POST["memo"];
     $user = get_user_id();
     flash($source);
-    do_bank_action("000000000000", $source, ($amount * -1), $memo);
+    do_bank_action("0", $source, ($amount * -1), $memo);
 }
 ?>
 <?php require(__DIR__ . "/partials/flash.php");

@@ -37,9 +37,7 @@ $res = [];
                     <div>
 		        <a type="button" href="transaction_hist.php?id=<?php safer_echo($r[id]); ?>">Transaction History</a>
                     </div>
-                </div>
-            <?php endif; ?>
-   
+                </div>   
            <?php endforeach; ?>
         </div>
     <?php else: ?>

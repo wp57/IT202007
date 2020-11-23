@@ -35,11 +35,11 @@ $res = [];
                         <div><?php safer_echo($r[user_id]); ?></div>
                     </div>
                     <div>
-		        <a type="button" href="transaction_hist.php?id=<?php safer_echo($r['id']); ?>">Transaction History</a>
-  
+		        <a type="button" href="transaction_hist.php?id=<?php safer_echo($r[id]); ?>">Transaction History</a>
                     </div>
                 </div>
-            <?php endforeach; ?>
+                <?php endif; ?>
+           <?php endforeach; ?>
         </div>
     <?php else: ?>
         <p>No results</p>

@@ -1,4 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
+<div class="shiftRight">
 <?php
 if (!has_role("Admin")) {
     //this will redirect to login and kill the rest of this script (prevent it from executing)
@@ -82,5 +83,6 @@ if (isset($_GET["id"])) {
     <?php else: ?>
         <p>No results</p>
     <?php endif; ?>
+</div>
 </div>
 <?php require(__DIR__ . "/partials/flash.php");

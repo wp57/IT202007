@@ -26,7 +26,7 @@ if ($r) {
         <br>
         <label>Memo</label>
         <br>
-        <input type="text" placeholder-"Optional message for your withdrawal" name="memo"/>
+        <input type="text" placeholder="Optional message for your withdrawal" name="memo"/>
         <br>
         <input type="submit" name="save" value="Create"/>
     </form>

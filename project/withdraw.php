@@ -10,7 +10,7 @@ if ($r) {
 	$u = $stmt->fetchAll(PDO::FETCH_ASSOC); 
 }
 ?>
-    <h3>Withdraw</h3>
+    <h3>Make a Withdrawal</h3>
     <form method="POST">
         <label>Account</label>
         <br>
@@ -26,7 +26,7 @@ if ($r) {
         <br>
         <label>Memo</label>
         <br>
-        <input type="text" placeholder-"Optional message for your withdrawl" name="memo"/>
+        <input type="text" placeholder-"Optional message for your withdrawal" name="memo"/>
         <br>
         <input type="submit" name="save" value="Create"/>
     </form>

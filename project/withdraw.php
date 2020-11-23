@@ -4,9 +4,11 @@
 $db = getDB();
 $u = [];
 $id = get_user_id();
-$stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id");
-$r = $stmt->execute([":id" => $id]);
-$u = $stmt->fetch(PDO::FETCH_ASSOC);
+$stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = $id");
+$r = $stmt->execute();
+if ($r) {
+	$u = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} 
 ?>
     <h3>Withdraw</h3>
     <form method="POST">

@@ -1,0 +1,80 @@
+/* design intentionally made horrible to see who doesn't change it*/
+body {
+    font-family: auto;
+    background-color: #e8e8e89c;
+    font-size: 5 em;
+}
+
+ul[class="nav"]{
+    list-style-type: none;
+    font-size:20px;
+    width: 25%;
+    height: 100%;
+    position: fixed;
+    margin: auto;
+    padding: 1;
+    overflow: hidden;
+    background-color: #2a6592;
+}
+li a{
+    display:block;
+    padding: 8px 16px;
+
+}
+
+.nav > li {
+    float: left;
+}
+
+.nav > li a {
+    display: block;
+    color: #ffffffff;
+    padding: 15px 15px 15px 15px;
+    transition: 0.5s;
+    text-decoration: none;
+}
+
+.nav > li a:hover {
+    background-color: #8fb8b8;
+
+}
+/*
+form{
+    position: relative;
+    width: 98%;
+    height: 300px;
+    font-size: 18px; 
+    color:white; 
+    border-radius:20px;
+ background-color: #8fb8b8;
+    font-size: 18px; 
+    color:white;
+    padding: 20px 30px 200px 10px; 
+}
+*/
+input, select {
+    font-size: 15px;
+    border-radius: 100px;
+    width: 450px;
+    padding: 15px 15px;
+    margin: 10px .5px;
+    display: inline-block;
+    border: 1px solid #0a0a06;
+    border-radius: 10px;
+    box-sizing: border-box;
+ 
+}
+
+input[type=submit] {
+    font-size: 15px;
+    font-family: auto;
+    width: 500px;
+    background-color: #2a6592;
+    color: white;
+    padding: 10px 25px;
+    margin: 10px 0px;
+    border-color:#ffffff;
+    border-radius: 10px;
+    cursor: pointer;
+}
+

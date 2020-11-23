@@ -58,3 +58,4 @@ if (isset($id)){
     <?php endif; ?>
 </div>
 <?php require(__DIR__ . "/partials/flash.php");
+}

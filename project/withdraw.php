@@ -16,8 +16,8 @@ if ($r) {
         <label>Account</label>
         <br>
         <select name="dest">
-            <?php foreach($use as $user): ?>
-               <option value="<?= $u[id]; ?>"><?= $u[account_number]; ?></option>
+            <?php foreach($u as $user): ?>
+               <option value="<?= $user[id]; ?>"><?= $user[account_number]; ?></option>
             <?php endforeach; ?>
         </select>
         <br>

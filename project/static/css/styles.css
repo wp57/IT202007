@@ -57,6 +57,10 @@ form{
     color:black;
     padding: 20px 30px 20px 30px; 
 }
+.shiftRight
+{
+    margin-left: 350px;
+}
 
 input, select {
     margin-left: 300px;

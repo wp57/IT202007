@@ -14,7 +14,7 @@ $stmt = $db->prepare("SELECT * from Accounts where user_id = :id");
     }
 
 ?>
-    <h3>Withdraw Transaction</h3>
+    <h3>Withdraw</h3>
     <form method="POST">
         <label>Account</label>
         <br>

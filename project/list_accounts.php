@@ -17,6 +17,7 @@ $res = [];
     <?php if (count($res) > 0): ?>
         <div class="list-group">
             <?php foreach ($res as $r): ?>
+		<?php if ($r[user_id] == get_user_id()): ?>
                     <div class="list-group-item">
                     <div>
                         <div>Account Number</div>
@@ -38,6 +39,7 @@ $res = [];
 		        <a type="button" href="transaction_hist.php?id=<?php safer_echo($r[id]); ?>">Transaction History</a>
                     </div>
                 </div>   
+		<php endif; ?>
            <?php endforeach; ?>
         </div>
     <?php else: ?>

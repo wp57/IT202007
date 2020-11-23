@@ -1,0 +1,28 @@
+.masthead-heading,
+.masthead-intro {
+text-align: center;
+}
+
+.masthead {
+padding: 6em 0;
+background-image: url('image.jpg');
+background-repeat: no-repeat;
+background-size: cover;
+border-top: solid 1em white;
+}
+
+.masthead-intro {
+margin-bottom: 0.1em;
+}
+
+.masthead-heading {
+margin-top: -0.5em;
+}
+
+.intro-section,
+.interest-section{
+max-width: 38em;
+margin-left: auto;
+margin-right: auto;
+margin-top: 2em;
+}

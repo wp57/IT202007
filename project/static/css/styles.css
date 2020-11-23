@@ -8,7 +8,9 @@ body {
 ul[class="nav"]{
     list-style-type: none;
     font-size:20px;
-    width: 100%
+    width: 25%;
+    height: 100%;
+    position: fixed;
     margin: auto;
     padding: 1;
     overflow: hidden;
@@ -16,10 +18,10 @@ ul[class="nav"]{
 }
 li a{
     display:block;
-    width: 200px;
-    padding: initial;
+    padding: 8px 16px;
 
 }
+
 .nav > li {
     float: left;
 }

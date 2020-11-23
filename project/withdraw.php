@@ -4,7 +4,7 @@
 $db = getDB();
 $u = [];
 $stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id");
-$r = $stmt->execute([":id" => $id]);
+$r = $stmt->execute([":id" => "$id"]);
 $u = $stmt->fetch(PDO::FETCH_ASSOC);
 if ($r) {
 	$u = $stmt->fetchAll(PDO::FETCH_ASSOC);

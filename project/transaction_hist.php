@@ -1,8 +1,8 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 
 <?php
-if (isset($_GET[$id])) {
-    $id = $_GET["id"];
+if (isset($_GET[id])) {
+    $id = $_GET[id];
 }
 ?>
 <?php
@@ -57,3 +57,4 @@ if (isset($id)){
         <p>No results</p>
     <?php endif; ?>
 </div>
+<?php require(__DIR__ . "/partials/flash.php");

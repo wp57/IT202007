@@ -1,14 +1,14 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <div class="shiftRight">
 <?php
-if (isset($id)) {
+
 $db = getDB();
+$id = get_user_id();
 $u = [];
 $stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id");
 $r = $stmt->execute([":id" => "$id"]);
 if ($r) {
-	$u = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} 
+	$u = $stmt->fetchAll(PDO::FETCH_ASSOC); 
 }
 ?>
     <h3>Withdraw</h3>

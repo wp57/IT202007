@@ -4,14 +4,13 @@ text-align: center;
 }
 
 .masthead {
-text-align: center; 
-color: white;
 padding: 6em 0;
+text-align: center;
+color: white;
 background-image: url('image.jpg');
 background-repeat: no-repeat;
 background-size: cover;
 border-top: solid 1em white;
-
 }
 
 .masthead-intro {
@@ -24,8 +23,10 @@ margin-top: -0.5em;
 
 .intro-section,
 .interest-section{
+    background-color: #e8a7d952;
 max-width: 38em;
 margin-left: auto;
 margin-right: auto;
 margin-top: 2em;
 }
+

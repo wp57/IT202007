@@ -136,22 +136,30 @@ if (isset($_POST["saved"])) {
 
 
 ?>
-<div style="background-image: url('bank.jpg');">
     <form method="POST">
         <label for="email">Email</label>
-        <input type="email" name="email" value="<?php safer_echo(get_email()); ?>"/>
-        <label for="username">Username</label>
-        <input type="text" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>
+        <br>
+	<input type="email" name="email" value="<?php safer_echo(get_email()); ?>"/>
+        <br>
+	<label for="username">Username</label>
+        <br>
+	<input type="text" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>
         <!-- DO NOT PRELOAD PASSWORD-->
-        <label for="current">Current Password</label>
-        <input type="password" name="current"/>
-        <label for="pw">Password</label>
-        <input type="password" name="password"/>
-        <label for="cpw">Confirm Password</label>
-        <input type="password" name="confirm"/>
-        <input type="submit" name="saved" value="Save Profile"/>
+        <br>
+	<label for="current">Current Password</label>
+        <br>
+	<input type="password" name="current"/>
+        <br>
+	<label for="pw">Password</label>
+        <br>
+	<input type="password" name="password"/>
+        <br>
+	<label for="cpw">Confirm Password</label>
+        <br>
+	<input type="password" name="confirm"/>
+        <br>
+	<input type="submit" name="saved" value="Save Profile"/>
     </form>
-</div>
 <?php require(__DIR__ . "/partials/flash.php");
 
 

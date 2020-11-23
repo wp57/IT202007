@@ -1,4 +1,3 @@
-<?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <div class="shiftRight">
 <?php
 if (!has_role("Admin")) {

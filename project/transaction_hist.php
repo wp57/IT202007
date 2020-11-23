@@ -4,6 +4,8 @@
 if (isset($_GET[$id])) {
     $id = $_GET["id];
 }
+?>
+<?php
 $query = "";
 $res = [];
 if (isset($id)){

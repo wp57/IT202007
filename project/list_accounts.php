@@ -1,4 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
+<div class="shiftRight">
 <?php
 $query = "";
 $res = [];
@@ -45,6 +46,7 @@ $res = [];
     <?php else: ?>
         <p>No results</p>
 	<?php endif; ?>
+</div>
 </div>
 <?php require(__DIR__ . "/partials/flash.php");
 

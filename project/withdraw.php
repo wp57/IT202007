@@ -5,13 +5,10 @@ $db = getDB();
 $u = [];
 $id = get_user_id();
 $stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = $id");
- $r = $stmt->execute();
-    if ($r) {
-        $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-    else {
-        flash("There was a problem fetching the results");
-    }
+$r = $stmt->execute();
+if ($r) {
+	$u = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} 
 
 ?>
     <h3>Withdraw</h3>
@@ -20,9 +17,7 @@ $stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = $id");
         <br>
         <select name="dest">
             <?php foreach($use as $user): ?>
-	      <?php if ($user[user_id] == $id): ?>
                <option value="<?= $user[id]; ?>"><?= $user[account_number]; ?></option>
-               <?php endif; ?>
             <?php endforeach; ?>
         </select>
         <br>
@@ -51,10 +46,10 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
   $a2tot = null;
   foreach($res as $r)
   {
-    if($account1 == $r["id"])
-        $a1tot = $r["balance"];
-    if($account2 == $r["id"])
-      $a2tot = $r["balance"];
+    if($account1 == $r[id])
+        $a1tot = $r[balance];
+    if($account2 == $r[id])
+      $a2tot = $r[balance];
   }
   if($a1tot+$amountChange >= 0)
   {

@@ -1,11 +1,11 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 
 <?php
-$query = "";
 $res = [];
 $db = getDB();
-$stmt = $db->prepare("SELECT * from Accounts where user_id = :id");
- $r = $stmt->execute([":id" => "$query"]);
+$id = get_user_id();
+$stmt = $db->prepare("SELECT * from Accounts where user_id = $id");
+ $r = $stmt->execute();
     if ($r) {
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -20,7 +20,7 @@ $stmt = $db->prepare("SELECT * from Accounts where user_id = :id");
         <br>
         <select name="dest">
             <?php foreach($use as $user): ?>
-               <option value="<?= $user[id]; ?>"><?= $user[account_number]; ?></option>
+               <option value="<?= $user["id"]; ?>"><?= $user["account_number"]; ?></option>
             <?php endforeach; ?>
         </select>
         <br>
@@ -42,12 +42,12 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
   $stmt2 = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id = :q");
   $r2 = $stmt2->execute([":q" => "$query"]);
   if ($r2) {
-        $results = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+        $res = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     }
 
   $a1tot = null;
   $a2tot = null;
-  foreach($results as $r)
+  foreach($res as $r)
   {
     if($account1 == $r["id"])
         $a1tot = $r["balance"];
@@ -64,14 +64,14 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
   	$stmt->bindValue(":p1a1", $account1);
   	$stmt->bindValue(":p1a2", $account2);
   	$stmt->bindValue(":p1change", $amountChange);
-  	$stmt->bindValue(":type", "Deposit");
+  	$stmt->bindValue(":type", "Withdraw");
   	$stmt->bindValue(":a1tot", $a1tot+$amountChange);
     $stmt->bindValue(":memo", $memo);
   	//flip data for other half of transaction
   	$stmt->bindValue(":p2a1", $account2);
   	$stmt->bindValue(":p2a2", $account1);
   	$stmt->bindValue(":p2change", ($amountChange*-1));
-  	$stmt->bindValue(":type", "Deposit");
+  	$stmt->bindValue(":type", "Withdraw");
   	$stmt->bindValue(":a2tot", $a2tot-$amountChange);
     $stmt->bindValue(":memo", $memo);
   	$result = $stmt->execute();
@@ -82,20 +82,13 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
           $e = $stmt->errorInfo();
           flash("Error creating: " . var_export($e, true));
       }
-      $stmt = $db->prepare("UPDATE Accounts set balance = :balance where id=:id");
-      $r = $stmt->execute([
-         ":balance"=>($a1tot+$amountChange),
-         ":id"=>$account1
-    	]);
-      $r = $stmt->execute([
-         ":balance"=>($a2tot-$amountChange),
-         ":id"=>$account2
-    	]);
-  	return $result;
+      $stmt = $db->prepare("UPDATE Accounts SET balance = (SELECT SUM(amount) FROM Transactions WHERE Transactions.act_src_id = Accounts.id)");
+      $r = $stmt->execute();
+	return $result;
   }
   else
   {
-    flash("Error: You cannot withdraw more than you have");
+    flash("Error: You cannot withdraw more than you have.");
   }
 }
 

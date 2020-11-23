@@ -1,10 +1,18 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 
 <?php
+$query = "";
+$res = [];
 $db = getDB();
-$stmt = $db->prepare("SELECT * from Accounts where user_id = get_user_id()");
-$stmt->execute();
-$users=$stmt->fetchAll(PDO::FETCH_ASSOC);
+$stmt = $db->prepare("SELECT * from Accounts where user_id = :id");
+ $r = $stmt->execute([":id" => "$query"]);
+    if ($r) {
+        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    else {
+        flash("There was a problem fetching the results");
+    }
+
 ?>
     <h3>Withdraw Transaction</h3>
     <form method="POST">

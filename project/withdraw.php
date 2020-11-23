@@ -3,7 +3,7 @@
 <?php
 $db = getDB();
 $u = [];
-//$id = get_user_id();
+$id = get_user_id();
 $stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id");
 $r = $stmt->execute([":id" => $id]);
 $u = $stmt->fetch(PDO::FETCH_ASSOC);

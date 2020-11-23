@@ -17,7 +17,7 @@ $res = [];
     <?php if (count($res) > 0): ?>
         <div class="list-group">
             <?php foreach ($res as $r): ?>
-		<?php if ($r[user_id] == get_user_id()): ?>
+		<?php if ($r["user_id"] == get_user_id()): ?>
                     <div class="list-group-item">
                     <div>
                         <div>Account Number</div>

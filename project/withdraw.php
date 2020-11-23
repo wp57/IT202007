@@ -1,13 +1,13 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 
 <?php
-$res = [];
 $db = getDB();
+$u = [];
 $id = get_user_id();
-$stmt = $db->prepare("SELECT * from Accounts where user_id = $id");
+$stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = $id");
  $r = $stmt->execute();
     if ($r) {
-        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     else {
         flash("There was a problem fetching the results");
@@ -20,7 +20,9 @@ $stmt = $db->prepare("SELECT * from Accounts where user_id = $id");
         <br>
         <select name="dest">
             <?php foreach($use as $user): ?>
-               <option value="<?= $user["id"]; ?>"><?= $user["account_number"]; ?></option>
+	      <?php if ($user[user_id] == $id): ?>
+               <option value="<?= $user[id]; ?>"><?= $user[account_number]; ?></option>
+               <?php endif; ?>
             <?php endforeach; ?>
         </select>
         <br>

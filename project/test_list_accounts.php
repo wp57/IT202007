@@ -6,19 +6,18 @@ if (!has_role("Admin")) {
     die(header("Location: login.php"));
 }
 ?>
-
 <?php
 $query = "";
-$res = [];
+$results = [];
 if (isset($_POST["query"])) {
     $query = $_POST["query"];
 }
 if (isset($_POST["search"]) && !empty($query)) {
     $db = getDB();
-    $stmt = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id = :q LIMIT 10");
-    $r = $stmt->execute([":q" => "$query"]);
+    $stmt = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE user_id like :q LIMIT 5");
+    $r = $stmt->execute([":q" => "%$query%"]);
     if ($r) {
-        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     else {
         flash("There was a problem fetching the results");
@@ -31,24 +30,24 @@ if (isset($_POST["search"]) && !empty($query)) {
     <input type="submit" value="Search" name="search"/>
 </form>
 <div class="results">
-    <?php if (count($res) > 0): ?>
+    <?php if (count($results) > 0): ?>
         <div class="list-group">
-            <?php foreach ($res as $r): ?>
+            <?php foreach ($results as $r): ?>
                 <div class="list-group-item">
                     <div>
-                        <div>Account Number</div>
-                        <div><?php safer_echo($r[account_number]); ?></div>
+                        <div>Account Number:</div>
+                        <div><?php safer_echo($r["account_number"]); ?></div>
                     </div>
                     <div>
-                        <div>Account Type</div>
-                        <div><?php safer_echo($r[account_type]); ?></div>
+                        <div>Account Type:</div>
+                        <div><?php safer_echo($r["account_type"]); ?></div>
                     </div>
                     <div>
-                        <div>Balance</div>
+                        <div>Balance:</div>
                         <div><?php safer_echo($r["balance"]); ?></div>
                     </div>
                     <div>
-                        <div>Owner Id</div>
+                        <div>Owner Id:</div>
                         <div><?php safer_echo($r["user_id"]); ?></div>
                     </div>
                     <div>

@@ -21,7 +21,6 @@ $stmt = $db->prepare("SELECT * from Accounts where user_id = :id");
         <select name="dest">
             <?php foreach($use as $user): ?>
                <option value="<?= $user[id]; ?>"><?= $user[account_number]; ?></option>
-              <?php endif; ?>
             <?php endforeach; ?>
         </select>
         <br>

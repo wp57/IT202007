@@ -1,6 +1,6 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <?php
-
+<div class="shiftRight">
 $db = getDB();
 $id = get_user_id();
 $u = [];
@@ -97,4 +97,5 @@ if (isset($_POST["save"])) {
     do_bank_action($dest, "000000000000", ($amount * -1), $memo);
 }
 ?>
+</div>
 <?php require(__DIR__ . "/partials/flash.php");

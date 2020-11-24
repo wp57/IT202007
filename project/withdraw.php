@@ -16,7 +16,9 @@ if ($r) {
         <br>
         <select name="dest">
             <?php foreach($u as $user): ?>
+         	<?php if ($user["user_id"] == $id): ?>
                <option value="<?= $user["id"]; ?>"><?= $user["account_number"]; ?></option>
+                <?php endif; ?>
             <?php endforeach; ?>
         </select>
         <br>

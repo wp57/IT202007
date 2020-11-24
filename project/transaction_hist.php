@@ -34,14 +34,17 @@ if (isset($id)){
                         <div>Transaction Number:</div>
                         <div><?php safer_echo($r["id"]); ?></div>
                     </div>
+                    <br>
                     <div>
                         <div>Balance:</div>
                         <div><?php safer_echo($r["expected_total"]); ?></div>
                     </div>
+			<br>
                     <div>
                         <div>Account Type:</div>
                         <div><?php safer_echo($r2["account_type"]); ?></div>
                     </div>
+       		    <br>
                     <div>
                         <div>Account Number:</div>
                             <div><?php safer_echo($r2["account_number"]); ?></div>

@@ -16,9 +16,7 @@ if ($r) {
         <br>
         <select name="dest">
             <?php foreach($u as $user): ?>
-         	<?php if ($user["user_id"] == $id): ?>
                <option value="<?= $user["id"]; ?>"><?= $user["account_number"]; ?></option>
-                <?php endif; ?>
             <?php endforeach; ?>
         </select>
         <br>
@@ -40,7 +38,7 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
   $stmt2 = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id like :q");
   $r2 = $stmt2->execute([":q" => "%$query%"]);
   if ($r2) {
-        $res = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+        $res = $stmt2->fetch(PDO::FETCH_ASSOC);
     }
 
   $a1tot = null;

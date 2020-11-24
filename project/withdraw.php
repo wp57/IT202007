@@ -4,8 +4,8 @@
 $db = getDB();
 $id = get_user_id();
 $u = [];
-$stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id");
-$r = $stmt->execute([":id" => "$id"]);
+$stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id like :id");
+$r = $stmt->execute([":id" => "%$id%"]);
 if ($r) {
 	$u = $stmt->fetchAll(PDO::FETCH_ASSOC); 
 }
@@ -38,17 +38,17 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
   $stmt2 = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id like :q");
   $r2 = $stmt2->execute([":q" => "%$query%"]);
   if ($r2) {
-        $res = $stmt2->fetch(PDO::FETCH_ASSOC);
+        $res = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     }
 
   $a1tot = null;
   $a2tot = null;
   foreach($res as $r)
   {
-    if($account1 == $r[id])
-        $a1tot = $r[balance];
-    if($account2 == $r[id])
-      $a2tot = $r[balance];
+    if($account1 == $r["id"])
+        $a1tot = $r["balance"];
+    if($account2 == $r["id"])
+      $a2tot = $r["balance"];
   }
   if($a1tot+$amountChange >= 0)
   {

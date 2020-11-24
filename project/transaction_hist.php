@@ -30,28 +30,31 @@ if (isset($id)){
             <?php foreach ($res as $r): ?>
                 <div class="list-group-item">
                     <?php foreach ($res2 as $r2): ?>
-                    <div>
+                    <?php if ($r["act_src_id"]) == $r2["id"]): ?>
+			<div>
                         <div>Transaction Number:</div>
                         <div><?php safer_echo($r["id"]); ?></div>
                     </div>
-                    <br>
+                 
                     <div>
                         <div>Balance:</div>
                         <div><?php safer_echo($r["expected_total"]); ?></div>
                     </div>
-OA			<br>
+			
                     <div>
                         <div>Account Type:</div>
                         <div><?php safer_echo($r2["account_type"]); ?></div>
                     </div>
-       		    <br>
+       		    
                     <div>
                         <div>Account Number:</div>
                             <div><?php safer_echo($r2["account_number"]); ?></div>
                     </div>
+		    <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
                 <?php echo "<br>"; ?>
+		<br>
             <?php endforeach; ?>
         </div>
     <?php else: ?>

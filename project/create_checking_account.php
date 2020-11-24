@@ -90,7 +90,9 @@ if(isset($_POST["save"])){
          flash("Error creating: " . var_export($e, true));
     }
     $stmt = $db->prepare("UPDATE Accounts SET balance = (SELECT SUM(amount) FROM Transactions WHERE Transactions.act_src_id = Accounts.id)");
-    $r = $stmt->execute();
+    $r = $stmt->execute([
+       ":balance"=>($a1tot-$balance)
+    ]);
 	die(header("Location: list_accounts.php"));
   }
   else

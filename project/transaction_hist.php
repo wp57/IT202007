@@ -32,19 +32,19 @@ if (isset($id)){
                     <?php foreach ($res2 as $r2): ?>
                     <div>
                         <div>Transaction Number:</div>
-                        <div><?php safer_echo($r[id]); ?></div>
+                        <div><?php safer_echo($r["id"]); ?></div>
                     </div>
                     <div>
                         <div>Balance:</div>
-                        <div><?php safer_echo($r[expected_total]); ?></div>
+                        <div><?php safer_echo($r["expected_total"]); ?></div>
                     </div>
                     <div>
                         <div>Account Type:</div>
-                        <div><?php safer_echo($r2[account_type]); ?></div>
+                        <div><?php safer_echo($r2["account_type"]); ?></div>
                     </div>
                     <div>
                         <div>Account Number:</div>
-                            <div><?php safer_echo($r2[account_number]); ?></div>
+                            <div><?php safer_echo($r2["account_number"]); ?></div>
                     </div>
                     <?php endforeach; ?>
                 </div>

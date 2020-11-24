@@ -45,10 +45,10 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
   $a2tot = null;
   foreach($res as $r)
   {
-    if($account1 == $r["id"])
-        $a1tot = $r["balance"];
-    if($account2 == $r["id"])
-      $a2tot = $r["balance"];
+    if($account1 == $r[id])
+        $a1tot = $r[balance];
+    if($account2 == $r[id])
+      $a2tot = $r[balance];
   }
   if($a1tot+$amountChange >= 0)
   {

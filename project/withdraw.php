@@ -98,7 +98,7 @@ if (isset($_POST["save"])) {
 	$isVal = true;
     }
     else {
-	flash("Error: Please enter a positive value.")
+	flash("Error: Please enter a positive value.");
     }
     if ($isVal) {
 	$stmt = $db->prepare("SELECT balance FROM Accounts WHERE id = :id");

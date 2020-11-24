@@ -82,8 +82,7 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
       $r = $stmt->execute();
 	return $result;
   }
-  else
-  {
+  else{
     flash("Error: You cannot withdraw more than you have.");
   }
 }
@@ -93,8 +92,12 @@ if (isset($_POST["save"])) {
     $dest = $_POST["dest"];
     $memo = $_POST["memo"];
     $user = get_user_id();
-    flash($dest);
+    if ($amount > 0) {	
     do_bank_action($dest, "000000000000", ($amount * -1), $memo);
+    }
+    else { 
+    flash("Error: Value must be positive!");
+    }
 }
 ?>
 </div>

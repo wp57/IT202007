@@ -17,7 +17,7 @@ if (isset($id)){
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
   
-    $stmt2 = $db->prepare("SELECT id, account_number, account_type from Accounts WHERE user_id like :q");
+    $stmt2 = $db->prepare("SELECT id, account_number, account_type from Accounts WHERE user_id like :q LIMIT 10");
     $r2 = $stmt2->execute([":q" => "%$query%"]);
     if ($r2) {
         $res2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
@@ -39,7 +39,7 @@ if (isset($id)){
                         <div>Balance:</div>
                         <div><?php safer_echo($r["expected_total"]); ?></div>
                     </div>
-			<br>
+OA			<br>
                     <div>
                         <div>Account Type:</div>
                         <div><?php safer_echo($r2["account_type"]); ?></div>

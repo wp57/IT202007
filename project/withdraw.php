@@ -50,8 +50,7 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
     if($account2 == $r["id"])
       $a2tot = $r["balance"];
   }
-  if($a1tot+$amountChange >= 0)
-  {
+ 
   	$query = "INSERT INTO `Transactions` (`act_src_id`, `act_dest_id`, `amount`, `action_type`, `expected_total`, `memo`) 
   	VALUES(:p1a1, :p1a2, :p1change, :type, :a1tot, :memo), 
   			(:p2a1, :p2a2, :p2change, :type, :a2tot, :memo)";
@@ -90,15 +89,28 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
 
 	return $result;
   }
-  else{
-    flash("Error: You cannot withdraw more than you have.");
-  }
-}
-
 if (isset($_POST["save"])) {
     $amount = (float)$_POST["amount"];
     $dest = $_POST["dest"];
     $memo = $_POST["memo"];
+
+    if ($amount >= 0.0){
+	$isVal = true;
+    }
+    else {
+	flash("Error: Please enter a positive value.")
+    }
+    if ($isVal) {
+	$stmt = $db->prepare("SELECT balance FROM Accounts WHERE id = :id");
+	$r = $stmt->execute([":id" => $id]);
+        $res = $stmt->fetch(PDO::FETCH_ASSOC);
+        $balance = (float)$res["balance"];
+    }
+    if ($amount > $balance) {
+	$isVal = false;
+    	flash("Error: You do not have enough money in your account to make a withdrawal of this amount."); 
+    }
+
     $user = get_user_id();
     $db = getDB();
     $sql = "SELECT DISTINCT id from Accounts where account_number = '000000000000'";
@@ -106,12 +118,7 @@ if (isset($_POST["save"])) {
     $stmt->execute();
     $result=$stmt->fetch();
     $world = $result["id"];
-    if ($amount > 0) {	
     do_bank_action($dest, $world, ($amount * -1), $memo);
-    }
-    else { 
-    flash("Error: Value must be positive!");
-    }
 }
 ?>
 </div>

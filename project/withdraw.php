@@ -4,8 +4,8 @@
 $db = getDB();
 $id = get_user_id();
 $u = [];
-$stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id like :id");
-$r = $stmt->execute([":id" => "%$id%"]);
+$stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id");
+$r = $stmt->execute([":id" => "$id"]);
 if ($r) {
 	$u = $stmt->fetchAll(PDO::FETCH_ASSOC); 
 }

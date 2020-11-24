@@ -66,7 +66,7 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
 	$stmt->bindValue(":p2a2", $account1);
 	$stmt->bindValue(":p2change", ($amountChange*-1));
 	$stmt->bindValue(":type", "Deposit");
-	$stmt->bindValue(":a2tot", $a2total-$amountChange);
+	$stmt->bindValue(":a2tot", $a2tot-$amountChange);
   $stmt->bindValue(":memo", $memo);
 	$result = $stmt->execute();
   if ($result) {

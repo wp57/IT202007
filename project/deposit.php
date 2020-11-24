@@ -86,7 +86,7 @@ if (isset($_POST["save"])) {
     $memo = $_POST["memo"];
     $user = get_user_id();
     flash($source);
-    do_bank_action("000000000000", $source, ($amount * -1), $memo);
+    do_bank_action("0", $source, ($amount * -1), $memo);
 }
 ?>
 </div>

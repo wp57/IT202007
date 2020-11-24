@@ -77,7 +77,14 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
         flash("Error creating: " . var_export($e, true));
     }
     $stmt = $db->prepare("UPDATE Accounts SET balance = (SELECT SUM(amount) FROM Transactions WHERE Transactions.act_src_id = Accounts.id)");
-    $r = $stmt->execute();
+    $r = $stmt->execute([
+       ":balance"=>($a1tot+$amountChange),
+       ":id"=>$account1
+  	]);
+    $r = $stmt->execute([
+       ":balance"=>($a2tot-$amountChange),
+       ":id"=>$account2
+  	]);
 	return $result;
   }       
 if (isset($_POST["save"])) {
@@ -85,8 +92,14 @@ if (isset($_POST["save"])) {
     $source = $_POST["source"];
     $memo = $_POST["memo"];
     $user = get_user_id();
+    $db = getDB();
+    $sql = "SELECT DISTINCT id from Accounts where account_number = '000000000000'";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $result=$stmt->fetch();
+    $world = $result["id"];
     flash($source);
-    do_bank_action("000000000000", $source, ($amount * -1), $memo);
+    do_bank_action($world, $source, ($amount * -1), $memo);
 }
 ?>
 </div>

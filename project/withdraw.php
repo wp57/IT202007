@@ -78,8 +78,16 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
           $e = $stmt->errorInfo();
           flash("Error creating: " . var_export($e, true));
       }
-      $stmt = $db->prepare("UPDATE Accounts SET balance = (SELECT SUM(amount) FROM Transactions WHERE Transactions.act_src_id = Accounts.id)");
-      $r = $stmt->execute();
+    $stmt = $db->prepare("UPDATE Accounts SET balance = (SELECT SUM(amount) FROM Transactions WHERE Transactions.act_src_id = Accounts.id)");
+    $r = $stmt->execute([
+       ":balance"=>($a1tot+$amountChange),
+       ":id"=>$account1
+  	]);
+    $r = $stmt->execute([
+       ":balance"=>($a2tot-$amountChange),
+       ":id"=>$account2
+  	]);
+
 	return $result;
   }
   else{
@@ -92,8 +100,14 @@ if (isset($_POST["save"])) {
     $dest = $_POST["dest"];
     $memo = $_POST["memo"];
     $user = get_user_id();
+    $db = getDB();
+    $sql = "SELECT DISTINCT id from Accounts where account_number = '000000000000'";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $result=$stmt->fetch();
+    $world = $result["id"];
     if ($amount > 0) {	
-    do_bank_action($dest, "000000000000", ($amount * -1), $memo);
+    do_bank_action($dest, $world, ($amount * -1), $memo);
     }
     else { 
     flash("Error: Value must be positive!");

@@ -76,7 +76,7 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
         $e = $stmt->errorInfo();
         flash("Error creating: " . var_export($e, true));
     }
-    $stmt = $db->prepare("UPDATE Accounts SET balance = (SELECT SUM(amount) FROM Transactions WHERE Transactions.act_src_id = Accounts.id)");
+    $stmt = $db->prepare("UPDATE Accounts SET balance = (SELECT SUM(amount) FROM Transactions WHERE Transactions.act_src_id = Accounts.id) where id = :id");
     $r = $stmt->execute([
        ":balance"=>($a1tot+$amountChange),
        ":id"=>$account1

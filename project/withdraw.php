@@ -102,7 +102,7 @@ if (isset($_POST["save"])) {
     }
     if ($isVal) {
 	$stmt = $db->prepare("SELECT balance FROM Accounts WHERE id = :id");
-	$r = $stmt->execute([":id" => $id]);
+	$r = $stmt->execute([":id" => "$id"]);
         $res = $stmt->fetch(PDO::FETCH_ASSOC);
         $balance = (float)$res["balance"];
     }

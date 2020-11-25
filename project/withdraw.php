@@ -38,25 +38,15 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
     $r2 = $stmt2->execute([
        ":id"=>$account1
       ]);
-	$result = $stmt2->fetch();
-    $r2 = $stmt2->execute([
+	$result = $stmt2->fetch(PDO::FETCH_ASSOC);
+	$a1tot = (int)$result["balance"];    
+$r2 = $stmt2->execute([
        ":id"=>$account2
       ]);
-	$result = $stmt2->fetch();
-	
-if ($r2) {
 	$result = $stmt2->fetch(PDO::FETCH_ASSOC);
- }
-
-  $a1tot = null;
-  $a2tot = null;
-  foreach($result as $r)
-  {
-    if($account1 == $r["id"])
-        $a1tot = int($r["balance"]);
-    if($account2 == $r["id"])
-      $a2tot = int($r["balance"]);
-  }
+	$a2tot = (int)$result["balance"];
+ 
+  
   if($a1tot+$amountChange >= 0)
   {
   	$query = "INSERT INTO `Transactions` (`act_src_id`, `act_dest_id`, `amount`, `action_type`, `expected_total`, `memo`) 

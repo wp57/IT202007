@@ -50,19 +50,18 @@ if (isset($_POST["save"])) {
       ]);
 	$result = $stmt2->fetch(PDO::FETCH_ASSOC);
 	$a1tot = (int)$result["balance"];    
-if ($amount <  $a1tot)) {
-   do_bank_action($dest, $world, ($amount * -1), $memo, "withdraw");
-   }
-   else {
-   flash("Error: You do not have enough money to make this withdrawal.");
-   } 
-if ($amount > 0) {	
-    do_bank_action($dest, $world, ($amount * -1), $memo, "withdraw");
+
+if ($amount > 0) {
+        if ($amount < $a1tot) {
+            do_bank_action($dest, $world, ($amount * -1), $memo, "withdraw");
+        }
+            elseif ($amount > $a1tot){
+            flash("Error: You do not have enough money to make this withdrawal.");
+            }
+    else {
+            flash("Error: Value must be positive!");
+        }
     }
-    else { 
-    flash("Error: Value must be positive!");
-    }
-}
 ?>
 </div>
 <?php require(__DIR__ . "/partials/flash.php");

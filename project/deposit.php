@@ -32,43 +32,6 @@ if ($r) {
     </form>
 
 <?php
-	$query = "INSERT INTO `Transactions` (`act_src_id`, `act_dest_id`, `amount`, `action_type`, `expected_total`, `memo`) 
-	VALUES(:p1a1, :p1a2, :p1change, :type, :a1tot, :memo), 
-			(:p2a1, :p2a2, :p2change, :type, :a2tot, :memo)";
-	
-	$stmt = $db->prepare($query);
-	$stmt->bindValue(":p1a1", $account1);
-	$stmt->bindValue(":p1a2", $account2);
-	$stmt->bindValue(":p1change", $amountChange);
-	$stmt->bindValue(":type", "Deposit");
-	$stmt->bindValue(":a1tot", $a1tot+$amountChange);
-  $stmt->bindValue(":memo", $memo);
-	//flip data for other half of transaction
-	$stmt->bindValue(":p2a1", $account2);
-	$stmt->bindValue(":p2a2", $account1);
-	$stmt->bindValue(":p2change", ($amountChange*-1));
-	$stmt->bindValue(":type", "Deposit");
-	$stmt->bindValue(":a2tot", $a2tot-$amountChange);
-  $stmt->bindValue(":memo", $memo);
-	$result = $stmt->execute();
-  if ($result) {
-        flash("Your deposit was made  successfully with id: " . $db->lastInsertId());
-    }
-    else {
-        $e = $stmt->errorInfo();
-        flash("Error creating: " . var_export($e, true));
-    }
-    $stmt = $db->prepare("UPDATE Accounts SET balance = (SELECT SUM(amount) FROM Transactions WHERE Transactions.act_src_id = Accounts.id) where id = :id");
-    $r = $stmt->execute([
-       ":balance"=>($a1tot+$amountChange),
-       ":id"=>$account1
-  	]);
-    $r = $stmt->execute([
-       ":balance"=>($a2tot-$amountChange),
-       ":id"=>$account2
-  	]);
-	return $result;
-  }       
 if (isset($_POST["save"])) {
     $amount = (float)$_POST["amount"];
     $source = $_POST["source"];
@@ -80,7 +43,7 @@ if (isset($_POST["save"])) {
     $stmt->execute();
     $result=$stmt->fetch();
     $world = $result["id"];
-    do_bank_action($world, $source, ($amount * -1), $memo);
+    do_bank_action($world, $source, ($amount * -1), $memo, "deposit");
 }
 ?>
 </div>

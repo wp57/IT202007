@@ -45,7 +45,7 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
   {
     if($account1 == $r["id"])
         $a1tot = $r["balance"];
-flash($a1tot);
+echo ($a1tot);
 
     if($account2 == $r["id"])
       $a2tot = $r["balance"];
@@ -91,7 +91,7 @@ flash($a1tot);
   }
   else{
     flash("Error: You cannot withdraw more than you have.");
-	flash($a1tot); 
+	echo ($a1tot); 
  }
 }
 if (isset($_POST["save"])) {

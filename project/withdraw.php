@@ -53,9 +53,9 @@ if ($r2) {
   foreach($result as $r)
   {
     if($account1 == $r["id"])
-        $a1tot = $r["balance"];
+        $a1tot = int($r["balance"]);
     if($account2 == $r["id"])
-      $a2tot = $r["balance"];
+      $a2tot = int($r["balance"]);
   }
   if($a1tot+$amountChange >= 0)
   {

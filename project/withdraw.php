@@ -55,13 +55,14 @@ if ($amount > 0) {
         if ($amount < $a1tot) {
             do_bank_action($dest, $world, ($amount * -1), $memo, "withdraw");
         }
-            elseif ($amount > $a1tot){
+        elseif ($amount > $a1tot){
             flash("Error: You do not have enough money to make this withdrawal.");
-            }
-    else {
-            flash("Error: Value must be positive!");
         }
-    }
+}
+else {
+        flash("Error: Value must be positive!");
+     }
+}
 ?>
 </div>
 <?php require(__DIR__ . "/partials/flash.php");

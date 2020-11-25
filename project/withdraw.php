@@ -35,14 +35,18 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
   $db = getDB();
   $query = null;
   $stmt2 = $db->prepare("SELECT SUM(amount) as balance FROM Transactions WHERE Transactions.act_src_id = :id");
-    $r2 = $stmt->execute([
-       $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $r2 = $stmt2->execute([
        ":id"=>$account1
       ]);
-    $r2 = $stmt->execute([
-       $result = $stmt->fetch(PDO::FETCH_ASSOC);
+	$result = $stmt2->fetch();
+    $r2 = $stmt2->execute([
        ":id"=>$account2
       ]);
+	$result = $stmt2->fetch();
+	
+if ($r2) {
+	$result = $stmt2->fetch(PDO::FETCH_ASSOC);
+ }
 
   $a1tot = null;
   $a2tot = null;

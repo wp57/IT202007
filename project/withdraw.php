@@ -44,7 +44,19 @@ if (isset($_POST["save"])) {
     $world = $result["id"];
 	
     // get users acc balance from acc table, check for negative withdrawal
-    if ($amount > 0) {	
+ $stmt2 = $db->prepare("SELECT SUM(amount) as balance FROM Accounts WHERE id = :id");
+    $r2 = $stmt2->execute([
+       ":id"=>$account1
+      ]);
+	$result = $stmt2->fetch(PDO::FETCH_ASSOC);
+	$a1tot = (int)$result["balance"];    
+if ($amount <  $a1tot)) {
+   do_bank_action($dest, $world, ($amount * -1), $memo, "withdraw");
+   }
+   else {
+   flash("Error: You do not have enough money to make this withdrawal.");
+   } 
+if ($amount > 0) {	
     do_bank_action($dest, $world, ($amount * -1), $memo, "withdraw");
     }
     else { 

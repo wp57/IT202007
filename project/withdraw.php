@@ -30,7 +30,6 @@ if ($r) {
         <br>
         <input type="submit" name="save" value="Create"/>
     </form>
-
 <?php
 function do_bank_action($account1, $account2, $amountChange, $memo){
   $db = getDB();
@@ -40,19 +39,19 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
   if ($r2) {
         $res = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     }
-
   $a1tot = null;
   $a2tot = null;
   foreach($res as $r)
   {
     if($account1 == $r["id"])
         $a1tot = $r["balance"];
+flash($a1tot);
+
     if($account2 == $r["id"])
       $a2tot = $r["balance"];
-var_export($a1tot);
-  
-}
- 
+  }
+  if($a1tot+$amountChange >= 0)
+  {
   	$query = "INSERT INTO `Transactions` (`act_src_id`, `act_dest_id`, `amount`, `action_type`, `expected_total`, `memo`) 
   	VALUES(:p1a1, :p1a2, :p1change, :type, :a1tot, :memo), 
   			(:p2a1, :p2a2, :p2change, :type, :a2tot, :memo)";
@@ -79,41 +78,26 @@ var_export($a1tot);
           $e = $stmt->errorInfo();
           flash("Error creating: " . var_export($e, true));
       }
+   
     $stmt = $db->prepare("UPDATE Accounts SET balance = (SELECT SUM(amount) FROM Transactions WHERE Transactions.act_src_id = Accounts.id)");
     $r = $stmt->execute([
-       ":balance"=>($a1tot+$amountChange),
        ":id"=>$account1
   	]);
     $r = $stmt->execute([
-       ":balance"=>($a2tot-$amountChange),
        ":id"=>$account2
   	]);
 
 	return $result;
   }
-flash($a1tot);
+  else{
+    flash("Error: You cannot withdraw more than you have.");
+	flash($a1tot); 
+ }
+}
 if (isset($_POST["save"])) {
     $amount = (float)$_POST["amount"];
     $dest = $_POST["dest"];
     $memo = $_POST["memo"];
-
-    if ($amount >= 0.0){
-	$isVal = true;
-    }
-    else {
-	flash("Error: Please enter a positive value.");
-    }
-    if ($isVal) {
-	$stmt = $db->prepare("SELECT balance FROM Accounts WHERE id = :id");
-	$r = $stmt->execute([":id" => "$id"]);
-        $res = $stmt->fetch(PDO::FETCH_ASSOC);
-        $balance = (float)$res["balance"];
-    }
-    if ($amount > $balance) {
-	$isVal = false;
-    	flash("Error: You do not have enough money in your account to make a withdrawal of this amount."); 
-    }
-
     $user = get_user_id();
     $db = getDB();
     $sql = "SELECT DISTINCT id from Accounts where account_number = '000000000000'";
@@ -121,7 +105,12 @@ if (isset($_POST["save"])) {
     $stmt->execute();
     $result=$stmt->fetch();
     $world = $result["id"];
+    if ($amount > 0) {	
     do_bank_action($dest, $world, ($amount * -1), $memo);
+    }
+    else { 
+    flash("Error: Value must be positive!");
+    }
 }
 ?>
 </div>

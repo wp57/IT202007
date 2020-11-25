@@ -49,7 +49,9 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
         $a1tot = $r["balance"];
     if($account2 == $r["id"])
       $a2tot = $r["balance"];
-  }
+flash($a1tot);
+  
+}
  
   	$query = "INSERT INTO `Transactions` (`act_src_id`, `act_dest_id`, `amount`, `action_type`, `expected_total`, `memo`) 
   	VALUES(:p1a1, :p1a2, :p1change, :type, :a1tot, :memo), 
@@ -89,6 +91,7 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
 
 	return $result;
   }
+flash($a1tot);
 if (isset($_POST["save"])) {
     $amount = (float)$_POST["amount"];
     $dest = $_POST["dest"];

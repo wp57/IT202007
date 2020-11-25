@@ -49,7 +49,7 @@ function do_bank_action($account1, $account2, $amountChange, $memo){
         $a1tot = $r["balance"];
     if($account2 == $r["id"])
       $a2tot = $r["balance"];
-flash($a1tot);
+var_export($a1tot);
   
 }
  

@@ -34,19 +34,22 @@ if ($r) {
 function do_bank_action($account1, $account2, $amountChange, $memo){
   $db = getDB();
   $query = null;
-  $stmt2 = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id like :q");
-  $r2 = $stmt2->execute([":q" => "%$query%"]);
-  if ($r2) {
-        $res = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-    }
+  $stmt2 = $db->prepare("SELECT SUM(amount) as balance FROM Transactions WHERE Transactions.act_src_id = :id");
+    $r2 = $stmt->execute([
+       $result = $stmt->fetch(PDO::FETCH_ASSOC);
+       ":id"=>$account1
+      ]);
+    $r2 = $stmt->execute([
+       $result = $stmt->fetch(PDO::FETCH_ASSOC);
+       ":id"=>$account2
+      ]);
+
   $a1tot = null;
   $a2tot = null;
-  foreach($res as $r)
+  foreach($result as $r)
   {
     if($account1 == $r["id"])
         $a1tot = $r["balance"];
-echo ($a1tot);
-
     if($account2 == $r["id"])
       $a2tot = $r["balance"];
   }

@@ -32,24 +32,6 @@ if ($r) {
     </form>
 
 <?php
-function do_bank_action($account1, $account2, $amountChange, $memo){
-  $db = getDB();
-  $query = null;
-  $stmt2 = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id = :q");
-  $r2 = $stmt2->execute([":q" => "$query"]);
-  if ($r2) {
-        $results = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-  $a1tot = null;
-  $a2tot = null;
-  foreach($results as $r)
-  {
-    if($account1 == $r["id"])
-        $a1tot = $r["balance"];
-    if($account2 == $r["id"])
-      $a2tot = $r["balance"];
-  }
 	$query = "INSERT INTO `Transactions` (`act_src_id`, `act_dest_id`, `amount`, `action_type`, `expected_total`, `memo`) 
 	VALUES(:p1a1, :p1a2, :p1change, :type, :a1tot, :memo), 
 			(:p2a1, :p2a2, :p2change, :type, :a2tot, :memo)";

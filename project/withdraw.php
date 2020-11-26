@@ -44,12 +44,12 @@ if (isset($_POST["save"])) {
     $world = $result["id"];
 	
     // get users acc balance from acc table, check for negative withdrawal
- $stmt2 = $db->prepare("SELECT SUM(amount) as balance FROM Accounts WHERE id = :id");
+ $stmt2 = $db->prepare("SELECT balance FROM Accounts WHERE id = :id");
     $r2 = $stmt2->execute([
-       ":id"=>$account1
+       ":id"=>$dest
       ]);
 	$result = $stmt2->fetch(PDO::FETCH_ASSOC);
-	$a1tot = (int)$result["balance"];    
+	$a1tot = $result["balance"];    
 
 if ($amount > 0) {
         if ($amount < $a1tot) {

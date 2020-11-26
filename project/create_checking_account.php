@@ -44,12 +44,12 @@ if(isset($_POST["save"])){
     }
     while($e[0] == "23000");
     if($r){
-  		flash("Created successfully with id: " . $db->lastInsertId() . "!");
+  		flash("Your checking account was successfully created with id: " . $db->lastInsertId() . "!");
                 die(header("Location: list_accounts.php"));	
     }
   	else{
   		$e = $stmt->errorInfo();
-  		flash("Error creating: " . var_export($e, true));
+  		flash("Sorry, there was an error creating: " . var_export($e, true));
   	}
   $query = null;
    $stmt2 = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id like :q");
@@ -83,11 +83,11 @@ if(isset($_POST["save"])){
   	$stmt->bindValue(":a2tot", $balance);
   	$result = $stmt->execute();
     if ($result) {
-          flash("Transaction created successfully with id: " . $db->lastInsertId());
+          flash("Your transaction was created successfully with id: " . $db->lastInsertId());
       }
     else {
          $e = $stmt->errorInfo();
-         flash("Error creating: " . var_export($e, true));
+         flash("Sorry, there was an error creating: " . var_export($e, true));
     }
     $stmt = $db->prepare("UPDATE Accounts SET balance = (SELECT SUM(amount) FROM Transactions WHERE Transactions.act_src_id = Accounts.id) where id = :id");
     $r = $stmt->execute([
@@ -102,7 +102,7 @@ if(isset($_POST["save"])){
   }
   else
   {
-    flash('Balance must be $5.00 or more');
+    flash('Balance must be $5.00 or more! Please try again.');
   }
 }
 ?>

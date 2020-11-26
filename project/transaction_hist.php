@@ -23,7 +23,7 @@ if (isset($id)){
         $res2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     }
 ?>
-<h3>List Transactions</h3>
+<h3>Transaction History</h3>
 <div class="results">
     <?php if (count($res) > 0): ?>
         <div class="list-group">

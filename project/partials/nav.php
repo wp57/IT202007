@@ -1,4 +1,3 @@
-</html>
 <link rel="stylesheet" href="static/css/styles.css">
 <?php
 // branch

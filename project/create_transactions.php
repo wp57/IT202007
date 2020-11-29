@@ -1,4 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
+<div class="shiftRight">
 <?php
 if (!has_role("Admin")) {
     //this will redirect to login and kill the rest of this script (prevent it from executing)
@@ -66,64 +67,7 @@ $users=$stmt->fetchAll();
         <br>
         <input type="submit" name="save" value="Create"/>
     </form>
-
 <?php
-function do_bank_action($account1, $account2, $amountChange, $type, $memo){
-$db = getDB();
-$sql = "SELECT id, balance from Accounts WHERE id = :a1 or id = :a2";
-$stmt2 = $db->prepare($sql);
-$r2 = $stmt2->execute([":a1"=>$account1, ":a2"=>$account2]);
-  if ($r2) {
-        $results = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-  $a1total = null;
-  $a2total = null;
-  foreach($results as $r)
-  {
-    if($account1 == $r["id"])
-        $a1total = $r["balance"];
-    if($account2 == $r["id"])
-      $a2total = $r["balance"];
-  }
-	$query = "INSERT INTO `Transactions` (`act_src_id`, `act_dest_id`, `amount`, `action_type`, `expected_total`, `memo`) 
-	VALUES(:p1a1, :p1a2, :p1change, :type, :a1total, :memo), 
-			(:p2a1, :p2a2, :p2change, :type, :a2total, :memo)";
-
-	$stmt = $db->prepare($query);
-	$stmt->bindValue(":p1a1", $account1);
-	$stmt->bindValue(":p1a2", $account2);
-	$stmt->bindValue(":p1change", $amountChange);
-	$stmt->bindValue(":type", $type);
-	$stmt->bindValue(":a1total", $a1total+$amountChange);
-  $stmt->bindValue(":memo", $memo);
-	//flip data for other half of transaction
-	$stmt->bindValue(":p2a1", $account2);
-	$stmt->bindValue(":p2a2", $account1);
-	$stmt->bindValue(":p2change", ($amountChange*-1));
-	$stmt->bindValue(":type", $type);
-	$stmt->bindValue(":a2total", $a2total-$amountChange);
-  $stmt->bindValue(":memo", $memo);
-	$result = $stmt->execute();
-  if ($result) {
-        flash("Created successfully with id: " . $db->lastInsertId());
-    }
-    else {
-        $e = $stmt->errorInfo();
-        flash("Error creating: " . var_export($e, true));
-    }
-    $stmt = $db->prepare("UPDATE Accounts set balance = :balance where id=:id");
-    $r = $stmt->execute([
-       ":balance"=>($a1total+$amountChange),
-       ":id"=>$account1
-  	]);
-    $r = $stmt->execute([
-       ":balance"=>($a2total-$amountChange),
-       ":id"=>$account2
-  	]);
-	return $result;
-}
-
 if (isset($_POST["save"])) {
     $amount = (float)$_POST["amount"];
     $source = $_POST["source"];
@@ -151,4 +95,5 @@ if (isset($_POST["save"])) {
     }
 }
 ?>
+</div>
 <?php require(__DIR__ . "/partials/flash.php");

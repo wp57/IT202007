@@ -26,13 +26,13 @@ $users=$stmt->fetchAll();
         <br>
         <label>Account</label>
         <br>
-
+        
         <select name="source">
             <?php foreach($users as $user): ?>
               <option value="<?= $user['id']; ?>"><?= $user['account_number']; ?></option>
             <?php endforeach; ?>
         </select>
-
+        
         <div id="ifTran">
         <br>
         <label>Transaction Destination</label>
@@ -43,7 +43,7 @@ $users=$stmt->fetchAll();
             <?php endforeach; ?>
         </select>
         </div>
-
+        
         <script>
         document.getElementById("ifTran").style.display = "none";
         function myFunction() {
@@ -54,7 +54,7 @@ $users=$stmt->fetchAll();
             document.getElementById("ifTran").style.display = "none";
         }
         </script>
-
+        
         <br>
         <label>Amount</label>
         <br>
@@ -89,7 +89,7 @@ $r2 = $stmt2->execute([":a1"=>$account1, ":a2"=>$account2]);
 	$query = "INSERT INTO `Transactions` (`act_src_id`, `act_dest_id`, `amount`, `action_type`, `expected_total`, `memo`) 
 	VALUES(:p1a1, :p1a2, :p1change, :type, :a1total, :memo), 
 			(:p2a1, :p2a2, :p2change, :type, :a2total, :memo)";
-
+	
 	$stmt = $db->prepare($query);
 	$stmt->bindValue(":p1a1", $account1);
 	$stmt->bindValue(":p1a2", $account2);

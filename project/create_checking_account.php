@@ -106,5 +106,4 @@ if(isset($_POST["save"])){
   }
 }
 ?>
-</drift>
 <?php require(__DIR__ . "/partials/flash.php");

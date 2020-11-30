@@ -26,22 +26,25 @@
 require_once(__DIR__ . "/../lib/helpers.php");
 ?>
 <body>
-<nav>
-<ul class="nav">
-<div class="dropdown-menu">
-<button class="menu-btn">Menu<</button>
-<div class="menu-content">
+     <nav>
+	<div class="logo">
+            <h4>BANK</h4>
+        </div>
+        <ul class="nav-links">
+            <li>
     <li><a href="home.php">Home</a></li>
     <?php if (!is_logged_in()): ?>
         <li><a href="login.php">Login</a></li>
         <li><a href="register.php">Register</a></li>
     <?php endif; ?>
-    <?php if(has_role("Admin")): ?>
+         </ul>
+       <div class = "burger">
+            <div class="L1"></div>
+            <div class="L2"></div>
+	    <div class="L3"></div>
+	 <?php if(has_role("Admin")): ?>
         <li><a href="create_account.php">Create Account</a></li>
         <li><a href="create_transactions.php">Create a Transaction</a></li>
-    <?php endif; ?>
-
-    <?php if (is_logged_in()): ?>
         <li><a href="create_checking_account.php">Create Checking Account</a></li>
         <li><a href="list_accounts.php">List Accounts</a></li>
         <li><a href="deposit.php">Deposit</a></li>
@@ -50,21 +53,8 @@ require_once(__DIR__ . "/../lib/helpers.php");
         <li><a href="profile.php">Profile</a></li>
         <li><a href="logout.php">Logout</a></li>
     <?php endif; ?>
-</div>
-</div>
-<a class="hamburger">☰</a>
-</ul>
-</nav>
 
-<script>
-var x = document.getElementsByTagName("nav")[0];
-function toggleNav() {
-   if (x.className === "") {
-      x.className = " openNav";
-   } else {
-      x.className = "";
-   }
-}
-document.querySelector(".hamburger").addEventListener("click", toggleNav);
-</script>
+       </div>
+    </nav>
+    <script src="javas.js"></script>
 </body>

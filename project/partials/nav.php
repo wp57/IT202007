@@ -25,23 +25,22 @@
 //we'll be including this on most/all pages so it's a good place to include anything else we want on those pages
 require_once(__DIR__ . "/../lib/helpers.php");
 ?>
-<body>
-     <nav>
-	<div class="logo">
-            <h4>BANK</h4>
-        </div>
-        <ul class="nav-links">
-            <li>
+
+<nav class="navbar      navbar-light " align="center" >
+ <!-- <a class="navbar-brand" align="center"  href="#">Peremanent Nav elem</a> -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+   <span class="navbar-toggler-icon"></span>
+
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+
+
     <li><a href="home.php">Home</a></li>
     <?php if (!is_logged_in()): ?>
         <li><a href="login.php">Login</a></li>
         <li><a href="register.php">Register</a></li>
     <?php endif; ?>
-         </ul>
-       <div class = "burger">
-            <div class="L1"></div>
-            <div class="L2"></div>
-	    <div class="L3"></div>
 	 <?php if(has_role("Admin")): ?>
         <li><a href="create_account.php">Create Account</a></li>
         <li><a href="create_transactions.php">Create a Transaction</a></li>
@@ -53,8 +52,6 @@ require_once(__DIR__ . "/../lib/helpers.php");
         <li><a href="profile.php">Profile</a></li>
         <li><a href="logout.php">Logout</a></li>
     <?php endif; ?>
-
-       </div>
+</ul>
+</div>
     </nav>
-    <script src="javas.js"></script>
-</body>

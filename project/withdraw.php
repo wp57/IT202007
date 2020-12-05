@@ -1,5 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<div class="Transaction">
+<div class="big">
 <?php
 $db = getDB();
 $id = get_user_id();

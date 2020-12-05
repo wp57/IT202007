@@ -1,6 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-// for branch
-<div class="shiftRight">
+<div class="list">
 <?php
 $query = "";
 $res = [];

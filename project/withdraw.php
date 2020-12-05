@@ -1,5 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<div class="shiftRight">
+<div class="Transaction">
 <?php
 $db = getDB();
 $id = get_user_id();
@@ -12,21 +12,18 @@ if ($r) {
 ?>
     <h3>Make a Withdrawal</h3>
     <form method="POST">
-        <label>Account</label>
+       
         <br>
         <select name="dest">
             <?php foreach($u as $user): ?>
+<option value="" disabled selected>Account</option>		
                <option value="<?= $user["id"]; ?>"><?= $user["account_number"]; ?></option>
             <?php endforeach; ?>
         </select>
         <br>
-        <label>Amount</label>
+        <input type="float" min="0.00" placeholder = "Amount" name="amount"/>
         <br>
-        <input type="float" min="0.00" name="amount"/>
-        <br>
-        <label>Memo</label>
-        <br>
-        <input type="text" placeholder="Optional message for your withdrawal" name="memo"/>
+        <input type="text" placeholder="Attach optional message" name="memo"/>
         <br>
         <input type="submit" name="save" value="Create"/>
     </form>

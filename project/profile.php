@@ -1,4 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
+<div class="big">
 <?php
 
 //Note: we have this up here, so our update happens before our get/fetch
@@ -136,30 +137,23 @@ if (isset($_POST["saved"])) {
 
 
 ?>
+<div class="this">
     <form method="POST">
-        <label for="email">Email</label>
+	<input type="email" placeholder="Email" name="email" value="<?php safer_echo(get_email()); ?>"/>
         <br>
-	<input type="email" name="email" value="<?php safer_echo(get_email()); ?>"/>
-        <br>
-	<label for="username">Username</label>
-        <br>
-	<input type="text" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>
+	<input type="text" placeholder="Username" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>
         <!-- DO NOT PRELOAD PASSWORD-->
         <br>
-	<label for="current">Current Password</label>
+	<input type="password" placeholder="Current password" name="current"/>
         <br>
-	<input type="password" name="current"/>
+	<input type="password" placeholder="New password" name="password"/>
         <br>
-	<label for="pw">Password</label>
-        <br>
-	<input type="password" name="password"/>
-        <br>
-	<label for="cpw">Confirm Password</label>
-        <br>
-	<input type="password" name="confirm"/>
+	<input type="password" placeholder="Confirm password" name= "confirm"/>
         <br>
 	<input type="submit" name="saved" value="Save Profile"/>
     </form>
+</div>
+</div>
 <?php require(__DIR__ . "/partials/flash.php");
 
 

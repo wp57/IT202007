@@ -15,6 +15,7 @@ $stmt = $db->prepare($sql);
 $stmt->execute();
 $users=$stmt->fetchAll();
 ?>
+<div class ="box">
     <h3>Create Transaction</h3>
     <form method="POST">
         <label>Action Type</label>
@@ -67,6 +68,7 @@ $users=$stmt->fetchAll();
         <br>
         <input type="submit" name="save" value="Create"/>
     </form>
+</div>
 <?php
 if (isset($_POST["save"])) {
     $amount = (float)$_POST["amount"];

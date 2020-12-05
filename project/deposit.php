@@ -12,21 +12,17 @@ if ($r) {
 ?>
     <h3>Make a Deposit</h3>
     <form method="POST">
-        <label>Account</label>
         <br>
         <select name="source">
             <?php foreach($u as $user): ?>
+	     <option value="" disabled selected>Account</option>
               <option value="<?= $user["id"]; ?>"><?= $user["account_number"]; ?></option>
             <?php endforeach; ?>
         </select>
         <br>
-        <label>Amount</label>
+        <input type="float" placeholder="Amount" min="0.00" name="amount"/>
         <br>
-        <input type="float" min="0.00" name="amount"/>
-        <br>
-        <label>Memo</label>
-        <br>
-        <input type="text" placeholder="Optional message for your deposit" name="memo"/>
+        <input type="text" placeholder="Attach optional message" name="memo"/>
         <br>
         <input type="submit" name="save" value="Create"/>
     </form>

@@ -1,10 +1,15 @@
 /* design intentionally made horrible to see who doesn't change it*/
 body {
 
-    font-family: auto;
+    font-family: system-ui;
    // background-color: #e8e8e89c;
      background-color: #a1cfcf;
 
+}
+.heading{
+    margin-left: 90px;
+     font-size: 35px;
+     font-weight: 600;
 }
 ul[class="nav"]{
     position: absolute;
@@ -95,14 +100,3 @@ input[type=submit] {
     border-radius: 10px;
     cursor: pointer;
 }
-
-
-
-
-
-
-
-
-
-
-

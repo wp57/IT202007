@@ -1,5 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<div class="shiftRight">
+<div class="Transaction">
 <?php
 if (!has_role("Admin")) {
     //this will redirect to login and kill the rest of this script (prevent it from executing)
@@ -17,34 +17,26 @@ $users=$stmt->fetchAll();
 ?>
     <h3>Create Transaction</h3>
     <form method="POST">
-        <label>Action Type</label>
         <br>
         <select name="actType" id ="mySelect" onchange="myFunction()">
             <option value="Deposit">Deposit</option>
             <option value="Withdraw">Withdraw</option>
             <option value="Transfer">Transfer</option>
         </select>	
-        <br>
-        <label>Account</label>
-        <br>
-
         <select name="source">
             <?php foreach($users as $user): ?>
+              <option value="" disabled selected>Action Type</option>
               <option value="<?= $user['id']; ?>"><?= $user['account_number']; ?></option>
             <?php endforeach; ?>
         </select>
-
         <div id="ifTran">
-        <br>
-        <label>Transaction Destination</label>
-        <br>
         <select name="dest">
             <?php foreach($users as $user): ?>
+              <option value="" disabled selected>Account</option>
               <option value="<?= $user['id']; ?>"><?= $user['account_number']; ?></option>
             <?php endforeach; ?>
         </select>
         </div>
-
         <script>
         document.getElementById("ifTran").style.display = "none";
         function myFunction() {
@@ -55,15 +47,10 @@ $users=$stmt->fetchAll();
             document.getElementById("ifTran").style.display = "none";
         }
         </script>
-
         <br>
-        <label>Amount</label>
+        <input type="float" placeholder="Amount" min="0.00" name="amount"/>
         <br>
-        <input type="float" min="0.00" name="amount"/>
-        <br>
-        <label>Memo</label>
-        <br>
-        <input type="text" placeholder="Optional message for your transaction"  name="memo"/>
+        <input type="text" placeholder="Attach optional message"  name="memo"/>
         <br>
         <input type="submit" name="save" value="Create"/>
     </form>

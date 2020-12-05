@@ -1,5 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-
+<div class="Transaction">
 <?php
 $db = getDB();
 $users = [];
@@ -48,4 +48,5 @@ if (isset($_POST["save"])) {
 	flash("Error: Value must be positive!");
 }
 ?>
+</div>
 <?php require(__DIR__ . "/partials/flash.php"); 

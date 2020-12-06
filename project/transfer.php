@@ -11,7 +11,7 @@ if ($r) {
 }
 ?>
     <form method="POST">
-<div class = "heading">
+<div class = "heading4">
 <h3>Make a Transfer</h3>
 </div>
         <br>

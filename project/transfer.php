@@ -10,8 +10,10 @@ if ($r) {
         $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
-    <h3>Make a Deposit</h3>
     <form method="POST">
+<div class = "heading">
+<h3>Make a Transfer</h3>
+</div>
         <br>
         <select name="source">
             <?php foreach($u as $user): ?>

@@ -137,12 +137,13 @@ if (isset($_POST["saved"])) {
 
 
 ?>
+    <form method="POST">
 <div class="heading"
 
     <h3>Edit Your Profile</h3>
 </div>
 
-    <form method="POST">
+
 	<input type="email" placeholder="Email" name="email" value="<?php safer_echo(get_email()); ?>"/>
         <br>
 	<input type="text" placeholder="Username" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>

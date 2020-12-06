@@ -7,18 +7,16 @@ $u = [];
 $stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id");
 $r = $stmt->execute([":id" => "$id"]);
 if ($r) {
-	$u = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+        $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
+    <h3>Make a Deposit</h3>
     <form method="POST">
-<div class = "heading">
-    <h3>Make a Withdrawal</h3>
-</div>
         <br>
-        <select name="dest">
+        <select name="source">
             <?php foreach($u as $user): ?>
-	      <option value="" disabled selected>Account</option>
-               <option value="<?= $user["id"]; ?>"><?= $user["account_number"]; ?></option>
+	     <option value="" disabled selected>Account</option>
+              <option value="<?= $user["id"]; ?>"><?= $user["account_number"]; ?></option>
             <?php endforeach; ?>
         </select>
         <br>
@@ -28,10 +26,11 @@ if ($r) {
         <br>
         <input type="submit" name="save" value="Create"/>
     </form>
+
 <?php
 if (isset($_POST["save"])) {
     $amount = (float)$_POST["amount"];
-    $dest = $_POST["dest"];
+    $source = $_POST["source"];
     $memo = $_POST["memo"];
     $user = get_user_id();
     $db = getDB();
@@ -40,26 +39,12 @@ if (isset($_POST["save"])) {
     $stmt->execute();
     $result=$stmt->fetch();
     $world = $result["id"];
-	
-    // get users acc balance from acc table, check for negative withdrawal
- $stmt2 = $db->prepare("SELECT balance FROM Accounts WHERE id = :id");
-    $r2 = $stmt2->execute([
-       ":id"=>$dest
-      ]);
-	$result = $stmt2->fetch(PDO::FETCH_ASSOC);
-	$a1tot = $result["balance"];    
-
 if ($amount > 0) {
-        if ($amount < $a1tot) {
-            do_bank_action($dest, $world, ($amount * -1), $memo, "withdraw");
-        }
-        elseif ($amount > $a1tot){
-            flash("Error: You do not have enough money to make this withdrawal.");
-        }
+    do_bank_action($world, $source, ($amount * -1), $memo, "deposit");    
 }
 else {
-        flash("Error: Value must be positive!");
-     }
+        flash("Error: Value must be positive! Try again.");
+}
 }
 ?>
 </div>

@@ -1,5 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<div class="shiftRight">
+<div class="big">
 <?php
 if (!has_role("Admin")) {
     //this will redirect to login and kill the rest of this script (prevent it from executing)
@@ -9,17 +9,17 @@ if (!has_role("Admin")) {
 ?>
 
 <form method="POST">
-        <label>Account Number:</label>
+<div class="heading3"
+
+    <h3>Create an Account</h3>
+</div>
+
  <br>
-        <input type="text" minlength="12"  name="aNum"/>
+        <input type="text" placeholder="Account Number" minlength="12"  name="aNum"/>
   <br>
-  <label>Account Type:</label>
-  <br>
-        <input type="text" name="aType"/>
+        <input type="text" placeholder="Account Type" name="aType"/>
  <br>
-  <label>Balance:</label>
-  <br>
-        <input type="float" min="0.00" name="balance"/>
+        <input type="float" placeholder="Balance" min="0.00" name="balance"/>
  <br>
         <input type="submit" name="save" value="Create"/>
 </form>

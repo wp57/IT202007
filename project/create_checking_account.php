@@ -1,4 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
+<div class = "big">
 <?php
 if (!has_role("Admin")) {
     //this will redirect to login and kill the rest of this script (prevent it from executing)
@@ -6,11 +7,13 @@ if (!has_role("Admin")) {
     die(header("Location: login.php"));
 }
 ?>
-<h3>Create Checking Account</h3>
 <form method="POST">
-  <label>Balance</label>
+<div class = "heading2">
+<h3>Create Checking Account</h3>
+</div>
+
   <br>
-	<input type="float" min="5.00" name="balance"/>
+	<input type="float" placeholder = "Balance" min="5.00" name="balance"/>
  <br>
 	<input type="submit" name="save" value="Create"/>
 </form>
@@ -106,4 +109,5 @@ if(isset($_POST["save"])){
   }
 }
 ?>
+</div>
 <?php require(__DIR__ . "/partials/flash.php");

@@ -1,5 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<div class="Transaction">
+<div class="big">
 <?php
 if (!has_role("Admin")) {
     //this will redirect to login and kill the rest of this script (prevent it from executing)
@@ -15,7 +15,9 @@ $stmt = $db->prepare($sql);
 $stmt->execute();
 $users=$stmt->fetchAll();
 ?>
-    <h3>Create Transaction</h3>
+<div class = "heading">
+    <h3>Create a Transaction</h3>
+</div>
     <form method="POST">
         <br>
         <select name="actType" id ="mySelect" onchange="myFunction()">

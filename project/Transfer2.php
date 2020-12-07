@@ -54,7 +54,7 @@ if (isset($_POST["save"])) {
     {
       if($thisName["last_name"] == $lastName)
       {
-        $thisId = $this["id"];
+        $thisId = $thisName["id"];
         $stmt2 = $db->prepare("SELECT * from Accounts WHERE user_id = :q");
         $r2 = $stmt2->execute([":q" => "$thisId"]);
         if ($r) {

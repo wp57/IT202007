@@ -147,14 +147,12 @@ function get_firstName() {
     if (is_logged_in() && isset($_SESSION["user"]["first_name"])) {
         return $_SESSION["user"]["first_name"];
     }
-    return "";
 }
 
 function get_lastName() {
     if (is_logged_in() && isset($_SESSION["user"]["last_name"])) {
         return $_SESSION["user"]["last_name"];
     }
-    return "";
 }
 
 //end flash

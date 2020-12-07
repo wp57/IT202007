@@ -37,10 +37,14 @@ $db->prepare("SELECT * from Accounts WHERE user_id = :id"); $r = $stmt->execute(
     foreach($res as $thisName)
     {
       if($thisName["last_name"] == $lastName)
+
       { 
         $thisId = $thisName["id"];
         $stmt2 = $db->prepare("SELECT * from Accounts WHERE user_id like :q");
         $r2 = $stmt2->execute([":q" => "%$thisId%"]); 
+
+      {
+
         $thisId = $thisName["id"];
         $stmt2 = $db->prepare("SELECT * from Accounts WHERE user_id = :q");
         $r2 = $stmt2->execute([":q" => "$thisId"]);
@@ -56,8 +60,7 @@ $db->prepare("SELECT * from Accounts WHERE user_id = :id"); $r = $stmt->execute(
             break;
           }
         }
-        if(strlen($dest > 4)) 
-        flash("Error: Only enter the last 4 digits of the destination account number."); 
+
 	break;
       }
     }

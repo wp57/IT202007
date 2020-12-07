@@ -10,7 +10,7 @@ if ($r) {
         $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
-    <form method="POST" style = "height: 400px">
+    <form method="POST" style = "height: 450px">
 <div class = "heading4">
 <h3>Make a Transfer</h3>
 </div>
@@ -18,6 +18,13 @@ if ($r) {
             <?php foreach($u as $user): ?>
              <option value="" disabled selected>Account</option>
               <option value="<?= $user["id"]; ?>"><?= $user["account_number"]; ?></option>
+            <?php endforeach; ?>
+        </select>
+        <br>
+        <select name="dest">
+            <?php foreach($u as $user): ?>
+	      <option value="" disabled selected>Destination Account</option>
+              <option value="<?= $user['id']; ?>"><?= $user['account_number']; ?></option>
             <?php endforeach; ?>
         </select>
         <br>
@@ -41,7 +48,7 @@ if (isset($_POST["save"])) {
     $result=$stmt->fetch();
     $world = $result["id"];
 if ($amount > 0) {
-    do_bank_action($world, $source, ($amount * -1), $memo, "deposit");
+    do_bank_action($world, $source, ($amount * -1), $memo, "Transfer");
 }
 else {
         flash("Error: Value must be positive! Try again.");

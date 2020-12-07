@@ -41,7 +41,7 @@ if (isset($_POST["save"])) {
     $result=$stmt->fetch();
     $world = $result["id"];
 if ($amount > 0) {
-    do_bank_action($world, $source, ($amount * -1), $memo, "deposit");
+    do_bank_action($world, $source, ($amount * -1), $memo, "Transfer");
 }
 else {
         flash("Error: Value must be positive! Try again.");

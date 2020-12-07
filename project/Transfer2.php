@@ -85,7 +85,7 @@ if (isset($_POST["save"])) {
     {
       if($amount > 0 && $source != $dest){
             if ($amount < $a1tot) {
-        do_bank_action($source, $dest, ($amount * -1), $memo, "Transfer");
+        do_bank_action($source, $dest, ($amount * -1), $memo, "Out Transfer");
       }
 	elseif($amount <= 0){
           flash("Enter a positive value");

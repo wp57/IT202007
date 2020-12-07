@@ -1,7 +1,5 @@
-<?php require_once(__DIR__ . "/partials/nav.php"); ?> <div class="big"> 
-<?php $db = getDB(); $u = []; $id = get_user_id(); $stmt = 
-$db->prepare("SELECT * from Accounts WHERE user_id = :id"); $r = 
-$stmt->execute([":id" => $id]); if ($r) {
+<?php require_once(__DIR__ . "/partials/nav.php"); ?> <div class="big"> <?php $db = getDB(); $u = []; $id = get_user_id(); $stmt = 
+$db->prepare("SELECT * from Accounts WHERE user_id = :id"); $r = $stmt->execute([":id" => $id]); if ($r) {
     $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?> <form method="POST" style = "height: 550px"> <div class = "heading2">
@@ -9,20 +7,17 @@ $stmt->execute([":id" => $id]); if ($r) {
         <select name="source">
             <?php foreach($u as $user): ?>
                 <option value="" disabled selected>Account</option>
-               <option value="<?= $user['id']; ?>"><?= 
-$user['account_number']; ?></option>
+               <option value="<?= $user['id']; ?>"><?= $user['account_number']; ?></option>
             <?php endforeach; ?>
         </select>
         <br>
-        <input type="int" placeholder="Last 4 Digits of Destination 
-Account" maxlength = "4" name="dest"/>
+        <input type="int" placeholder="Last 4 Digits of Destination Account" maxlength = "4" name="dest"/>
         <br>
         <input type="text" placeholder="User's Last Name" name="lastName"/>
         <br>
         <input type="float" placeholder="Amount" min="0.00" name="amount"/>
         <br>
-        <input type="text" placeholder="Attach optional message" 
-name="memo"/>
+        <input type="text" placeholder="Attach optional message" name="memo"/>
         <br>
         <input type="submit" name="save" value="Create"/>
     </form> <?php if (isset($_POST["save"])) {
@@ -42,10 +37,11 @@ name="memo"/>
     foreach($res as $thisName)
     {
       if($thisName["last_name"] == $lastName)
-      {
-        $thisId = $thisName["id"]; 
+      { 
+        $thisId = $thisName["id"];
         $stmt2 = $db->prepare("SELECT * from Accounts WHERE user_id like :q");
-        $r2 = $stmt2->execute([":q" => "%$thisId%"]);
+        $r2 = $stmt2->execute([":q" => "%$thisId%"]); 
+        $thisId = $thisName["id"];
         $stmt2 = $db->prepare("SELECT * from Accounts WHERE user_id = :q");
         $r2 = $stmt2->execute([":q" => "$thisId"]);
         if ($r) {
@@ -60,8 +56,8 @@ name="memo"/>
             break;
           }
         }
-        if(strlen($dest > 4))
-        flash("Error: Only enter the last 4 digits of the destination account number.");
+        if(strlen($dest > 4)) 
+        flash("Error: Only enter the last 4 digits of the destination account number."); 
 	break;
       }
     }
@@ -90,5 +86,4 @@ name="memo"/>
     else
       flash("No such account is found");
 }
-?> </div>
-<?php require(__DIR__ . "/partials/flash.php");
+?> </div> <?php require(__DIR__ . "/partials/flash.php");

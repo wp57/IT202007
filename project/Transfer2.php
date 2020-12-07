@@ -32,7 +32,6 @@ if ($r) {
         <br>
         <input type="submit" name="save" value="Create"/>
     </form>
-
 <?php
 if (isset($_POST["save"])) {
     $query = "";
@@ -42,30 +41,36 @@ if (isset($_POST["save"])) {
     $lastName = $_POST["lastName"];
     $memo = $_POST["memo"];
     $user = get_user_id();
-    
+
     $isValid = false;
-    $stmt = $db->prepare("SELECT * from Users WHERE id = :q");
-    $r = $stmt->execute([":q" => "$query"]);
+    $stmt = $db->prepare("SELECT * from Users WHERE id like :q");
+    $r = $stmt->execute([":q" => "%$query%"]);
     if ($r) {
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
+$stmt2 = $db->prepare("SELECT balance FROM Accounts WHERE id = :id");
+    $r2 = $stmt2->execute([
+       ":id"=>$dest
+      ]);
+	$result = $stmt2->fetch(PDO::FETCH_ASSOC);
+	$a1tot = $result["balance"];    
+
     foreach($res as $thisName)
     {
       if($thisName["last_name"] == $lastName)
       {
-        $thisId = $this["id"];
-        $stmt2 = $db->prepare("SELECT * from Accounts WHERE user_id = :q");
-        $r2 = $stmt2->execute([":q" => "$thisId"]);
+        $thisId = $thisName["id"];
+        $stmt2 = $db->prepare("SELECT * from Accounts WHERE user_id like :q");
+        $r2 = $stmt2->execute([":q" => "%$thisId%"]);
         if ($r) {
             $res2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         }
-        foreach($res2 as $last4)
+        foreach($res2 as $accNum4)
         {
-          if(substr($last4["account_number"], 8, 12) == $dest)
+          if(substr($accNum4["account_number"], 8, 12) == $dest)
           {
             $isValid = true;
-            $dest = $last4["id"];
+            $dest = $accNum4["id"];
             break;
           }
         }
@@ -73,21 +78,25 @@ if (isset($_POST["save"])) {
           break;
       }
     }
-    
+
     if($isValid)
     {
-      if($amount > 0 && $source != $dest)
+      if($amount > 0 && $source != $dest){
+            if ($amount < $a1tot) {
         do_bank_action($source, $dest, ($amount * -1), $memo, "Transfer");
       else
       {
         if($amount <= 0)
-          flash("Error: Value must be positive!");
+          flash("Enter a positive value");
         if($source == $dest)
-          flash("Error: You cannot transfer to the same account!");
+          flash("Cannot transfer to the same account");
+	if($amount > $a1tot){
+            flash("Error: You do not have enough money to make this withdrawal.");
+        }
       }
     }
     else
-      flash("Error: No such account is found!");
+      flash("No such account is found");
 }
 ?>
 </div>

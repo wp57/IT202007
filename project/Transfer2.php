@@ -1,38 +1,31 @@
-<?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<div class="big">
-<?php
-$db = getDB();
-$u = [];
-$id = get_user_id();
-$stmt = $db->prepare("SELECT * from Accounts WHERE user_id = :id");
-$r = $stmt->execute([":id" => $id]);
-if ($r) {
+<?php require_once(__DIR__ . "/partials/nav.php"); ?> <div class="big"> 
+<?php $db = getDB(); $u = []; $id = get_user_id(); $stmt = 
+$db->prepare("SELECT * from Accounts WHERE user_id = :id"); $r = 
+$stmt->execute([":id" => $id]); if ($r) {
     $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-?>
-<form method="POST" style = "height: 550px">
-<div class = "heading2">
-    <h3>Make a Transfer to Another User</h3>
-</div>
+?> <form method="POST" style = "height: 550px"> <div class = "heading2">
+    <h3>Make a Transfer to Another User</h3> </div>
         <select name="source">
             <?php foreach($u as $user): ?>
                 <option value="" disabled selected>Account</option>
-               <option value="<?= $user['id']; ?>"><?= $user['account_number']; ?></option>
+               <option value="<?= $user['id']; ?>"><?= 
+$user['account_number']; ?></option>
             <?php endforeach; ?>
         </select>
         <br>
-        <input type="int" placeholder="Last 4 Digits of Destination Account" maxlength = "4" name="dest"/>
+        <input type="int" placeholder="Last 4 Digits of Destination 
+Account" maxlength = "4" name="dest"/>
         <br>
         <input type="text" placeholder="User's Last Name" name="lastName"/>
         <br>
         <input type="float" placeholder="Amount" min="0.00" name="amount"/>
         <br>
-        <input type="text" placeholder="Attach optional message" name="memo"/>
+        <input type="text" placeholder="Attach optional message" 
+name="memo"/>
         <br>
         <input type="submit" name="save" value="Create"/>
-    </form>
-<?php
-if (isset($_POST["save"])) {
+    </form> <?php if (isset($_POST["save"])) {
     $query = "";
     $amount = (float)$_POST["amount"];
     $source = $_POST["source"];
@@ -50,9 +43,11 @@ if (isset($_POST["save"])) {
     {
       if($thisName["last_name"] == $lastName)
       {
-        $thisId = $thisName["id"];
+        $thisId = $thisName["id"]; 
         $stmt2 = $db->prepare("SELECT * from Accounts WHERE user_id like :q");
         $r2 = $stmt2->execute([":q" => "%$thisId%"]);
+        $stmt2 = $db->prepare("SELECT * from Accounts WHERE user_id = :q");
+        $r2 = $stmt2->execute([":q" => "$thisId"]);
         if ($r) {
             $res2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         }
@@ -66,7 +61,8 @@ if (isset($_POST["save"])) {
           }
         }
         if(strlen($dest > 4))
-          break;
+        flash("Error: Only enter the last 4 digits of the destination account number.");
+	break;
       }
     }
  $stmt2 = $db->prepare("SELECT balance FROM Accounts WHERE id = :id");
@@ -78,8 +74,7 @@ if (isset($_POST["save"])) {
     if($isValid)
     {
       if($amount > 0 && $source != $dest){
-            if ($amount < $a1tot) {
-do_bank_action($source, $dest, ($amount * -1), $memo, "ext-transfer");
+            if ($amount < $a1tot) { do_bank_action($source, $dest, ($amount * -1), $memo, "ext-transfer");
       }
         elseif($amount <= 0){
           flash("Enter a positive value");
@@ -90,14 +85,10 @@ do_bank_action($source, $dest, ($amount * -1), $memo, "ext-transfer");
         elseif($amount > $a1tot){
             flash("Error: You do not have enough money to make this transfer.");
         }
-
       }
     }
     else
       flash("No such account is found");
 }
-?>
-</div>
+?> </div>
 <?php require(__DIR__ . "/partials/flash.php");
-
-

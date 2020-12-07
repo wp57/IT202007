@@ -7,7 +7,7 @@ if (!has_role("Admin")) {
     die(header("Location: login.php"));
 }
 ?>
-<form method="POST">
+<form method="POST" style = "height: 400px; width: 360px;">
 <div class = "heading2">
 <h3>Create Checking Account</h3>
 </div>

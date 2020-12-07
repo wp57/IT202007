@@ -15,7 +15,7 @@ $stmt = $db->prepare($sql);
 $stmt->execute();
 $users=$stmt->fetchAll();
 ?>
-    <form method="POST">
+    <form method="POST" style = "height: 450px">
 <div class = "heading">
     <h3>Create a Transaction</h3>
 </div>

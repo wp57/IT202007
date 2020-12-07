@@ -1,8 +1,14 @@
-<?php require_once(__DIR__ . "/partials/nav.php"); ?> <div class="big"> <?php $db = getDB(); $u = []; $id = get_user_id(); $stmt = 
-$db->prepare("SELECT * from Accounts WHERE user_id = :id"); $r = $stmt->execute([":id" => $id]); if ($r) {
+<?php require_once(__DIR__ . "/partials/nav.php"); ?>
+ <div class="big"> 
+<?php $db = getDB();
+ $u = []; 
+$id = get_user_id(); 
+$stmt = $db->prepare("SELECT * from Accounts WHERE user_id = :id"); 
+$r = $stmt->execute([":id" => $id]); if ($r) {
     $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
-?> <form method="POST" style = "height: 550px"> <div class = "heading2">
+?>
+ <form method="POST" style = "height: 550px"> <div class = "heading2">
     <h3>Make a Transfer to Another User</h3> </div>
         <select name="source">
             <?php foreach($u as $user): ?>
@@ -89,4 +95,5 @@ $db->prepare("SELECT * from Accounts WHERE user_id = :id"); $r = $stmt->execute(
     else
       flash("No such account is found");
 }
-?> </div> <?php require(__DIR__ . "/partials/flash.php");
+?> 
+</div> <?php require(__DIR__ . "/partials/flash.php");

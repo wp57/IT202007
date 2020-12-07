@@ -23,6 +23,20 @@ body {
      font-size: 35px;
      font-weight: 600;  
 }
+.heading4{
+
+   margin-left: 15px;
+     font-size: 35px;
+     font-weight: 600;  
+}
+.list{
+ 
+   text-align: center;
+    padding: 30px 20px 0px 160px;
+     width: 50%;
+    length: 40%;
+      margin: 20px 0px 0px 319px;
+}
 ul[class="nav"]{
     position: absolute;
     list-style-type: none;
@@ -54,7 +68,6 @@ li a{
     padding: 10px 13px 3px 50px;
     transition: 0.5s;
     text-decoration: none;
-
 
 }
 .nav > li a:hover {
@@ -107,6 +120,8 @@ input[type=submit] {
     border-radius: 10px;
     cursor: pointer;
 }
+
+
 
 
 

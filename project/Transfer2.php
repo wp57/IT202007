@@ -1,23 +1,19 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<div class="big">
-<?php
-$db = getDB();
-$u = [];
-$id = get_user_id();
-$stmt = $db->prepare("SELECT * from Accounts WHERE user_id = :id");
-$r = $stmt->execute([":id" => $id]);
-if ($r) {
+ <div class="big"> 
+<?php $db = getDB();
+ $u = []; 
+$id = get_user_id(); 
+$stmt = $db->prepare("SELECT * from Accounts WHERE user_id = :id"); 
+$r = $stmt->execute([":id" => $id]); if ($r) {
     $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
-<form method="POST" style = "height: 550px">
-<div class = "heading2">
-    <h3>Make a Transfer to Another User</h3>
-</div>
+ <form method="POST" style = "height: 550px"> <div class = "heading2">
+    <h3>Make a Transfer to Another User</h3> </div>
         <select name="source">
             <?php foreach($u as $user): ?>
-		<option value="" disabled selected>Account</option>
-	       <option value="<?= $user['id']; ?>"><?= $user['account_number']; ?></option>
+                <option value="" disabled selected>Account</option>
+               <option value="<?= $user['id']; ?>"><?= $user['account_number']; ?></option>
             <?php endforeach; ?>
         </select>
         <br>
@@ -30,9 +26,7 @@ if ($r) {
         <input type="text" placeholder="Attach optional message" name="memo"/>
         <br>
         <input type="submit" name="save" value="Create"/>
-    </form>
-<?php
-if (isset($_POST["save"])) {
+    </form> <?php if (isset($_POST["save"])) {
     $query = "";
     $amount = (float)$_POST["amount"];
     $source = $_POST["source"];
@@ -49,10 +43,17 @@ if (isset($_POST["save"])) {
     foreach($res as $thisName)
     {
       if($thisName["last_name"] == $lastName)
-      {
+
+      { 
         $thisId = $thisName["id"];
         $stmt2 = $db->prepare("SELECT * from Accounts WHERE user_id like :q");
-        $r2 = $stmt2->execute([":q" => "%$thisId%"]);
+        $r2 = $stmt2->execute([":q" => "%$thisId%"]); 
+
+      {
+
+        $thisId = $thisName["id"];
+        $stmt2 = $db->prepare("SELECT * from Accounts WHERE user_id = :q");
+        $r2 = $stmt2->execute([":q" => "$thisId"]);
         if ($r) {
             $res2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         }
@@ -65,37 +66,34 @@ if (isset($_POST["save"])) {
             break;
           }
         }
-        if(strlen($dest > 4))
-          break;
+
+	break;
       }
     }
  $stmt2 = $db->prepare("SELECT balance FROM Accounts WHERE id = :id");
     $r2 = $stmt2->execute([
        ":id"=>$dest
       ]);
-	$result = $stmt2->fetch(PDO::FETCH_ASSOC);
-	$a1tot = $result["balance"];    
+        $result = $stmt2->fetch(PDO::FETCH_ASSOC);
+        $a1tot = $result["balance"];
     if($isValid)
     {
       if($amount > 0 && $source != $dest){
-            if ($amount < $a1tot) {
-do_bank_action($source, $dest, ($amount * -1), $memo, "ext-transfer");
+            if ($amount < $a1tot) { do_bank_action($source, $dest, ($amount * -1), $memo, "ext-transfer");
       }
-	elseif($amount <= 0){
+        elseif($amount <= 0){
           flash("Enter a positive value");
         }
-	elseif($source == $dest){
+        elseif($source == $dest){
           flash("Cannot transfer to the same account");
-	}
-	elseif($amount > $a1tot){
+        }
+        elseif($amount > $a1tot){
             flash("Error: You do not have enough money to make this transfer.");
         }
-	
       }
     }
     else
       flash("No such account is found");
 }
-?>
-</div>
-<?php require(__DIR__ . "/partials/flash.php");
+?> 
+</div> <?php require(__DIR__ . "/partials/flash.php");

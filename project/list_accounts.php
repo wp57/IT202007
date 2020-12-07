@@ -4,8 +4,8 @@
 $query = "";
 $res = [];
     $db = getDB();
-    $stmt = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE user_id like :q LIMIT 5");
-    $r = $stmt->execute([":q" => "%$query%"]);
+    $stmt = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE user_id = :q LIMIT 5");
+    $r = $stmt->execute([":q" => "$query"]);
     if ($r) {
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -18,7 +18,6 @@ $res = [];
     <?php if (count($res) > 0): ?>
         <div class="list-group">
             <?php foreach ($res as $r): ?>
-		<?php if ($r["user_id"] == get_user_id()): ?>
                     <div class="list-group-item">
                     <div>
                         <div>Account Number:</div>
@@ -40,7 +39,6 @@ $res = [];
 		        <a type="button" href="transaction_hist.php?id=<?php safer_echo($r["id"]); ?>">Transaction History</a>
                     </div>
                 </div>   
-		<?php endif; ?>
 <br>
            <?php endforeach; ?>
         </div>

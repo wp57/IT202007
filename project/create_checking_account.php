@@ -1,12 +1,6 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <div class = "big">
-<?php
-if (!has_role("Admin")) {
-    //this will redirect to login and kill the rest of this script (prevent it from executing)
-    flash("You don't have permission to access this page");
-    die(header("Location: login.php"));
-}
-?>
+
 <form method="POST" style = "height: 400px; width: 360px;">
 <div class = "heading2">
 <h3>Create Checking Account</h3>

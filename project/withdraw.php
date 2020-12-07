@@ -51,7 +51,7 @@ if (isset($_POST["save"])) {
 
 if ($amount > 0) {
         if ($amount < $a1tot) {
-            do_bank_action($dest, $world, ($amount * -1), $memo, "withdraw");
+            do_bank_action($dest, $world, ($amount * -1), $memo, "Withdraw");
         }
         elseif ($amount > $a1tot){
             flash("Error: You do not have enough money to make this withdrawal.");

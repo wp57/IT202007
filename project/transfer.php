@@ -41,18 +41,17 @@ if (isset($_POST["save"])) {
     $source = $_POST["source"];
     $memo = $_POST["memo"];
     $user = get_user_id();
-    $db = getDB();
-    $sql = "SELECT DISTINCT id from Accounts where account_number = '000000000000'";
-    $stmt = $db->prepare($sql);
-    $stmt->execute();
-    $result=$stmt->fetch();
-    $world = $result["id"];
-if ($amount > 0) {
-    do_bank_action($world, $source, ($amount * -1), $memo, "Transfer");
-}
-else {
-        flash("Error: Value must be positive! Try again.");
-}
+    $dest = $_POST["dest"];
+
+    if($amount > 0 && $source != $dest)
+      do_bank_action($source, $dest, ($amount * -1), $memo, "Transfer");
+    else
+    {
+      if($amount <= 0)
+	flash("Error: Value must be positive! Try again.");	
+      if($source == $dest)
+        flash("Error: You cannot transfer money to the same account! Try again.");
+    }
 }
 ?>
 </div>

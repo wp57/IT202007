@@ -8,9 +8,8 @@ if (!has_role("Admin")) {
 }
 ?>
 
-<form method="POST">
+<form method="POST" style = "height: 400px">
 <div class="heading3"
-
     <h3>Create an Account</h3>
 </div>
 

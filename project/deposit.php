@@ -10,7 +10,7 @@ if ($r) {
         $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
-    <form method="POST">
+    <form method="POST" style = "height: 400px">
 <div class="heading"
     <h3>Make a Deposit</h3>
 </div>

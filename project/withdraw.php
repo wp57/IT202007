@@ -1,5 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<div class="big">
+<div class ="big">
 <?php
 $db = getDB();
 $id = get_user_id();
@@ -9,8 +9,9 @@ $r = $stmt->execute([":id" => "$id"]);
 if ($r) {
 	$u = $stmt->fetchAll(PDO::FETCH_ASSOC); 
 }
+
 ?>
-    <form method="POST">
+    <form method="POST" style = "height: 400px">
 <div class = "heading">
     <h3>Make a Withdrawal</h3>
 </div>

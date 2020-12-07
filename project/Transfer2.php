@@ -70,7 +70,8 @@ if (isset($_POST["save"])) {
           }
         }
         if(strlen($dest > 4))
-          break;
+        flash("Error: Only enter the last 4 digits of the destination account number.");  
+	break;
       }
     }
     

@@ -14,7 +14,6 @@ if (!has_role("Admin")) {
     <h3>Create an Account</h3>
 </div>
 
- <br>
         <input type="text" placeholder="Account Number" minlength="12"  name="aNum"/>
   <br>
         <input type="text" placeholder="Account Type" name="aType"/>

@@ -14,8 +14,6 @@ if ($r) {
 <div class="heading"
     <h3>Make a Deposit</h3>
 </div>
-
-        <br>
         <select name="source">
             <?php foreach($u as $user): ?>
 	     <option value="" disabled selected>Account</option>

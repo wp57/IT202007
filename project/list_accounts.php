@@ -21,19 +21,19 @@ $res = [];
 		<?php if ($r["user_id"] == get_user_id()): ?>
                     <div class="list-group-item">
                     <div>
-                        <div>Account Number</div>
+                        <div>Account Number:</div>
                         <div><?php safer_echo($r["account_number"]); ?></div>
                     </div>
                     <div>
-                        <div>Account Type</div>
+                        <div>Account Type:</div>
                         <div><?php safer_echo($r["account_type"]); ?></div>
                     </div>
                     <div>
-                        <div>Balance</div>
+                        <div>Balance:</div>
                         <div><?php safer_echo($r["balance"]); ?></div>
                     </div>
                     <div>
-                        <div>Owner Id</div>
+                        <div>Owner Id:</div>
                         <div><?php safer_echo($r["user_id"]); ?></div>
                     </div>
                     <div>
@@ -41,6 +41,7 @@ $res = [];
                     </div>
                 </div>   
 		<?php endif; ?>
+<br>
            <?php endforeach; ?>
         </div>
     <?php else: ?>

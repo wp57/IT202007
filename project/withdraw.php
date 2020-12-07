@@ -14,7 +14,6 @@ if ($r) {
 <div class = "heading">
     <h3>Make a Withdrawal</h3>
 </div>
-        <br>
         <select name="dest">
             <?php foreach($u as $user): ?>
 	      <option value="" disabled selected>Account</option>

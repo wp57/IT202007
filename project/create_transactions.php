@@ -15,11 +15,11 @@ $stmt = $db->prepare($sql);
 $stmt->execute();
 $users=$stmt->fetchAll();
 ?>
+    <form method="POST">
 <div class = "heading">
     <h3>Create a Transaction</h3>
 </div>
-    <form method="POST">
-        <br>
+
         <select name="actType" id ="mySelect" onchange="myFunction()">
             <option value="Deposit">Deposit</option>
             <option value="Withdraw">Withdraw</option>

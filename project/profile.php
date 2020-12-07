@@ -65,9 +65,19 @@ if (isset($_POST["saved"])) {
             $newUsername = $username;
         }
     }
+
+    $newfirstName = get_firstName();
+    if ((get_firstName() != $_POST["firstName"])) {
+        $newFirstName = $_POST["firstName"];
+    }
+
+    $newLastName = get_lastName();
+    if ((get_lastName() != $_POST["lastName"])) {
+        $newLastName = $_POST["lastName"];
+    }
     if ($isValid) {
-        $stmt = $db->prepare("UPDATE Users set email = :email, username= :username where id = :id");
-        $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id()]);
+        $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, first_name= :firstName,last_name= :lastName where id = :id");
+        $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername,":firstName" => $newFirstName, ":lastName" => $newLastName, ":id" => get_user_id()]);
         if ($r) {
             flash("Updated profile");
         }
@@ -119,16 +129,20 @@ if (isset($_POST["saved"])) {
 
 }
 //fetch/select fresh data in case anything changed
-        $stmt = $db->prepare("SELECT email, username from Users WHERE id = :id LIMIT 1");
+        $stmt = $db->prepare("SELECT email, username, first_name, last_name from Users WHERE id = :id LIMIT 1");
         $stmt->execute([":id" => get_user_id()]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($result) {
             $email = $result["email"];
             $username = $result["username"];
+	    $firstName = $result["first_name"];
+            $lastName = $result["last_name"];
             //let's update our session too
             $_SESSION["user"]["email"] = $email;
             $_SESSION["user"]["username"] = $username;
-        }
+            $_SESSION["user"]["first_name"] = $firstName;
+            $_SESSION["user"]["last_name"] = $lastName;
+	 }
     }
     else {
         //else for $isValid, though don't need to put anything here since the specific failure will output the message
@@ -143,7 +157,10 @@ if (isset($_POST["saved"])) {
     <h3>Edit Your Profile</h3>
 </div>
 
-
+        <input type="text" placeholder="First Name" name="firstName" value="<?php safer_echo(get_firstName()); ?>"/>
+        <br>
+        <input type="text" name="lastName" placeholder="Last Name" value="<?php safer_echo(get_lastName()); ?>"/>
+        <br>
 	<input type="email" placeholder="Email" name="email" value="<?php safer_echo(get_email()); ?>"/>
         <br>
 	<input type="text" placeholder="Username" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>

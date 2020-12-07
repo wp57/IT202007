@@ -1,5 +1,4 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-// branch
 <?php
 if (isset($_GET["id"])) {
     $id = $_GET["id"];

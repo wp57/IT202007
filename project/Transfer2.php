@@ -14,11 +14,10 @@ if ($r) {
 <div class = "heading2">
     <h3>Make a Transfer to Another User</h3>
 </div>
-
         <select name="source">
             <?php foreach($u as $user): ?>
-		<option value="" disabled selected>Account</option>
-	       <option value="<?= $user['id']; ?>"><?= $user['account_number']; ?></option>
+                <option value="" disabled selected>Account</option>
+               <option value="<?= $user['id']; ?>"><?= $user['account_number']; ?></option>
             <?php endforeach; ?>
         </select>
         <br>
@@ -41,14 +40,12 @@ if (isset($_POST["save"])) {
     $lastName = $_POST["lastName"];
     $memo = $_POST["memo"];
     $user = get_user_id();
-
     $isValid = false;
     $stmt = $db->prepare("SELECT * from Users WHERE id like :q");
     $r = $stmt->execute([":q" => "%$query%"]);
     if ($r) {
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-
     foreach($res as $thisName)
     {
       if($thisName["last_name"] == $lastName)
@@ -72,31 +69,28 @@ if (isset($_POST["save"])) {
           break;
       }
     }
-
  $stmt2 = $db->prepare("SELECT balance FROM Accounts WHERE id = :id");
     $r2 = $stmt2->execute([
        ":id"=>$dest
       ]);
-	$result = $stmt2->fetch(PDO::FETCH_ASSOC);
-	$a1tot = $result["balance"];    
-
-
+        $result = $stmt2->fetch(PDO::FETCH_ASSOC);
+        $a1tot = $result["balance"];
     if($isValid)
     {
       if($amount > 0 && $source != $dest){
             if ($amount < $a1tot) {
-        do_bank_action($source, $dest, ($amount * -1), $memo, "Out Transfer");
+do_bank_action($source, $dest, ($amount * -1), $memo, "ext-transfer");
       }
-	elseif($amount <= 0){
+        elseif($amount <= 0){
           flash("Enter a positive value");
         }
-	elseif($source == $dest){
+        elseif($source == $dest){
           flash("Cannot transfer to the same account");
-	}
-	elseif($amount > $a1tot){
+        }
+        elseif($amount > $a1tot){
             flash("Error: You do not have enough money to make this transfer.");
         }
-	
+
       }
     }
     else
@@ -105,3 +99,5 @@ if (isset($_POST["save"])) {
 ?>
 </div>
 <?php require(__DIR__ . "/partials/flash.php");
+
+

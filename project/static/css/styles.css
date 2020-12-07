@@ -7,7 +7,7 @@ body {
 
 }
 .heading{
-    margin-left: -5px;
+    margin-left: -20px;
      font-size: 35px;
      font-weight: 600;
 }
@@ -76,21 +76,21 @@ li a{
 form{
     position: relative;
     width: 40%;
-    height: 500px;
+    height: 650px;
     border-radius:15px;
  background-color:#fdffff;
 margin-right: 522px;
     font-size: 25px;
     color:black;
-    margin: 20px 0px 0px 39px;
+    margin: 0px 0px 0px 39px;
     padding: 50px 0px 0px 65px;
 }
 
 .big{
     margin-left: 520px;
-    padding: 30px 0px 0px 65px;
+    padding: 10px 0px 0px 65px;
      width: 60%;
-    length: 40%;
+    length: 50%;
 }
 
 input, select {
@@ -120,6 +120,7 @@ input[type=submit] {
     border-radius: 10px;
     cursor: pointer;
 }
+
 
 
 

@@ -93,10 +93,8 @@ if (isset($id)) {
         }
       }//set
       elseif(isset($_SESSION["isFiltered"])){ 
-        if($_SESSION["isFiltered"]){
           $firstDate = $_SESSION["first"];
           $secDate = $_SESSION["sec"];
-        }
       }
       else{        
 	$_SESSION["first"] = "0000-01-01";
@@ -202,7 +200,6 @@ if (isset($id)) {
                             <div><?php safer_echo($r2["account_number"]); ?></div>
                     </div>
 		    <?php endif; ?>
-			<br>
                     <?php endforeach; ?>
                 </div>
 		<br>

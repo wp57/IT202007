@@ -1,12 +1,16 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<div class="big">
+<div class = "list">
 <?php
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
 }
 $typeOfTran = array("Withdraw","Deposit","Transfer");
 ?>
-    <form method="POST">
+<div class = "heading">
+<h3>Transactions History</h3>
+</div>
+
+    <form method="POST" style = "height: 500px;">
 	<div class = "heading2">
 	<h3>Filter Transactions</h3>
 	</div>
@@ -16,9 +20,6 @@ $typeOfTran = array("Withdraw","Deposit","Transfer");
               <option value="<?= $transaction; ?>"><?= $transaction; ?></option>
             <?php endforeach; ?>
         </select>
-        <br>
-        <br>
-        <label>Filter By Date:</label>
         <br>
         <input type="text" placeholder="Date 1: YYYY-MM-DD" name="firstDate"/>
         <br>
@@ -81,7 +82,7 @@ if (isset($id)) {
         if($_POST["firstDate"] != "" && $_POST["secDate"] != ""){
           $_SESSION["first"] = $_POST["firstDate"];
           $_SESSION["sec"] = $_POST["secDate"];
-          $firstDate = $_SESSION["secDate"];
+          $firstDate = $_SESSION["first"];
           $secDate = $_SESSION["sec"];
         }//incorrectly set
         elseif(($_POST["firstDate"] != "" && $_POST["secDate"] == "") || ($_POST["secDate"] != "" && $_POST["firstDate"] == "")){
@@ -158,9 +159,6 @@ if (isset($id)) {
     }
 }
 ?>
-<div class = "heading">
-<h3>Transactions History</h3>
-</div>
 <div class="results">
   <label>Filtered By:
   <?php 
@@ -168,20 +166,17 @@ if (isset($id)) {
       if($_SESSION['isFiltered']):
         if($actType != ""):
           echo $actType;
-        else:
-          echo "All";
         endif;
       endif;
-    else:
-      echo "All";
-    endif; ?> Dates:
+    endif;
+    ?> Dates:
     <?php 
     if(isset($_SESSION['isFiltered'])):
-      if($_SESSION['filtered']):
+      if($_SESSION['isFiltered']):
         echo $firstDate . " to  " . $secDate;
       endif;
     else:
-      echo "0000-01-01 to 9999-12-31";
+      echo "All Time";
     endif; ?>
     </label>
     <?php if (count($results) > 0): ?>
@@ -189,7 +184,8 @@ if (isset($id)) {
             <?php foreach ($results as $r): ?>
                 <div class="list-group-item">
                     <?php foreach ($results2 as $r2): ?>
-                    <div>
+                    <?php if ($r2["id"] == $r["act_src_id"]): ?>
+		    <div>
                         <div>Transaction Number:</div>
                         <div><?php safer_echo($r["id"]); ?></div>
                     </div>
@@ -205,9 +201,11 @@ if (isset($id)) {
                         <div>Account Number:</div>
                             <div><?php safer_echo($r2["account_number"]); ?></div>
                     </div>
+		    <?php endif; ?>
+			<br>
                     <?php endforeach; ?>
                 </div>
-                <br>
+		<br>
             <?php endforeach; ?>
         </div>
     <?php else: ?>

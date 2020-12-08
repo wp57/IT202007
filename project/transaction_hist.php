@@ -34,7 +34,7 @@ $typeOfTran = array("Withdraw", "Deposit", "Transfer");
 
 <?php
 $query = "";
-$res = [];
+$result = [];
 if (isset($id)){
     $db = getDB();
     $userId = get_user_id();
@@ -52,7 +52,7 @@ if (isset($id)){
     $stmt = $db->prepare("SELECT * from Transactions WHERE act_src_id like ORDER BY id DESC LIMIT 10");
     $r = $stmt->execute([":q" => "%$id%"]);
     if($r){
-        $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
   
  $total = 0;

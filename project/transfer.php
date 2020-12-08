@@ -41,15 +41,29 @@ if (isset($_POST["save"])) {
     $memo = $_POST["memo"];
     $user = get_user_id();
     $dest = $_POST["dest"];
-    if($amount > 0 && $source != $dest)
-      do_bank_action($source, $dest, ($amount * -1), $memo, "Transfer");
-    else
-    {
-      if($amount <= 0)
-	flash("Error: Value must be positive! Try again.");	
-      if($source == $dest)
+    
+
+ $stmt2 = $db->prepare("SELECT balance FROM Accounts WHERE id = :id");
+    $r2 = $stmt2->execute([
+       ":id"=>$dest
+      ]);
+	$result = $stmt2->fetch(PDO::FETCH_ASSOC);
+	$a1tot = $result["balance"];    
+
+if($amount > 0 && $source != $dest) {
+        if ($amount < $a1tot) {
+	do_bank_action($source, $dest, ($amount * -1), $memo, "Transfer");
+        }
+	elseif($source == $dest){
         flash("Error: You cannot transfer money to the same account! Try again.");
-    }
+        }
+        elseif ($amount > $a1tot){
+            flash("Error: You do not have enough money to make this withdrawal.");
+        }
+	}
+else {
+        flash("Error: Value must be positive!");
+     }
 }
 ?>
 </div>

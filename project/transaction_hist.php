@@ -79,11 +79,14 @@ if (isset($id)){
         $_SESSION["tranAction"] = $_POST["transaction"];
         $actType = $_SESSION["tranAction"];
       }
-      else
+      else{
+	if(isset($_SESSION["tranAction"])){
         $actType = $_SESSION["tranAction"];
      	$firstDate = "0000-01-01";
         $secDate = "9999-12-31";
-      //not set
+	}
+      }
+	//not set
       if(isset($_POST["firstDate"]) || isset($_POST["secDate"])){
         if($_POST["firstDate"] != "" && $_POST["secDate"] != ""){
           $_SESSION["first"] = $_POST["firstDate"];

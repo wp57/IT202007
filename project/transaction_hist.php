@@ -10,7 +10,7 @@ $typeOfTran = array("Withdraw","Deposit","Transfer");
 <h3>Transactions History</h3>
 </div>
 
-    <form method="POST" style = "height: 500px;">
+    <form method="POST" style = "height: 500px; width: 370px; padding: 50px 15px 0px 0px; margin: 0px 0px 0px 150px">
 	<div class = "heading2">
 	<h3>Filter Transactions</h3>
 	</div>
@@ -92,10 +92,12 @@ if (isset($id)) {
           $sec = $_SESSION["sec"];
         }
       }//set
-      elseif(isset($_SESSION["isFiltered"])){ 
+      elseif(isset($_POST["filter"])){
+	if(isset($_SESSION["isFiltered"])){ 
           $firstDate = $_SESSION["first"];
           $secDate = $_SESSION["sec"];
       }
+	}
       else{        
 	$_SESSION["first"] = "0000-01-01";
         $_SESSION["sec"] = "9999-12-31";

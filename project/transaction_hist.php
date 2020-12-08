@@ -106,9 +106,11 @@
                 }
             }//set
             elseif(isset($_SESSION["isFiltered"])){
+		if($_SESSION["isFiltered"]){
                 $firstDate = $_SESSION["first"];
                 $secDate = $_SESSION["sec"];
             }
+}
         }//all time def
         else{
             $_SESSION["first"] = "0000-01-01";
@@ -116,7 +118,6 @@
             $firstDate = $_SESSION["start"];
             $secDate = $_SESSION["end"];
         }
-
         $_SESSION['isFiltered'] = true;
 
         if($actType != "")
@@ -184,7 +185,7 @@
                     endif;
                 endif;
             endif; ?>
-            between Dates
+            Dates
             <?php
             if(isset($_SESSION['isFiltered'])):
                 if($_SESSION['isFiltered']):

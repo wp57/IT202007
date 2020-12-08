@@ -64,19 +64,19 @@ if (isset($id)) {
             flash(var_export($e, true), "alert");
         }
     
-    if(isset($_POST["filter"]) || isset($_SESSION['isFiltered']))
-    {
-      if(isset($_POST["transaction"]))
-      {
+    if(isset($_POST["filter"]) || isset($_SESSION['isFiltered'])){
+      if(isset($_POST["transaction"])){
         $_SESSION["tranAction"] = $_POST["transaction"];
         $actType = $_SESSION["tranAction"];
       }
-      else
-        $actType = $_SESSION["tranAction"];
-      
-      $firstDate = "0000-01-01";
-      $secDate = "9999-12-31";
-      
+      else{
+	if(isset($_SESSION["tranAction"])){
+        	$actType = $_SESSION["tranAction"];
+      	}
+      }
+	$firstDate = "0000-01-01";
+        $secDate = "9999-12-31";
+
       if(isset($_POST["firstDate"]) || isset($_POST["secDate"])){//not set def
         if($_POST["firstDate"] != "" && $_POST["secDate"] != ""){
           $_SESSION["first"] = $_POST["firstDate"];
@@ -214,10 +214,6 @@ if (isset($id)) {
         <p>No results</p>
     <?php endif; ?>
 </div>
-<form method="POST">
-  <h3>Reset Filter</h3>
-        <input type="submit" name="reset" value="Reset"/>
-</form>
   <nav aria-label="Trans History">
     <ul class="pagination justify-content-center">
       <li class="page-item <?php echo ($page-1) < 1?"disabled":"";?>">

@@ -4,7 +4,7 @@
 if (isset($_GET["id"])) {
     $id = $_GET["id"];
 }
-$typeOfTran = array("Withdraw","Deposit","Transfer");
+$typeOfTran = array("Withdraw","Deposit","Transfer", "ext-Transfer");
 ?>
 <div class = "heading">
 <h3>Transactions History</h3>
@@ -159,17 +159,17 @@ if (isset($id)) {
     }
 }
 ?>
-<div class="results">
-  <label>Filtered By:
+<div class = "heading">
+  <label>Filtered By: <br>
   <?php 
     if(isset($_SESSION['isFiltered'])):
       if($_SESSION['isFiltered']):
         if($actType != ""):
-          echo $actType;
+          echo "Transaction type: " . $actType;
         endif;
       endif;
     endif;
-    ?> Dates:
+    ?> <br> Dates:
     <?php 
     if(isset($_SESSION['isFiltered'])):
       if($_SESSION['isFiltered']):

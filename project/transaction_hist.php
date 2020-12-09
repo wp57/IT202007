@@ -10,7 +10,7 @@ $typeOfTran = array("Withdraw","Deposit","Transfer", "ext-Transfer");
 <h3>Transactions History</h3>
 </div>
 
-    <form method="POST" style = "height: 500px; width: 370px; padding: 50px 15px 0px 0px; margin: 0px 0px 0px 150px">
+    <form method="POST" style = "height: 400px; width: 370px; padding: 50px 15px 0px 0px; margin: 0px 0px 0px 150px">
 	<div class = "heading2">
 	<h3>Filter Transactions</h3>
 	</div>

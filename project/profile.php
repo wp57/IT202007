@@ -13,14 +13,6 @@ if (!is_logged_in()) {
 
 $db = getDB();
 
-$stmt = $db->prepare("SELECT first_name, last_name, visible FROM Users WHERE id = :id");
-$stmt->execute([":id" => get_user_id()]);
-$result = $stmt->fetch(PDO::FETCH_ASSOC);
-$first = $result["first_name"];
-$last = $result["last_name"];
-$visible = $result["visible"];
-
-
 //save data if we submitted the form
 if (isset($_POST["saved"])) {
     $isValid = true;
@@ -84,9 +76,16 @@ if (isset($_POST["saved"])) {
     if ((get_lastName() != $_POST["lastName"])) {
         $newLastName = $_POST["lastName"];
     }
+
+    $vis = $_SESSION["user"]["visible"];
+      
+    if (($vis != $_POST["visible"])) {
+        $vis = $_POST["visible"];
+    }
+
     if ($isValid) {
-        $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, where id = :id");
-        $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername, ":id" => get_user_id()]);
+	$stmt = $db->prepare("UPDATE Users set email = :email, username= :username, first_name= :firstName, last_name= :lastName, visible = :visible where id = :id");
+        $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername,":firstName" => $newFirstName, ":lastName" => $newLastName, ":visible" => $vis, ":id" => get_user_id()]);
         if ($r) {
             flash("Updated profile");
         }
@@ -140,48 +139,28 @@ if (isset($_POST["saved"])) {
 
 
 //fetch/select fresh data in case anything changed
-$stmt = $db->prepare("SELECT email, username from Users WHERE id = :id LIMIT 1");
-$stmt->execute([":id" => $id]);
+$stmt = $db->prepare("SELECT email, username, first_name, last_name, visible from Users WHERE id = :id LIMIT 1");
+$stmt->execute([":id" => get_user_id()]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($result) {
             $email = $result["email"];
             $username = $result["username"];
+	    $firstName = $result["first_name"];
+            $lastName = $result["last_name"];
+            $vis = $result["visible"];
             //let's update our session too
             $_SESSION["user"]["email"] = $email;
             $_SESSION["user"]["username"] = $username;
+	    $_SESSION["user"]["first_name"] = $firstName;
+            $_SESSION["user"]["last_name"] = $lastName;
+            $_SESSION["user"]["visible"] = $vis;
 	 }
     }
 
-
-if($isValid){
-        $first2 = $_POST["firstName"];
-        $last2 = $_POST["lastName"];
-        $visible2 = $visible;
-        if(isset($_POST["Public"])){
-            $visible = $_POST["Public"];
-        } else {
-            $visible = "Private";
-        }
-
-
-        if($first == $first2){
-            $stmt = $db->prepare("UPDATE Users set first_name = :first WHERE id = :id");
-            $stmt->execute([":first" => $first2, ":id" => get_user_id()]);
-        }
-
-        if($last == $last2){
-            $stmt = $db->prepare("UPDATE Users set last_name = :last WHERE id = :id");
-            $stmt->execute([":last" => $last2, ":id" => get_user_id()]);
-        }
-
-        if($visible == $visible2){
-            $stmt = $db->prepare("UPDATE Users set visible = :visibility WHERE id = :id");
-            $stmt->execute([":visibility" => $visible2, ":id" => get_user_id()]);
-        }
+	else {
+        //else for $isValid, though don't need to put anything here since the specific failure will output the message
     }
-    die(header("Location: profile.php"));
 }
-
 ?>
     <form method="POST">
 <div class="heading"
@@ -196,6 +175,7 @@ if($isValid){
 	<input type="email" placeholder="Email" name="email" value="<?php safer_echo(get_email()); ?>"/>
         <br>
 	<select name="visible">
+	    <option value="" disabled selected>Privacy</option>
             <option value="Public">Public</option>
             <option value="Private">Private</option>
         </select>
@@ -212,4 +192,3 @@ if($isValid){
     </form>
 </div>
 <?php require(__DIR__ . "/partials/flash.php");
-

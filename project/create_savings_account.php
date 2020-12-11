@@ -19,18 +19,20 @@ if(isset($_POST["save"])){
 	for($x = strlen($aNum); $x < 12; $x++){
 		$aNum = ("0" . $aNum);
 	}
-	$aType = "Checking";
+	$aType = "Savings";
 	$user = get_user_id();
         $balance = $_POST["balance"];
+	$apy = 0.03;
     if($balance >= 5){
     do {
       $db = getDB();
-      $stmt = $db->prepare("INSERT INTO Accounts (account_number, account_type, user_id, balance) VALUES(:aNum, :aType, :user, :balance)");
+      $stmt = $db->prepare("INSERT INTO Accounts (account_number, account_type, user_id, balance, apy) VALUES(:aNum, :aType, :user, :balance, :apy)");
   	$r = $stmt->execute([
   		":aNum"=>$aNum,
   		":aType"=>$aType,
   		":user"=>$user,
-                ":balance"=>0
+                ":balance"=>$balance,
+		":apy"=> $apy;
       ]);
       $aNum = rand(000000000000, 999999999999);
       for($x = strlen($aNum); $x < 12; $x++){
@@ -41,7 +43,7 @@ if(isset($_POST["save"])){
     }
     while($e[0] == "23000");
     if($r){
-  		flash("Your checking account was successfully created with id: " . $db->lastInsertId() . "!");
+  		flash("Your savings account was successfully created with id: " . $db->lastInsertId() . "!");
                 die(header("Location: list_accounts.php"));	
     }
   	else{
@@ -76,7 +78,7 @@ if(isset($_POST["save"])){
   	$stmt->bindValue(":p2a1", $lastId);
   	$stmt->bindValue(":p2a2", 0);
   	$stmt->bindValue(":p2change", $balance);
-  	$stmt->bindValue(":type", "Deposit");
+  	$stmt->bindValue(":type", "");
   	$stmt->bindValue(":a2tot", $balance);
   	$result = $stmt->execute();
     if ($result) {

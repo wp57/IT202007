@@ -77,8 +77,8 @@ if (isset($_POST["saved"])) {
     }
     $vis = $_POST["visible"];
     if ($isValid) {
-        $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, first_name= :firstName,last_name= :lastName, visible = :vis where id = :id");
-        $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername,":firstName" => $newFirstName, ":lastName" => $newLastName, ":vis" => $vis, ":id" => get_user_id()]);
+        $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, first_name= :firstName, last_name= :lastName, visible = :visible where id = :id");
+        $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername,":firstName" => $newFirstName, ":lastName" => $newLastName, ":visible" => $vis, ":id" => get_user_id()]);
         if ($r) {
             flash("Updated profile");
         }
@@ -139,13 +139,13 @@ if (isset($_POST["saved"])) {
         if ($result) {
             $email = $result["email"];
             $username = $result["username"];
-	    $firstName = $result["first_name"];
-            $lastName = $result["last_name"];
+	    $newFirstName = $result["first_name"];
+            $newLastName = $result["last_name"];
             //let's update our session too
             $_SESSION["user"]["email"] = $email;
             $_SESSION["user"]["username"] = $username;
-            $_SESSION["user"]["first_name"] = $firstName;
-            $_SESSION["user"]["last_name"] = $lastName;
+            $_SESSION["user"]["first_name"] = $newFirstName;
+            $_SESSION["user"]["last_name"] = $newLastName;
 	 }
     }
     else {

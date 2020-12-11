@@ -75,7 +75,7 @@ if (isset($_POST["saved"])) {
     if ((get_lastName() != $_POST["lastName"])) {
         $newLastName = $_POST["lastName"];
     }
-    $vis = $_POST["Public"];
+    $vis = $_POST["visible"];
     if ($isValid) {
         $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, first_name= :firstName,last_name= :lastName, visible = :vis where id = :id");
         $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername,":firstName" => $newFirstName, ":lastName" => $newLastName, ":vis" => $vis, ":id" => get_user_id()]);
@@ -184,5 +184,3 @@ if (isset($_POST["saved"])) {
     </form>
 </div>
 <?php require(__DIR__ . "/partials/flash.php");
-
-

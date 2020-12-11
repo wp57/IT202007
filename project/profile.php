@@ -75,9 +75,10 @@ if (isset($_POST["saved"])) {
     if ((get_lastName() != $_POST["lastName"])) {
         $newLastName = $_POST["lastName"];
     }
+    $vis = $_POST["Public"];
     if ($isValid) {
-        $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, first_name= :firstName,last_name= :lastName where id = :id");
-        $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername,":firstName" => $newFirstName, ":lastName" => $newLastName, ":id" => get_user_id()]);
+        $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, first_name= :firstName,last_name= :lastName, visible = :vis where id = :id");
+        $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername,":firstName" => $newFirstName, ":lastName" => $newLastName, ":vis" => $vis, ":id" => get_user_id()]);
         if ($r) {
             flash("Updated profile");
         }
@@ -128,6 +129,9 @@ if (isset($_POST["saved"])) {
           }
 
 }
+
+
+
 //fetch/select fresh data in case anything changed
         $stmt = $db->prepare("SELECT email, username, first_name, last_name from Users WHERE id = :id LIMIT 1");
         $stmt->execute([":id" => get_user_id()]);
@@ -163,6 +167,10 @@ if (isset($_POST["saved"])) {
         <br>
 	<input type="email" placeholder="Email" name="email" value="<?php safer_echo(get_email()); ?>"/>
         <br>
+	<select name="visible">
+            <option value="Public">Public</option>
+            <option value="Private">Private</option>
+        </select>
 	<input type="text" placeholder="Username" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>
         <!-- DO NOT PRELOAD PASSWORD-->
         <br>

@@ -56,8 +56,8 @@ if (isset($_POST["save"])) {
       {
         $thisId = $this["id"];
         $stmt2 = $db->prepare("SELECT * from Accounts WHERE user_id = :q");
-        $r2 = $stmt2->execute([":q" => "$currId"]);
-        if ($r) {
+        $r2 = $stmt2->execute([":q" => "$thisId"]);
+        if ($r2) {
             $res2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         }
         foreach($res2 as $last4)

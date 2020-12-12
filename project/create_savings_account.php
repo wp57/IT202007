@@ -63,7 +63,45 @@ if(isset($_POST["save"])){
   		$e = $stmt->errorInfo();
   		flash("Sorry, there was an error creating: " . var_export($e, true));
   	}
-  $stmt = $db->prepare("UPDATE Accounts SET balance = (SELECT SUM(amount) FROM Transactions WHERE Transactions.act_src_id = Accounts.id) where id = :id");
+ $query = null;
+   $stmt2 = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id like :q");
+    $r2 = $stmt2->execute([":q" => "%$query%"]);
+    if ($r2) {
+          $results = $stmt2->fetchAll(PDO::FETCH_ASSOC);
+      
+      }
+   $a1tot = null;
+  foreach($results as $r)
+  {
+    if($r["id"] == 0)
+        $a1tot = $r["balance"];
+  }
+    
+   $query = "INSERT INTO `Transactions` (`act_src_id`, `act_dest_id`, `amount`, `action_type`, `expected_total`) 
+	VALUES(:p1a1, :p1a2, :p1change, :type, :a1tot), 
+			(:p2a1, :p2a2, :p2change, :type, :a2tot)";
+      
+    $stmt = $db->prepare($query);
+  	$stmt->bindValue(":p1a1", 0);
+  	$stmt->bindValue(":p1a2", $lastId);
+  	$stmt->bindValue(":p1change", ($balance*-1));
+  	$stmt->bindValue(":type", "Deposit");
+  	$stmt->bindValue(":a1tot", $a1tot-$balance);
+  	//flip data for other half of transaction
+  	$stmt->bindValue(":p2a1", $lastId);
+  	$stmt->bindValue(":p2a2", 0);
+  	$stmt->bindValue(":p2change", $balance);
+  	$stmt->bindValue(":type", "Deposit");
+  	$stmt->bindValue(":a2tot", $balance);
+  	$result = $stmt->execute();
+    if ($result) {
+          flash("Your transaction was created successfully with id: " . $db->lastInsertId());
+      }
+    else {
+         $e = $stmt->errorInfo();
+         flash("Sorry, there was an error creating: " . var_export($e, true));
+    }
+    $stmt = $db->prepare("UPDATE Accounts SET balance = (SELECT SUM(amount) FROM Transactions WHERE Transactions.act_src_id = Accounts.id) where id = :id");
     $r = $stmt->execute([
        ":balance"=>($a1tot+$amountChange),
        ":id"=>$account1

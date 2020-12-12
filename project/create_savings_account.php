@@ -1,10 +1,9 @@
-<!DOCTYPE html>
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<div class="dbig">
+<div class = "big">
 
 <form method="POST" style = "height: 400px; width: 360px;">
 <div class = "heading2">
-<h3>Create Savings Account</h3>
+<h3>Create Checking Account</h3>
 </div>
 
   <br>
@@ -20,9 +19,9 @@
     function myFunction() {
       var bal = document.getElementByName("balance")[0].value;
       if(bal >= 5)
-        document.getElementById("apy").innerHTML = "Your APY is 0.03%.";
+        document.getElementById("apy").innerHTML = "Your APY is 0.03%";
       else
-        document.getElementById("apy").innerHTML = "Your balance needs to be more than $5.00 in order to calculate your APY.";
+        document.getElementById("apy").innerHTML = "Your balance must be more than $5.00 in order to calculate your APY.";
     }
   </script>
 </body>
@@ -30,17 +29,17 @@
 
 <?php
 if(isset($_POST["save"])){
-  $db = getDB();
-	$aNum = rand(000000000001, 999999999999);
-  for($x = strlen($aNum); $x < 12; $x++){
-    $aNum = ("0" . $aNum);
-  }
-  $aType = "Savings";
-  $user = get_user_id();
-  $balance = $_POST["balance"];
-  if($balance >= 5)
-  {
+	$db = getDB();
+	$aNum = rand(000000000000, 999999999999);
+	for($x = strlen($aNum); $x < 12; $x++){
+		$aNum = ("0" . $aNum);
+	}
+	$aType = "Savings";
+	$user = get_user_id();
+        $balance = $_POST["balance"];
+    if($balance >= 5){
     do {
+      $db = getDB();
       $stmt = $db->prepare("INSERT INTO Accounts (account_number, account_type, user_id, balance) VALUES(:aNum, :aType, :user, :balance)");
   	$r = $stmt->execute([
   		":aNum"=>$aNum,
@@ -52,18 +51,19 @@ if(isset($_POST["save"])){
       for($x = strlen($aNum); $x < 12; $x++){
         $aNum = ("0" . $aNum);
       }
+       
       $e = $stmt->errorInfo();
-      }
-	while($e[0] == "23000");
+    }
+    while($e[0] == "23000");
     if($r){
-      $lastId = $db->lastInsertId();
-  		flash("Your savings account was successfully created with account number " . $aNum . "!");
-  	}
+  		flash("Your checking account was successfully created with id: " . $db->lastInsertId() . "!");
+                die(header("Location: list_accounts.php"));	
+    }
   	else{
   		$e = $stmt->errorInfo();
   		flash("Sorry, there was an error creating: " . var_export($e, true));
   	}
- $query = null;
+  $query = null;
    $stmt2 = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id like :q");
     $r2 = $stmt2->execute([":q" => "%$query%"]);
     if ($r2) {
@@ -120,3 +120,4 @@ if(isset($_POST["save"])){
 ?>
 </div>
 <?php require(__DIR__ . "/partials/flash.php");
+

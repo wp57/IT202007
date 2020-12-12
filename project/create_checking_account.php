@@ -30,7 +30,7 @@ if(isset($_POST["save"])){
   		":aNum"=>$aNum,
   		":aType"=>$aType,
   		":user"=>$user,
-                ":balance"=>0
+                ":balance"=>$balance
       ]);
       $aNum = rand(000000000000, 999999999999);
       for($x = strlen($aNum); $x < 12; $x++){

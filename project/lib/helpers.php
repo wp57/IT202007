@@ -157,7 +157,7 @@ function get_lastName() {
 function calcLoanAPY(){
 	$db = getDB();
 	$numOfMonths = 1; 
-	$stmt = $db->prepare("SELECT id, apy, balance FROM Accounts WHERE account_type = 'Loan' and  IFNULL(nextAPY, TIMESTAMPADD(MONTH,:months,opened_date)) <= current_timestamp"); 
+	$stmt = $db->prepare("SELECT id, apy, balance FROM Accounts WHERE account_type = 'loan' and  IFNULL(nextAPY, TIMESTAMPADD(MONTH,:months, opened_date)) <= current_timestamp"); 
 	$r = $stmt->execute([":months"=>$numOfMonths]);
 	if($r){
 		$accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -179,7 +179,7 @@ function calcLoanAPY(){
 				//last column added supports $memo which my example in the link above doesn't support
 				do_bank_action($world_id, $account["id"], ($change * -1), "Interest", "APY Calc");
 				
-				$stmt = $db->prepare("UPDATE Accounts set balance = (SELECT IFNULL(SUM(amount_change),0) FROM Transactions WHERE act_src_id = :id), nextAPY = TIMESTAMPADD(MONTH,:months,current_timestamp) WHERE id = :id");
+				$stmt = $db->prepare("UPDATE Accounts set balance = (SELECT IFNULL(SUM(amount),0) FROM Transactions WHERE act_src_id = :id), nextAPY = TIMESTAMPADD(MONTH,:months,current_timestamp) WHERE id = :id");
 				$r = $stmt->execute([":id"=>$account["id"], ":months"=>$numOfMonths]);
 				if(!$r){
 					flash(var_export($stmt->errorInfo(), true), "danger");

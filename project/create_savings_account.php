@@ -37,15 +37,17 @@ if(isset($_POST["save"])){
 	$aType = "Savings";
 	$user = get_user_id();
         $balance = $_POST["balance"];
+	$apy = 0.03; 
     if($balance >= 5){
     do {
       $db = getDB();
-      $stmt = $db->prepare("INSERT INTO Accounts (account_number, account_type, user_id, balance) VALUES(:aNum, :aType, :user, :balance)");
+      $stmt = $db->prepare("INSERT INTO Accounts (account_number, account_type, user_id, balance, apy) VALUES(:aNum, :aType, :user, :balance, :apy)");
   	$r = $stmt->execute([
   		":aNum"=>$aNum,
   		":aType"=>$aType,
   		":user"=>$user,
-                ":balance"=>$balance
+                ":balance"=>$balance,
+	        ":apy"=>$apy
       ]);
       $aNum = rand(000000000000, 999999999999);
       for($x = strlen($aNum); $x < 12; $x++){

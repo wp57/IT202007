@@ -11,22 +11,6 @@ if ($r) {
     $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
-<form method="POST" style = "height: 550px">
-  <h3>Take Out a Loan<h3>
-  <br>
-  <h3>3% APY<h3>
-  <br>
-	<input id="amt" type="float" placeholder="Loan Amount" min="5.00" name="amt"/>
- <br>
-        <select name="source">
-            <?php foreach($u as $user): ?>
-            <option value="" disabled selected>Account</option>  
-	    <option value="<?= $user["id"]; ?>"><?= $user["account_number"]; ?></option>
-            <?php endforeach; ?>
-        </select>
-        <br>
-	<input type="submit" name="save" value="Create"/>
-</form>
 <?php
 if(isset($_POST["save"])){
   $db = getDB();
@@ -109,5 +93,22 @@ if(isset($_POST["save"])){
   }
 }
 ?>
+<form method="POST" style = "height: 550px">
+  <h3>Take Out a Loan<h3>
+  <br>
+  <h3>3% APY<h3>
+  <br>
+        <input id="amt" type="float" placeholder="Loan Amount" min="5.00" name="amt"/>
+ <br>
+        <select name="source">
+            <?php foreach($u as $user): ?>
+            <option value="" disabled selected>Account</option>
+            <option value="<?= $user["id"]; ?>"><?= $user["account_number"]; ?></option>
+            <?php endforeach; ?>
+        </select>
+        <br>
+        <input type="submit" name="save" value="Create"/>
+</form>
+
 </div>
 <?php require(__DIR__ . "/partials/flash.php");

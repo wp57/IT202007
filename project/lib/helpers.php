@@ -157,7 +157,7 @@ function get_lastName() {
 function calcLoanAPY(){
 	$db = getDB();
 	$numOfMonths = 1; 
-	$stmt = $db->prepare("SELECT id, apy, balance FROM Accounts WHERE account_type = 'loan' and  IFNULL(nextAPY, TIMESTAMPADD(MONTH,:months, opened_date)) <= current_timestamp"); 
+	$stmt = $db->prepare("SELECT id, apy, balance FROM Accounts WHERE account_type = 'Loan' and  IFNULL(nextAPY, TIMESTAMPADD(MONTH,:months, opened_date)) <= current_timestamp"); 
 	$r = $stmt->execute([":months"=>$numOfMonths]);
 	if($r){
 		$accounts = $stmt->fetchAll(PDO::FETCH_ASSOC);

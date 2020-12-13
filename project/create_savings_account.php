@@ -3,7 +3,7 @@
 
 <form method="POST" style = "height: 400px; width: 360px;">
 <div class = "heading2">
-<h3>Create Checking Account</h3>
+<h3>Create Savings Account</h3>
 </div>
 
   <br>
@@ -32,7 +32,7 @@ if(isset($_POST["save"])){
                 ":aType"=>$aType,
                 ":user"=>$user,
                 ":balance"=>$balance,
-                ":apy"=> $apy;
+                ":apy"=> $apy
       ]);
       $aNum = rand(000000000000, 999999999999);
       for($x = strlen($aNum); $x < 12; $x++){

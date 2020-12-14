@@ -1,15 +1,15 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<div class="big">
-    <?php
-    $db = getDB();
-    $id = get_user_id();
-    $u = [];
-    $stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id");
-    $r = $stmt->execute([":id" => "$id"]);
-    if ($r) {
-        $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-    ?>
+    <div class="big">
+<?php
+$db = getDB();
+$id = get_user_id();
+$u = [];
+$stmt = $db->prepare("SELECT * FROM Accounts WHERE user_id = :id");
+$r = $stmt->execute([":id" => "$id"]);
+if ($r) {
+    $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+?>
     <form method="POST" style = "height: 450px">
         <div class = "heading4">
             <h3>Make a Transfer</h3>
@@ -34,9 +34,9 @@
         <br>
         <input type="submit" name="save" value="Create"/>
     </form>
+</div>
 <?php
-
-function do_bank_action($account1, $account2, $amountChange, $memo, $type){
+function do_bank_action2($account1, $account2, $amountChange, $memo, $type){
     $db = getDB();
     $query = null;
     $stmt2 = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id like :q");
@@ -120,4 +120,5 @@ function do_bank_action($account1, $account2, $amountChange, $memo, $type){
     }
 }
 }
-
+?>
+<?php require(__DIR__ . "/partials/flash.php");

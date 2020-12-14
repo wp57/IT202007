@@ -32,7 +32,7 @@ if(isset($_POST["save"])){
   		":aType"=>$aType,
   		":user"=>$user,
                 ":balance"=>$balance,
-		":apy"=> $apy;
+		":apy"=> $apy
       ]);
       $aNum = rand(000000000000, 999999999999);
       for($x = strlen($aNum); $x < 12; $x++){
@@ -42,22 +42,27 @@ if(isset($_POST["save"])){
       $e = $stmt->errorInfo();
     }
     while($e[0] == "23000");
+	//from prof's calcLoanAPY
+    $numOfMonths = 1;
+    $lastId = $db->lastInsertId();
+    $stmt = $db->prepare("UPDATE Accounts set nextAPY = TIMESTAMPADD(MONTH, :months, opened_date) WHERE id = :id");
+    $r = $stmt->execute([":id"=>$lastId, ":months"=>$numOfMonths]);
     if($r){
-  		flash("Your savings account was successfully created with id: " . $db->lastInsertId() . "!");
+  		flash("Your savings account was successfully created with id: " . $lastId . "!");
                 die(header("Location: list_accounts.php"));	
     }
   	else{
   		$e = $stmt->errorInfo();
   		flash("Sorry, there was an error creating: " . var_export($e, true));
   	}
-  $query = null;
-   $stmt2 = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id like :q");
+    $query = null;
+    $stmt2 = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance from Accounts WHERE id like :q");
     $r2 = $stmt2->execute([":q" => "%$query%"]);
     if ($r2) {
           $results = $stmt2->fetchAll(PDO::FETCH_ASSOC);
       
       }
-   $a1tot = null;
+    $a1tot = null;
   foreach($results as $r)
   {
     if($r["id"] == 0)

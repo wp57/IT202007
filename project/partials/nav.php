@@ -47,6 +47,7 @@ require_once(__DIR__ . "/../lib/helpers.php");
     <?php endif; ?>
 	 <?php if(is_logged_in()): ?>
         <li><a href="create_checking_account.php">Create Checking Account</a></li>
+	<li><a href="close.php">Close an Account</a></li>
         <li><a href="list_accounts.php">List Accounts</a></li>
         <li><a href="deposit.php">Deposit</a></li>
         <li><a href="withdraw.php">Withdraw</a></li>

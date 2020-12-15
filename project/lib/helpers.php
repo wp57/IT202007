@@ -86,17 +86,17 @@ function getTransactionType($n) {
 function do_bank_action($account1, $account2, $amountChange, $memo, $type){
   $db = getDB();
   $query = null;
-  $stmt2 = $db->prepare("SELECT SUM(amount) as balance FROM Transactions WHERE active = 'Active' AND Transactions.act_src_id = :id");
+  $stmt2 = $db->prepare("SELECT IFNULL(SUM(amount), 0) as balance FROM Transactions WHERE Transactions.act_src_id = :id");
     $r2 = $stmt2->execute([
        ":id"=>$account1
       ]);
 	$result = $stmt2->fetch(PDO::FETCH_ASSOC);
-	$a1tot = (int)$result["balance"];    
+	$a1tot = (float)$result["balance"];    
 $r2 = $stmt2->execute([
        ":id"=>$account2
       ]);
 	$result = $stmt2->fetch(PDO::FETCH_ASSOC);
-	$a2tot = (int)$result["balance"];
+	$a2tot = (float)$result["balance"];
  
   
   	$query = "INSERT INTO `Transactions` (`act_src_id`, `act_dest_id`, `amount`, `action_type`, `expected_total`, `memo`) 

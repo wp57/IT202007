@@ -51,7 +51,7 @@ if (isset($_POST["save"])) {
 	$a1tot = $result["balance"];    
 
 if($amount > 0 && $source != $dest) {
-        if ($amount < $a1tot) {
+        if ($amount <= $a1tot) {
 	do_bank_action($source, $dest, ($amount * -1), $memo, "Transfer");
         }
 	elseif($source == $dest){

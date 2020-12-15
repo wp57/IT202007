@@ -173,19 +173,15 @@ $db = getDB();
     }
 
     ?>
-
-        <div class="heading"
+<?php if($vis == 'Public' && $id != get_user_id()): ?>
+     <div class="heading"
         <h3>Profile</h3>
 </div>
-<?php if(($vis == 'Public'): ?>
-    <?php safer_echo(get_firstName()); ?>
-    <br>
-    <?php safer_echo(get_lastName()); ?>
-    <br>
-    <?php safer_echo(get_username()); ?>
+    <?php safer_echo("Username: " . get_username()); ?>
 <?php endif; ?>
 <?php if($id == get_user_id()): ?>
-  <form method="POST" style = "height: 600px">
+ 
+ <form method="POST" style = "height: 700px; width: 400px;">
   <div class="heading"
         <h3>Edit Your Profile</h3>
 </div>

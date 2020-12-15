@@ -88,13 +88,12 @@ $db = getDB();
             if ((get_lastName() != $_POST["lastName"])) {
                 $newLastName = $_POST["lastName"];
             }
-
-            $vis = $_SESSION["user"]["visible"];
+            $_SESSION["user"]["visible"] = $_POST["visible"];
+	    $vis = $_SESSION["user"]["visible"];
 
             if (($vis != $_POST["visible"])) {
                 $vis = $_POST["visible"];
-            }
-
+           }
             if ($isValid) {
                 $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, first_name= :firstName, last_name= :lastName, visible = :visible where id = :id");
                 $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername,":firstName" => $newFirstName, ":lastName" => $newLastName, ":visible" => $vis, ":id" => get_user_id()]);

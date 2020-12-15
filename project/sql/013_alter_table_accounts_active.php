@@ -1,2 +1,2 @@
 ALTER TABLE Accounts
-    ADD active varchar(60) default 'Active';
+    ADD COLUMN active varchar(20) default 'Active';

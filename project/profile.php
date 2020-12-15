@@ -12,7 +12,7 @@ if (isset($_GET["id"])) {
     $id = $_GET["id"];
 }
 $db = getDB();
-    $stmt = $db->prepare("SELECT email, username, first_name, last_name from Users WHERE id = :id LIMIT 1");
+    $stmt = $db->prepare("SELECT email, username, first_name, last_name, visible from Users WHERE id = :id LIMIT 1");
     $stmt->execute([":id" => $id]);
     $results = $stmt->fetch(PDO::FETCH_ASSOC);
     $vis = $results['visible'];
@@ -174,22 +174,29 @@ $db = getDB();
 
     ?>
 
-    <form method="POST">
         <div class="heading"
-        <h3>Edit Your Profile</h3>
+        <h3>Profile</h3>
 </div>
-<?php if(($vis == 'Public') || ($id == get_user_id())): ?>
-    <input type="text" placeholder="First Name" name="firstName" value="<?php safer_echo(get_firstName()); ?>"/>
+<?php if(($vis == 'Public'): ?>
+    <?php safer_echo(get_firstName()); ?>
     <br>
-    <input type="text" name="lastName" placeholder="Last Name" value="<?php safer_echo(get_lastName()); ?>"/>
+    <?php safer_echo(get_lastName()); ?>
     <br>
-    <input type="email" placeholder="Email" name="email" value="<?php safer_echo(get_email()); ?>"/>
-    <br>
-
-    <input type="text" placeholder="Username" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>
+    <?php safer_echo(get_username()); ?>
 <?php endif; ?>
 <?php if($id == get_user_id()): ?>
-    <!-- DO NOT PRELOAD PASSWORD-->
+  <form method="POST" style = "height: 600px">
+  <div class="heading"
+        <h3>Edit Your Profile</h3>
+</div>
+   <input type="text" placeholder="First Name" name="firstName" value="<?php safer_echo(get_firstName()); ?>"/>
+        <br>
+        <input type="text" name="lastName" placeholder="Last Name" value="<?php safer_echo(get_lastName()); ?>"/>
+        <br>
+	<input type="email" placeholder="Email" name="email" value="<?php safer_echo(get_email()); ?>"/>
+        <br>
+	<input type="text" placeholder="Username" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>
+	<!-- DO NOT PRELOAD PASSWORD-->
     <input type="password" placeholder="Current Password" name="current"/>
     <br>
     <input type="password" placeholder="New Password" name="password"/>

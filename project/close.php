@@ -1,6 +1,4 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-
-<div class="big">
 <?php
 $db = getDB();
 $u = [];
@@ -11,20 +9,6 @@ if ($r) {
     $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 ?>
-<form method="POST" style = "height: 400px">
-<div class = "heading">
-    <h3>Close an Account</h3>
-</div>
-        <select name="source">
-            <?php foreach($u as $user): ?>
-	      <option value="" disabled selected>Account</option>
-              <option value="<?= $user['id']; ?>"><?= $user['account_number']; ?></option>
-            <?php endforeach; ?>
-        </select>
-        <br>
-        <input type="submit" name="save" value="Close"/>
-    </form>
-
 <?php
 if (isset($_POST["save"])) {
     $source = $_POST["source"];
@@ -58,5 +42,19 @@ if (isset($_POST["save"])) {
 
 }
 ?>
+<div class = "big">
+<form method="POST" style = "height: 400px">
+<div class = "heading">
+    <h3>Close an Account</h3>
+</div>
+        <select name="source">
+            <?php foreach($u as $user): ?>
+              <option value="" disabled selected>Account</option>
+              <option value="<?= $user['id']; ?>"><?= $user['account_number']; ?></option>
+            <?php endforeach; ?>
+        </select>
+        <br>
+        <input type="submit" name="save" value="Close"/>
+    </form>
 </div>
 <?php require(__DIR__ . "/partials/flash.php");

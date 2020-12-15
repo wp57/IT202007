@@ -45,11 +45,11 @@ if (isset($_POST["save"])) {
 
  $stmt2 = $db->prepare("SELECT balance FROM Accounts WHERE id = :id");
     $r2 = $stmt2->execute([
-       ":id"=>$dest
+       ":id"=>$source
       ]);
 	$result = $stmt2->fetch(PDO::FETCH_ASSOC);
 	$a1tot = $result["balance"];    
-
+       // echo $a1tot; 
 if($amount > 0 && $source != $dest) {
         if ($amount <= $a1tot) {
 	do_bank_action($source, $dest, ($amount * -1), $memo, "Transfer");
@@ -58,7 +58,7 @@ if($amount > 0 && $source != $dest) {
         flash("Error: You cannot transfer money to the same account! Try again.");
         }
         elseif ($amount > $a1tot){
-            flash("Error: You do not have enough money to make this withdrawal.");
+            flash("Error: You do not have enough money to make this transfer.");
         }
 	}
 else {

@@ -91,12 +91,12 @@ function do_bank_action($account1, $account2, $amountChange, $memo, $type){
        ":id"=>$account1
       ]);
 	$result = $stmt2->fetch(PDO::FETCH_ASSOC);
-	$a1tot = (int)$result["balance"];    
+	$a1tot = (int)$result['balance'];    
 $r2 = $stmt2->execute([
        ":id"=>$account2
       ]);
 	$result = $stmt2->fetch(PDO::FETCH_ASSOC);
-	$a2tot = (int)$result["balance"];
+	$a2tot = (int)$result['balance'];
  
   
   	$query = "INSERT INTO `Transactions` (`act_src_id`, `act_dest_id`, `amount`, `action_type`, `expected_total`, `memo`) 

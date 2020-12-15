@@ -80,13 +80,13 @@ $db = getDB();
             }
 
             $newFirstName = get_firstName();
-            if ((get_firstName() != $_POST["first_name"])) {
-                $newFirstName = $_POST["first_name"];
+            if ((get_firstName() != $_POST["firstName"])) {
+                $newFirstName = $_POST["firstName"];
             }
 
             $newLastName = get_lastName();
-            if ((get_lastName() != $_POST["last_name"])) {
-                $newLastName = $_POST["last_name"];
+            if ((get_lastName() != $_POST["lastName"])) {
+                $newLastName = $_POST["lastName"];
             }
 
             $vis = $_SESSION["user"]["visible"];
@@ -177,6 +177,9 @@ $db = getDB();
      <div class="heading"
         <h3>Profile</h3>
 </div>
+<?php safer_echo("First Name: " . $result['first_name']); ?>
+<?php safer_echo("Last Name: " . $result['last_name']); ?>
+
     <?php safer_echo("Username: " . get_username()); ?>
 <?php endif; ?>
 <?php if($id == get_user_id()): ?>

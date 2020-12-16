@@ -21,8 +21,9 @@ if(isset($_POST["save"])){
   $aType = "Loan";
   $user = get_user_id();
   $balance = $_POST["amt"];
-  $apy = 0.03;
-  if($balance >= 500){
+  $balance = 0 -$balance;
+ $apy = 0.03;
+  if(abs($balance) >= 500){
     do {
       $stmt = $db->prepare("INSERT INTO Accounts (account_number, account_type, user_id, balance, apy) VALUES(:aNum, :aType, :user, :balance, :apy)");
   	$r = $stmt->execute([

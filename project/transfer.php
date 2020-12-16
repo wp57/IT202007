@@ -1,4 +1,3 @@
-
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <div class="big">
     <?php
@@ -53,14 +52,14 @@ if (isset($_POST["save"])) {
 
     $stmt2 = $db->prepare("SELECT * FROM Accounts WHERE id = :id");
     $r2 = $stmt2->execute([
-        ":id" => $dest
+        ":id" => $source
     ]);
     $result = $stmt2->fetch(PDO::FETCH_ASSOC);
     $a1tot = $result["balance"];
     $aType = $result["account_type"];
-
+    
     if ($amount > 0) {
-        if ($amount < $a1tot) {
+        if ($amount <= $a1tot) {
             do_bank_action($source, $dest, ($amount * -1), $memo, "Transfer");
         } elseif ($source == $dest) {
             flash("Error: You cannot transfer money to the same account! Try again.");

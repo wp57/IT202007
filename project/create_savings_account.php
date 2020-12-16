@@ -72,7 +72,6 @@
             {
                 flash('Balance must be $5.00 or more! Please try again.');
             }
-
     }
     ?>
     </div>

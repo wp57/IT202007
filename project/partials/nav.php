@@ -55,7 +55,7 @@ require_once(__DIR__ . "/../lib/helpers.php");
         <li><a href="transfer.php">Transfer</a></li>
 	<li><a href="Transfer2.php">Transfer to Other Users</a></li>
         <li><a href="profile.php">Profile</a></li>
-        <li><a href="logout.php">Logout</a></li>
+	<li><a href="logout.php">Logout</a></li>
     <?php endif; ?>
 </ul>
 </div>

@@ -4,7 +4,7 @@
 $db = getDB();
 $u = [];
 $id = get_user_id();
-$stmt = $db->prepare("SELECT * from Accounts WHERE user_id = :id");
+$stmt = $db->prepare("SELECT * from Accounts WHERE active = 'Active' AND  user_id = :id");
 $r = $stmt->execute([":id" => $id]);
 if ($r) {
     $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -55,9 +55,9 @@ if (isset($_POST["save"])) {
       if($this["last_name"] == $lastName)
       {
         $thisId = $this["id"];
-        $stmt2 = $db->prepare("SELECT * from Accounts WHERE user_id = :q");
-        $r2 = $stmt2->execute([":q" => "$thisId"]);
-        if ($r2) {
+        $stmt2 = $db->prepare("SELECT * from Accounts WHERE active = 'Active' AND user_id = :q");
+        $r2 = $stmt2->execute([":q" => "$currId"]);
+        if ($r) {
             $res2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
         }
         foreach($res2 as $last4)
@@ -77,7 +77,7 @@ if (isset($_POST["save"])) {
     if($isVal)
     {
       if($amount > 0 && $source != $dest)
-        do_bank_action($source, $dest, ($amount * -1), $memo, "Transfer");
+        do_bank_action($source, $dest, ($amount * -1), $memo, "ext-Transfer");
       else
       {
         if($amount <= 0)

@@ -60,4 +60,3 @@ require_once(__DIR__ . "/../lib/helpers.php");
 </ul>
 </div>
     </nav>
-

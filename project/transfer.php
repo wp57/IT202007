@@ -75,11 +75,3 @@ if (isset($_POST["save"])) {
     ?>
     </div>
     <?php require(__DIR__ . "/partials/flash.php");
-
-
-
-
-
-
-
-

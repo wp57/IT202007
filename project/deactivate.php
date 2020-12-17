@@ -1,4 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
+<div class="big">
 <?php
 if (!has_role("Admin")) {
     //this will redirect to login and kill the rest of this script (prevent it from executing)
@@ -6,11 +7,10 @@ if (!has_role("Admin")) {
     die(header("Location: login.php"));
 }
 ?>
-<div class="big">
 <?php
 $db = getDB();
 $u = [];
-$stmt = $db->prepare("SELECT * from Users WHERE deactivated = 'false' AND (account_number != '000000000000')");
+$stmt = $db->prepare("SELECT * from Users WHERE deactivated = 'false'");
 $r = $stmt->execute();
 if ($r) {
     $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -41,7 +41,7 @@ if (isset($_POST["save2"])) {
   $stmt = $db->prepare("UPDATE Users set deactivated = 'false' where id = :id");
   $r = $stmt->execute([":id" => $activate]);
   if ($r) {
-    flash("User was activated");
+    flash("This user has been activated");
     die(header("Location: deactivate.php"));
   }
   else {
@@ -63,8 +63,12 @@ if (isset($_POST["save2"])) {
         <br>
         <input type="submit" name="save" value="Deactivate"/>
         <br>
-        <label>User to Reactivate</label>
-        <br>
+	<br>
+	<br>
+	
+<div class = "heading">
+<h3>Reactivate a User<h3>
+</div>
         <select name="activate">
             <?php foreach($u2 as $user2): ?>
 	      <option value="" disabled selected>Username</option>

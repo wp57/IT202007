@@ -22,8 +22,8 @@
     if (get_email() != $_POST["email"]) {
         //TODO we'll need to check if the email is available
         $email = $_POST["email"];
-        $stmt = $db->prepare("SELECT COUNT(1) as InUse from Users where id = :id");
-        $stmt->execute([":id" => $id]);
+        $stmt = $db->prepare("SELECT COUNT(1) as InUse from Users where email = :email");
+        $stmt->execute([":email" => $email]);
         $results = $stmt->fetch(PDO::FETCH_ASSOC);
         $inUse = 1;//default it to a failure scenario
         if ($results && isset($results["InUse"])) {
@@ -81,7 +81,6 @@
             $newLastName = $_POST["lastName"];
         }
 
-        $vis = $_SESSION["user"]["visible"];
         if (($vis != $_POST["visible"])) {
             $vis = $_POST["visible"];
         }
@@ -197,20 +196,6 @@
 </form>
     </div>
 <?php require(__DIR__ . "/partials/flash.php");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

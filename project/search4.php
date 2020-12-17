@@ -33,12 +33,14 @@ if (isset($_POST["search"]) && !empty($query)) {
     <input name="query" placeholder="Account Number" value="<?php safer_echo($query); ?>"/>
     <input type="submit" value="Search" name="search"/>
 </form>
+<br>
+<br>
 <div class="results">
     <?php if (count($results) > 0): ?>
         <div class="list-group">
             <?php foreach ($results as $r): ?>
                 <div class="list-group-item">
-                    <a href="transaction_hist.php?id=<?php safer_echo($r['id']); ?>"</a>
+                    <a href="transaction_hist.php?id=<?php safer_echo($r['id']); ?>"/>
                         <div>
                             <div>Account Number:</div>
                             <div><?php safer_echo($r["account_number"]); ?></div>

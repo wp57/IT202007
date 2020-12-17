@@ -1,11 +1,11 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
 <div class="list">
     <?php
-    $query = get_user_id();
+    $q = get_user_id();
     $res = [];
     $db = getDB();
-    $stmt = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance, apy from Accounts WHERE active = 'Active' AND user_id = :q LIMIT 5");
-    $r = $stmt->execute([":q" => "$query"]);
+    $stmt = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance, apy from Accounts WHERE active = 'Active' AND user_id = :q ORDER BY last_updated  DESC LIMIT 5");
+    $r = $stmt->execute([":q" => "$q"]);
     if ($r) {
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -29,7 +29,7 @@
                         </div>
                         <div>
                             <div>Balance:</div>
-                            <div><?php safer_echo($r["balance"]); ?></div>
+                            <div><?php safer_echo(abs($r["balance"])); ?></div>
                         </div>
                         <div>
                             <div>Owner Id:</div>

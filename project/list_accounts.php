@@ -4,7 +4,7 @@
     $q = get_user_id();
     $res = [];
     $db = getDB();
-    $stmt = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance, apy from Accounts WHERE active = 'Active' AND user_id = :q ORDER BY last_updated  DESC LIMIT 5");
+    $stmt = $db->prepare("SELECT id, account_number, user_id, account_type, opened_date, last_updated, balance, apy from Accounts WHERE active = 'Active' AND user_id = :q ORDER BY opened_date  DESC LIMIT 5");
     $r = $stmt->execute([":q" => "$q"]);
     if ($r) {
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);

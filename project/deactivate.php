@@ -50,7 +50,7 @@ if (isset($_POST["save2"])) {
 }
 ?>
 
-<form method="POST">
+<form method="POST" style = "height: 500px">
 <div class = "heading">
 <h3>Deactivate a User<h3>
 </div>
@@ -76,6 +76,6 @@ if (isset($_POST["save2"])) {
             <?php endforeach; ?>
         </select>
         <br>
-        <input type="submit" name="save2" value="Activate"/>
+        <input type="submit" name="save2" value="Reactivate"/>
 </div>
 <?php require(__DIR__ . "/partials/flash.php");

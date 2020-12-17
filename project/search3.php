@@ -1,5 +1,4 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<div class = "big">
 <?php
 if (!has_role("Admin")) {
     //this will redirect to login and kill the rest of this script (prevent it from executing)
@@ -25,14 +24,16 @@ if (isset($_POST["search"]) && !empty($query)) {
     }
 }
 ?>
-
-<form method="POST">
-<div class = heading4">
+<div class = "list">
+<form method="POST" style = "height: 300px; width: 350px; padding: 25px 70px 5px;">
+<div class = heading">
 <h3>Search for User by Name<h3>
 </div>
     <input name="query" placeholder="First or Last Name" value="<?php safer_echo($query); ?>"/>
     <input type="submit" value="Search" name="search"/>
 </form>
+<br>
+<br>
 <div class="results">
     <?php if (count($results) > 0): ?>
         <div class="list-group">
@@ -46,14 +47,18 @@ if (isset($_POST["search"]) && !empty($query)) {
                         <div>Last name:</div>
                         <div><?php safer_echo($r["last_name"]); ?></div>
                     </div>
-
+<br>
 
                 </div>
             <?php endforeach; ?>
-        </div>
+<br>
+<br>
+<br>  
+      </div>
     <?php else: ?>
         <p>No results</p>
     <?php endif; ?>
 </div> 
+</div>
 </div>
 <?php require(__DIR__ . "/partials/flash.php");

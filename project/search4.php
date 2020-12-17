@@ -1,5 +1,4 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<div class = "big">
 <?php
 if (!has_role("Admin")) {
     //this will redirect to login and kill the rest of this script (prevent it from executing)
@@ -25,8 +24,9 @@ if (isset($_POST["search"]) && !empty($query)) {
     }
 }
 ?>
+<div class = "list">
+<form method="POST" style = "height: 300px; width: 350px; padding: 25px 70px 5px;">
 
-<form method="POST" style = "height: 600px">
 <div class = "heading">
 <h3>Search by Account Number<h3>
 </div>
@@ -68,5 +68,6 @@ if (isset($_POST["search"]) && !empty($query)) {
         <p>No results</p>
     <?php endif; ?>
 </div> 
+</div>
 </div>
 <?php require(__DIR__ . "/partials/flash.php");

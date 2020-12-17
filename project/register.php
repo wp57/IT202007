@@ -1,5 +1,5 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-
+<div class = "big">
 <?php
 if (isset($_POST["register"])) {
     $email = null;
@@ -81,15 +81,15 @@ if (!isset($username)) {
     $username = "";
 }
 ?>
-    <form method="POST">
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required value="<?php safer_echo($email); ?>"/>
-        <label for="user">Username:</label>
-        <input type="text" id="user" name="username" required maxlength="60" value="<?php safer_echo($username); ?>"/>
-        <label for="p1">Password:</label>
-        <input type="password" id="p1" name="password" required maxlength="60"/>
-        <label for="p2">Confirm Password:</label>
-        <input type="password" id="p2" name="confirm" required maxlength="60"/>
+    <form method="POST" style = "height: 460px">
+<div class = "heading2">
+<h3>Register<h3>
+</div>
+        <input type="email" id="email" placeholder = "Email" name="email" required value="<?php safer_echo($email); ?>"/>
+        <input type="text" id="user" name="username" placeholder = "Usename" required maxlength="60" value="<?php safer_echo($username); ?>"/>
+        <input type="password" id="p1" name="password" placeholder = "Password" required maxlength="60"/>
+        <input type="password" id="p2" name="confirm" placeholder ="Confirm Password" required maxlength="60"/>
         <input type="submit" name="register" value="Register"/>
     </form>
+</div>
 <?php require(__DIR__ . "/partials/flash.php");

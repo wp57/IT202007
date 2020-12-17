@@ -54,7 +54,8 @@ require_once(__DIR__ . "/../lib/helpers.php");
         <li><a href="withdraw.php">Withdraw</a></li>
         <li><a href="transfer.php">Transfer</a></li>
 	<li><a href="Transfer2.php">Transfer to Other Users</a></li>
-	<li><a href="search.php">Search for User</a></li>
+	<li><a href="search4.php">Search for User</a></li>
+	<li><a href="search3.php">Search for Account</a></li>
 	<li><a href="freeze.php">Freeze an Account</a></li>
         <li><a href="profile.php">Profile</a></li>
         <li><a href="logout.php">Logout</a></li>

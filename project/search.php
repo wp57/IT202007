@@ -1,12 +1,12 @@
 <?php require_once(__DIR__ . "/partials/nav.php"); ?>
-<div class = "big">;
-<?php
-if (!has_role("Admin")) {
-    flash("You don't have permission to access this page");
-    die(header("Location: login.php"));
-}
-?>
-    <form method="POST style = "height: 300px">
+    <div class = "big">
+        <?php
+        if (!has_role("Admin")) {
+            flash("You don't have permission to access this page");
+            die(header("Location: login.php"));
+        }
+        ?>
+        <form method="POST style = "height: 300px">
         <div class="heading">
             <h3>Search for Users by Name<h3>
         </div>
@@ -14,78 +14,78 @@ if (!has_role("Admin")) {
         <br>
         <input type="submit" name="search" value="Search"/>
         <br>
-<br>
-<div class="heading">        
-<h3>Search for Users by Account Number<h3>
-</div>        
+        <br>
+        <div class="heading">
+            <h3>Search for Users by Account Number<h3>
+        </div>
         <input type="int" maxlength="12" placeholder="Account Number" name="aNum"/>
         <br>
-        <input type="submit" name="searchNum" value="Search Num"/>
-    </form>
-<?php
-$res=[];
-$db = getDB();
-$stmt = $db->prepare("SELECT * from Users");
-$r = $stmt->execute();
-if($r)
-    $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        <input type="submit" name="numSearch" value="Search Num"/>
+        </form>
+        <?php
+        $name = null;
+    $results=[];
+     if(isset($_POST["search"])){
+        $name = $_POST['name'];
+    }
+ 
+   $db = getDB();
+    $stmt = $db->prepare("SELECT * from Users where first_name OR last_name like :q");
+    $r = $stmt->execute([":q" => "%$name%"]);
+    if($r)
+        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
 
-$userName = null;
+    $aNum = null;
+    if(isset($_POST["numSearch"])){
+        $aNum = $_POST['aNum'];
+    }
 
-if(isset($_POST['search'])){
-    $userName = $_POST['name'];
-}
+    $results2=[];
+    $stmt2 = $db->prepare("SELECT * from Accounts where account_number like :q");
+    $r2 = $stmt2->execute([":q" => "%$aNum%"]);
+    if($r2)
+        $results2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
-$aNum = null;
-
-if(isset($_POST['searchNum'])){
-    $aNum = $_POST['aNum'];
-}
-
-$res2=[];
-$stmt2 = $db->prepare("SELECT * from Accounts where account_number = :q");
-$r2 = $stmt2->execute([":q" => $aNum]);
-if($r2)
-    $res2 = $stmt2->fetchAll(PDO::FETCH_ASSOC);
-?>
+    ?>
+    <label>User Search</label>
     <div class="results">
-        <?php if (count($res) > 0): ?>
+        <?php if (count($results) > 0): ?>
             <div class="list-group">
-                <?php foreach ($res as $r): ?>
-                    <?php if($r['first_name'] == $userName || $r['last_name'] == $userName): ?>
+                <?php foreach ($results as $r): ?>
                         <div class="list-group-item">
                             <div>
                                 <div>User:</div>
                                 <a type="button" href="profile.php?id=<?php safer_echo($r['id']); ?>"><?php safer_echo($r['first_name'] . " " . $r['last_name'] . " (" . $r['username'] . ")"); ?></a>
-                            </div>
-                            <br>
-                        </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </div>
-        <?php else: ?>
-            <p>No results</p>
-        <?php endif; ?>
-        <br>
-        <div class="results">
-            <?php if (count($res2) > 0): ?>
-                <div class="list-group">
-                    <?php foreach ($res2 as $r2): ?>
-                        <?php if($r2['account_number'] == $aNum): ?>
-			<div class="list-group-item">
-                            <div>
-                                <div>Account Number: <?php safer_echo($aNum); ?> </div>
-                                <a type="button" href="transaction_history.php?id=<?php safer_echo($r2['id']); ?>">Transaction History</a>
-                            </div>
-                            <br>
-                        </div>
-			<?php endif; ?>
-                    <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <p>No results</p>
-            <?php endif; ?>
-        </div>
     </div>
+    <br>
+    </div>
+<?php endforeach; ?>
+    </div>
+<?php else: ?>
+    <p>No results</p>
+<?php endif; ?>
+    </div>
+<br>
+<div class="results">
+    <?php if (count($results2) > 0): ?>
+    <div class="list-group">
+        <?php foreach ($results2 as $r2): ?>
+        <div class="list-group-item">
+            <div>
+                <div>Account Number: <?php safer_echo($aNum); ?> </div>
+                <a type="button" href="transaction_history.php?id=<?php safer_echo($r2['id']); ?>">Transaction History</a>
+            </div>
+            <br>
+        </div>
+        <?php endforeach; ?>
+    </div>
+    <?php else: ?>
+        <p>No results</p>
+    <?php endif; ?>
 </div>
+    </div>
 <?php require(__DIR__ . "/partials/flash.php");
+
+
+

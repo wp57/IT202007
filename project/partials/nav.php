@@ -58,6 +58,7 @@ require_once(__DIR__ . "/../lib/helpers.php");
 	<li><a href="search3.php">Search for Account</a></li>
 	<li><a href="freeze.php">Freeze an Account</a></li>
 	<li><a href="closeAdmin.php">Close a User's Account</a></li>
+	<li><a href="deactivate.php">Deactivate a User's Account</a></li>
         <li><a href="profile.php">Profile</a></li>
         <li><a href="logout.php">Logout</a></li>
     <?php endif; ?>

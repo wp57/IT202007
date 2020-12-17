@@ -44,7 +44,8 @@
             $r = $stmt->execute([":id" => $lastId, ":months" => $numOfMonths]);
             if ($r) {
                 flash("Your savings account was successfully created with id: " . $lastId . "!");
-            } else {
+            	die(header("Location: list_accounts.php"));
+	    } else {
                 $e = $stmt->errorInfo();
                 flash("Sorry, there was an error creating: " . var_export($e, true));
             }

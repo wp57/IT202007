@@ -175,13 +175,13 @@ if (isset($_POST["saved"])) {
     <div class="heading"
     <h3>Edit Your Profile</h3>
     </div>
-    <input type="text" placeholder="First Name" name="firstName" value="<?php safer_echo(get_firstName()); ?>"/>
+    <input type="text" placeholder="First Name" name="firstName" value="<?php safer_echo($results['first_name']); ?>"/>
     <br>
-    <input type="text" name="lastName" placeholder="Last Name" value="<?php safer_echo(get_lastName()); ?>"/>
+    <input type="text" name="lastName" placeholder="Last Name" value="<?php safer_echo($results['last_name']); ?>"/>
     <br>
-    <input type="email" placeholder="Email" name="email" value="<?php safer_echo(get_email()); ?>"/>
+    <input type="email" placeholder="Email" name="email" value="<?php safer_echo($results['email']); ?>"/>
     <br>
-    <input type="text" placeholder="Username" maxlength="60" name="username" value="<?php safer_echo(get_username()); ?>"/>
+    <input type="text" placeholder="Username" maxlength="60" name="username" value="<?php safer_echo($results['first_name']); ?>"/>
     <!-- DO NOT PRELOAD PASSWORD-->
     <input type="password" placeholder="Current Password" name="current"/>
     <br>

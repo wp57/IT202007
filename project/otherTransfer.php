@@ -49,7 +49,7 @@ if (isset($_POST["save"])) {
     if ($r) {
         $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
+    $a1tot = $res["balance"];
     foreach($res as $this)
     {
       if($this["last_name"] == $lastName)
@@ -76,7 +76,7 @@ if (isset($_POST["save"])) {
     
     if($isVal)
     {
-      if($amount > 0 && $source != $dest)
+      if($amount > 0 && $source != $dest && $amount < $a1tot)
         do_bank_action($source, $dest, ($amount * -1), $memo, "ext-Transfer");
       else
       {
@@ -84,6 +84,9 @@ if (isset($_POST["save"])) {
           flash("Error: Value must be positive!");
         if($source == $dest)
           flash("Error: You cannot transfer to the same account!");
+         if($amount > $a1tot)
+          flash("Error: You do not have enough money to make this transfer!");
+
       }
     }
     else

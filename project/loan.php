@@ -33,10 +33,6 @@ if(isset($_POST["save"])){
       		":apy" => $apy,
       		":balance"=>$balance
       ]);
-      $aNum = rand(000000000000, 999999999999);
-      for ($x = strlen($aNum); $x< 12; $x++){
-        $aNum = ("0" . $aNum);
-      }
       $e = $stmt->errorInfo();
     } while ($e[0] == "23000");
     if ($r){

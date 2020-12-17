@@ -15,7 +15,10 @@ $stmt = $db->prepare("SELECT email, username, first_name, last_name, visible fro
 $stmt->execute([":id" => $id]);
 $results = $stmt->fetch(PDO::FETCH_ASSOC);
 $vis = $results['visible'];
-
+$newFirstName = $results['first_name'];
+$newLastName = $results['last_name'];
+$newUsername = $results['username'];
+$isValid = false;
 if (isset($_POST["saved"])) {
     $isValid = true;
     //check if our email changed
@@ -44,39 +47,41 @@ if (isset($_POST["saved"])) {
         }
 
 
-    $newUsername = get_username();
-    if (get_username() != $_POST["username"]) {
-        $username = $_POST["username"];
-        $stmt = $db->prepare("SELECT COUNT(1) as InUse from Users where username = :username");
-        $stmt->execute([":username" => $username]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $inUse = 1;//default it to a failure scenario
-        if ($result && isset($result["InUse"])) {
-            try {
-                $inUse = intval($result["InUse"]);
+        $newUsername = get_username();
+        if (get_username() != $_POST["username"]) {
+            $username = $_POST["username"];
+            $stmt = $db->prepare("SELECT COUNT(1) as InUse from Users where username = :username");
+            $stmt->execute([":username" => $username]);
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $inUse = 1;//default it to a failure scenario
+            if ($result && isset($result["InUse"])) {
+                try {
+                    $inUse = intval($result["InUse"]);
+                }
+                catch (Exception $e) {
+                }
             }
-            catch (Exception $e) {
+            if ($inUse > 0) {
+                flash("Username already in use");
+                //for now we can just stop the rest of the update
+                $isValid = false;
+            }
+            else if(strlen($username) >= 5)
+            {
+                $newUsername = $username;
+            }
+            else
+            {
+                flash("New username must be at least 5 characters.");
+                $isValid = false;
             }
         }
-        if ($inUse > 0) {
-            flash("Username already in use");
-            //for now we can just stop the rest of the update
-            $isValid = false;
-        }
-        else if(strlen($username) >= 5)
-        {
-            $newUsername = $username;
-        }
-        else
-        {
-            flash("New username must be at least 5 characters.");
-            $isValid = false;
-        }
+}
     }
-
-    $newFirstName = get_firstName();
-    if ((get_firstName() != $_POST["firstName"])) {
-        $newFirstName = $_POST["firstName"];
+    if ($isValid) {
+	$newFirstName = get_firstName();
+        if ((get_firstName() != $_POST["firstName"])) {
+            $newFirstName = $_POST["firstName"];
         }
         $newLastName = get_lastName();
         if ((get_lastName() != $_POST["lastName"])) {
@@ -85,9 +90,8 @@ if (isset($_POST["saved"])) {
 
         if (($vis != $_POST["visible"])) {
             $vis = $_POST["visible"];
-        }
-    }
-    if ($isValid) {
+	}
+
         $stmt = $db->prepare("UPDATE Users set email = :email, username= :username, first_name= :firstName, last_name= :lastName, visible = :visible where id = :id");
         $r = $stmt->execute([":email" => $newEmail, ":username" => $newUsername,":firstName" => $newFirstName, ":lastName" => $newLastName, ":visible" => $vis, ":id" => get_user_id()]);
         if ($r) {
@@ -135,7 +139,7 @@ if (isset($_POST["saved"])) {
                     flash("Current password is incorrect.");
                 }
             }
-        }
+        
 //fetch/select fresh data in case anything changed
         $stmt = $db->prepare("SELECT email, username, first_name, last_name, visible from Users WHERE id = :id LIMIT 1");
         $stmt->execute([":id" => get_user_id()]);
@@ -175,13 +179,13 @@ if (isset($_POST["saved"])) {
     <div class="heading"
     <h3>Edit Your Profile</h3>
     </div>
-    <input type="text" placeholder="First Name" name="firstName" value="<?php safer_echo($results['first_name']); ?>"/>
+    <input type="text" placeholder="First Name" name="firstName" value="<?php safer_echo($newFirstName); ?>"/>
     <br>
     <input type="text" name="lastName" placeholder="Last Name" value="<?php safer_echo($results['last_name']); ?>"/>
     <br>
     <input type="email" placeholder="Email" name="email" value="<?php safer_echo($results['email']); ?>"/>
     <br>
-    <input type="text" placeholder="Username" maxlength="60" name="username" value="<?php safer_echo($results['first_name']); ?>"/>
+    <input type="text" placeholder="Username" maxlength="60" name="username" value="<?php safer_echo($results['username']); ?>"/>
     <!-- DO NOT PRELOAD PASSWORD-->
     <input type="password" placeholder="Current Password" name="current"/>
     <br>

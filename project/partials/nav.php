@@ -44,8 +44,8 @@ require_once(__DIR__ . "/../lib/helpers.php");
 	<?php if (has_role("Admin")): ?>
 	 <li><a href="create_account.php">Create Account</a></li>
            <li><a href="create_transactions.php">Create a Transaction</a></li>
-		<li><a href="search4.php">Search for User</a></li>
-        <li><a href="search3.php">Search for Account</a></li>
+		<li><a href="search3.php">Search for User</a></li>
+        <li><a href="search4.php">Search for Account</a></li>
         <li><a href="freeze.php">Freeze an Account</a></li>
         <li><a href="closeAdmin.php">Close a User's Account</a></li>
         <li><a href="deactivate.php">Deactivate a User's Account</a></li>

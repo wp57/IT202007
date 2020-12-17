@@ -4,7 +4,7 @@
 $db = getDB();
 $u = [];
 $id = get_user_id();
-$stmt = $db->prepare("SELECT * from Accounts WHERE active = 'Active' AND  user_id = :id");
+$stmt = $db->prepare("SELECT * from Accounts WHERE active = 'Active' AND frozen = 'false' AND  user_id = :id");
 $r = $stmt->execute([":id" => $id]);
 if ($r) {
     $u = $stmt->fetchAll(PDO::FETCH_ASSOC);
